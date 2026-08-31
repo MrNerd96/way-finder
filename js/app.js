@@ -3,7 +3,7 @@ var App = (function () {
   /* Printed to the console on every load. If the page is not behaving the way
      the code on disk says it should, check this first — a stale service worker
      cache is the usual culprit, and a hard reload clears it. */
-  var BUILD = '2026-08-30 · publishable export (v8)';
+  var BUILD = '2026-08-30 · no deep links (v9)';
 
   var LANG_KEY = 'wayfinder-lang';
   var OLD_LANG_KEY = 'aiims-nav-lang';    // read once, for sessions saved before the rename
@@ -69,21 +69,6 @@ var App = (function () {
     if (hit) Nav.tapNode(hit);
   }
 
-  /* A QR sticker on the wall carries ?at=<node id>, so scanning it answers
-     "where are you?" before the patient has touched anything. */
-  function applyDeepLink() {
-    var params = new URLSearchParams(location.search);
-    var at = params.get('at');
-    var to = params.get('to');
-    var lang = params.get('lang');
-    if (lang) { I18N.set(lang); document.getElementById('langSel').value = I18N.get(); }
-    if (at && Store.node(at)) {
-      Nav.setStart(at);
-      toast('You are at: ' + Graph.placeName(Store.node(at)));
-    }
-    if (to && Store.node(to)) Nav.setDest(to);
-  }
-
   return {
     toast: toast,
     renderFloorStrip: renderFloorStrip,
@@ -139,7 +124,6 @@ var App = (function () {
       } catch (e) {}
 
       setMode('go');
-      applyDeepLink();
       renderFloorStrip();
       // The bottom sheet only gets its real height once it has rendered, so the
       // first fit has to wait for the layout to settle.

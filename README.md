@@ -158,20 +158,6 @@ unwell or elderly.
   they were typed in, so a Telugu instruction can still end up wrapped around an
   English landmark. See *Known limitations*.
 
-### QR stickers
-
-Every point answers to a link of the form `…/?at=<point id>` — the ids are in
-the export. Print one as a QR sticker, put it on the wall at that spot, and a
-patient who scans it lands in the app with **"where are you?" already answered** —
-no typing, no reading, no literacy required. `?to=` and `?lang=` work the same
-way, so a department can hand out a sticker that routes straight to itself.
-
-The editor no longer offers a button to copy that link; build the URLs from the
-exported ids when you are ready to print a sheet of stickers.
-
-This is the part that makes the app usable by someone who cannot read, and it
-costs a few rupees per sticker. It is worth doing early.
-
 ---
 
 ## The data
@@ -277,9 +263,11 @@ see what it matched.
   matters most — it is where patients come in.
 * **OPD and IPD are not connected** to each other, because the ground-floor link
   between them is not mapped.
-* **No live position.** The app never knows where you are; it asks. QR stickers
-  are the fix. Bluetooth beacons would give a real blue dot but cost money,
-  need batteries, and need a native app.
+* **No live position.** The app never knows where you are; it asks. A link that
+  says where the reader is standing — printed as a QR sticker on the wall — is
+  the cheap fix, and used to be built in; it was removed and is in the git
+  history if wanted back. Bluetooth beacons would give a real blue dot but cost
+  money, need batteries, and need a native app.
 * **No compass.** The first instruction says which landmark to face rather than
   which way to turn. Phone compasses are unreliable near this much steel.
 * **The Telugu and Hindi UI strings are a first draft** (`js/i18n.js`). Have a
@@ -302,7 +290,6 @@ see what it matched.
 1. Photograph the missing floor plans, starting with OPD Ground.
 2. Survey one floor completely and test it on real patients — especially elderly
    and low-literacy ones. That will change the design more than anything else.
-3. Print QR stickers once the point ids are stable.
-4. Replace the seeded corridors with traced ones.
-5. Take a photo of each lift lobby and junction and show it on the step card. A
+3. Replace the seeded corridors with traced ones.
+4. Take a photo of each lift lobby and junction and show it on the step card. A
    photograph of the actual place beats any map for someone who cannot read.
