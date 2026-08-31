@@ -31,6 +31,15 @@ var MapView = (function () {
 
   function hasBox(n) { return n.kind === 'room'; }
 
+  /* Label sizing. The white halo behind a label is a stroke centred on the
+     glyph, so half of it eats into the letter itself: much past 0.16em and a
+     bold digit fills in and the number reads as a blob. MIN_LABEL_PX is the
+     smallest size a room number still reads at on a phone, and CHAR_EM is
+     roughly the advance width of a bold digit, used to fit text to a box. */
+  var HALO = 0.16;
+  var MIN_LABEL_PX = 11;
+  var CHAR_EM = 0.62;
+
   function boxOf(n) {
     var w = n.w || DEFAULT_ROOM_SIDE, h = n.h || DEFAULT_ROOM_SIDE;
     return { x: n.x - w / 2, y: n.y - h / 2, w: w, h: h };
@@ -224,20 +233,28 @@ var MapView = (function () {
     });
 
     if (vb.w <= 0.75 || mode === 'survey') {
-      var fs = px(11);
+      var fs = px(14);
       nodes.forEach(function (n) {
         var text = n.room || (n.kind === 'lift' ? 'LIFT' : n.kind === 'stair' ? 'STAIR' : '');
         if (!text && mode === 'survey' && hasBox(n)) text = n.name || '?';
         if (!text) return;
         if (text.length > 14) text = text.slice(0, 13) + '…';
         if (hasBox(n)) {
-          // Sit the label inside the box, shrinking it if the box is small.
+          // Sit the label inside the box, shrinking it if the box is small --
+          // but never below MIN_LABEL_PX. A room number that spills a little
+          // past a small box still reads as a number; a shrunken one is a
+          // smudge, and the number is the whole point of the label. A long
+          // name is clipped rather than shrunk, so a label can only ever
+          // spill so far over the rooms either side of it.
           var b = boxOf(n);
-          var size = Math.min(fs, b.h * 0.5, b.w / Math.max(2, text.length) * 1.7);
+          var maxChars = Math.max(2, Math.floor(b.w * 1.25 / (px(MIN_LABEL_PX) * CHAR_EM)));
+          if (text.length > maxChars) text = text.slice(0, maxChars - 1) + '…';
+          var fit = Math.min(b.h * 0.6, b.w * 0.88 / (text.length * CHAR_EM));
+          var size = Math.max(px(MIN_LABEL_PX), Math.min(fs, fit));
           var t = el('text', {
             class: 'nodeLabel', x: n.x, y: n.y,
             'text-anchor': 'middle', 'dominant-baseline': 'central',
-            'font-size': size, 'stroke-width': size * 0.28
+            'font-size': size, 'stroke-width': size * HALO
           });
           t.textContent = text;
           layers.labels.appendChild(t);
@@ -245,7 +262,7 @@ var MapView = (function () {
         }
         var lbl = el('text', {
           class: 'nodeLabel', x: n.x, y: n.y - r - px(4),
-          'text-anchor': 'middle', 'font-size': fs, 'stroke-width': px(3)
+          'text-anchor': 'middle', 'font-size': fs, 'stroke-width': fs * HALO
         });
         lbl.textContent = text;
         layers.labels.appendChild(lbl);
