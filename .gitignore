@@ -1,0 +1,19 @@
+# Original photographs of the fire-evacuation boards.
+#
+# Excluded for two reasons: they are ~21 MB, and the app never reads them at
+# runtime — only the flattened, cropped plans in assets/plans/ are used. They
+# also show the hospital's name and logo on the signboards, which the app itself
+# deliberately no longer carries.
+#
+# Keep your local copies: tools/extract_plans.py needs them to regenerate
+# assets/plans/. Delete the line below if you do want them versioned.
+images/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
