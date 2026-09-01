@@ -40,6 +40,29 @@ var MapView = (function () {
   var MIN_LABEL_PX = 11;
   var CHAR_EM = 0.62;
 
+  /* Two elements, not one with paint-order: stroke. The single-element trick
+     is tidier and works in most browsers, but where paint-order is ignored the
+     white halo paints straight over the dark glyph and the label comes out as
+     a solid white blob -- which is exactly what a room number looked like on
+     the phone this was written for. Painting the halo first as its own
+     stroke-only text, then the ink on top, is the same picture with nothing
+     left to support. */
+  function drawLabel(text, x, y, size, centred) {
+    var common = { x: x, y: y, 'text-anchor': 'middle', 'font-size': size };
+    if (centred) common['dominant-baseline'] = 'central';
+
+    var halo = el('text', common);
+    halo.setAttribute('class', 'nodeLabel halo');
+    halo.setAttribute('stroke-width', size * HALO);
+    halo.textContent = text;
+    layers.labels.appendChild(halo);
+
+    var ink = el('text', common);
+    ink.setAttribute('class', 'nodeLabel ink');
+    ink.textContent = text;
+    layers.labels.appendChild(ink);
+  }
+
   function boxOf(n) {
     var w = n.w || DEFAULT_ROOM_SIDE, h = n.h || DEFAULT_ROOM_SIDE;
     return { x: n.x - w / 2, y: n.y - h / 2, w: w, h: h };
@@ -251,21 +274,10 @@ var MapView = (function () {
           if (text.length > maxChars) text = text.slice(0, maxChars - 1) + '…';
           var fit = Math.min(b.h * 0.6, b.w * 0.88 / (text.length * CHAR_EM));
           var size = Math.max(px(MIN_LABEL_PX), Math.min(fs, fit));
-          var t = el('text', {
-            class: 'nodeLabel', x: n.x, y: n.y,
-            'text-anchor': 'middle', 'dominant-baseline': 'central',
-            'font-size': size, 'stroke-width': size * HALO
-          });
-          t.textContent = text;
-          layers.labels.appendChild(t);
+          drawLabel(text, n.x, n.y, size, true);
           return;
         }
-        var lbl = el('text', {
-          class: 'nodeLabel', x: n.x, y: n.y - r - px(4),
-          'text-anchor': 'middle', 'font-size': fs, 'stroke-width': fs * HALO
-        });
-        lbl.textContent = text;
-        layers.labels.appendChild(lbl);
+        drawLabel(text, n.x, n.y - r - px(4), fs, false);
       });
     }
 
