@@ -144,6 +144,14 @@ var Graph = (function () {
     return n[key] || '';
   }
 
+  /* "137 — EEG": the room number the signage uses, and the one thing out of
+     several behind that door that the patient asked for. */
+  function labelWith(n, label) {
+    if (!n) return label || '';
+    if (!label) return placeName(n);
+    return n.room ? n.room + ' — ' + label : label;
+  }
+
   function placeName(n) {
     if (!n) return '';
     var name = loc(n, 'name');
@@ -182,7 +190,10 @@ var Graph = (function () {
   }
 
   /* Turn a path into the cards the patient swipes through. */
-  function directions(building, path) {
+  /* destLabel, when given, is the thing the patient searched for — the one
+     service out of several behind the final door. Every card that names the
+     destination says that, not whichever service happens to be listed first. */
+  function directions(building, path, destLabel) {
     var steps = [];
     if (!path || path.length < 2) return steps;
 
@@ -280,7 +291,7 @@ var Graph = (function () {
       kind: 'arrive',
       icon: '🏁',
       title: I18N.t('arrived'),
-      detail: placeName(last),
+      detail: destLabel ? labelWith(last, destLabel) : placeName(last),
       meta: arrivalSide ? I18N.t(arrivalSide) : '',
       floor: last.floor,
       seg: n - 1
@@ -321,7 +332,7 @@ var Graph = (function () {
 
   function haystack(n) {
     return [n.room || '', n.name || '', n.name_te || '', n.name_hi || '']
-      .concat(n.aliases || []).join(' ').toLowerCase();
+      .concat(n.aliases || []).concat(n.services || []).join(' ').toLowerCase();
   }
 
   function isDestination(n) {
@@ -334,26 +345,43 @@ var Graph = (function () {
     return ['lift', 'stair', 'entrance', 'landmark'].indexOf(n.kind) >= 0;
   }
 
+  /* Results are hits, not nodes: { node, service }. One room can be several
+     things a patient is sent for, and the one they typed is the one they must
+     see. Search "EEG" and the answer is "137 — EEG", not "137 — Neurology"
+     with EEG buried underneath; search the room number and there is one row
+     showing everything behind that door, so nobody arrives expecting a
+     different department. */
   function search(building, q, filterFn) {
     var pool = building.nodes.filter(filterFn);
     var query = (q || '').trim().toLowerCase();
     if (!query) {
       return pool.sort(function (a, b) {
         return (a.room || a.name || '').localeCompare(b.room || b.name || '');
-      }).slice(0, 200);
+      }).slice(0, 200).map(function (n) { return { node: n, service: null }; });
     }
     var scored = [];
     pool.forEach(function (n) {
+      // A service the patient actually asked for wins over the room's own
+      // name, and each matching one earns its own row.
+      var hitService = false;
+      (n.services || []).forEach(function (svc) {
+        var at = svc.toLowerCase().indexOf(query);
+        if (at < 0) return;
+        hitService = true;
+        scored.push({ node: n, service: svc, s: at - (at === 0 ? 120 : 0) });
+      });
+      if (hitService) return;
+
       var hay = haystack(n);
       var idx = hay.indexOf(query);
       if (idx < 0) return;
       var score = idx;
       if ((n.room || '').toLowerCase().indexOf(query) === 0) score -= 100;
       if ((n.name || '').toLowerCase().indexOf(query) === 0) score -= 50;
-      scored.push({ n: n, s: score });
+      scored.push({ node: n, service: null, s: score });
     });
     scored.sort(function (a, b) { return a.s - b.s; });
-    return scored.map(function (r) { return r.n; }).slice(0, 200);
+    return scored.slice(0, 200);
   }
 
   return {
@@ -368,6 +396,7 @@ var Graph = (function () {
     isDestination: isDestination,
     isStartPoint: isStartPoint,
     placeName: placeName,
+    labelWith: labelWith,
     floorName: floorName,
     floorOf: floorOf
   };

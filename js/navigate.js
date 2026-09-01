@@ -15,7 +15,8 @@ var Picker = (function () {
       list.appendChild(li);
       return;
     }
-    results.forEach(function (n) {
+    results.forEach(function (hit) {
+      var n = hit.node;
       var li = document.createElement('li');
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -28,10 +29,20 @@ var Picker = (function () {
       var nm = document.createElement('span');
       nm.className = 'nm';
       var strong = document.createElement('b');
-      strong.textContent = n.name || n.room || '';
       var small = document.createElement('small');
       var bits = [Graph.floorName(b, n.floor)];
-      if (n.aliases && n.aliases.length) bits.push(n.aliases.join(', '));
+
+      if (hit.service) {
+        // They asked for this one thing, so it is the heading. What else is
+        // behind the same door is worth knowing on arrival, not before.
+        strong.textContent = hit.service;
+      } else {
+        strong.textContent = n.name || n.room || '';
+        // Reached by room number or name: show everything behind that door, so
+        // nobody walks off expecting the only thing they happened to read.
+        if (n.services && n.services.length > 1) bits.push(n.services.join(' · '));
+        else if (n.aliases && n.aliases.length) bits.push(n.aliases.join(', '));
+      }
       small.textContent = bits.join(' · ');
       nm.appendChild(strong);
       nm.appendChild(small);
@@ -40,7 +51,7 @@ var Picker = (function () {
       btn.addEventListener('click', function () {
         var fn = onPick;
         hide();
-        if (fn) fn(n);
+        if (fn) fn(n, hit.service || null);
       });
       li.appendChild(btn);
       list.appendChild(li);
@@ -87,6 +98,7 @@ var Picker = (function () {
 var Nav = (function () {
   var sheet;
   var startId = null, destId = null;
+  var destService = null;     // the one of several behind that door they asked for
   var path = null, steps = null, idx = 0;
 
   function b() { return Store.get(); }
@@ -100,12 +112,18 @@ var Nav = (function () {
   }
 
   function clearAll() {
-    startId = null; destId = null;
+    startId = null; destId = null; destService = null;
     reset();
   }
 
   function setStart(id) { startId = id; path = null; steps = null; render(); focusNode(id); }
-  function setDest(id) { destId = id; path = null; steps = null; render(); focusNode(id); }
+  function setDest(id, service) {
+    destId = id;
+    destService = service || null;
+    path = null; steps = null;
+    render();
+    focusNode(id);
+  }
 
   function focusNode(id) {
     var n = node(id);
@@ -118,7 +136,7 @@ var Nav = (function () {
     if (startId === destId) { App.toast(I18N.t('samePlace')); return; }
     path = Graph.route(b(), startId, destId);
     if (!path) { App.toast(I18N.t('noRoute')); return; }
-    steps = Graph.directions(b(), path);
+    steps = Graph.directions(b(), path, destService);
     idx = 0;
     showStep();
   }
@@ -154,7 +172,7 @@ var Nav = (function () {
     else renderChooser();
   }
 
-  function bigPick(labelKey, chosen, placeholderKey, icon, handler) {
+  function bigPick(labelKey, chosen, placeholderKey, icon, handler, label) {
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'bigPick' + (chosen ? ' filled' : '');
@@ -166,7 +184,7 @@ var Nav = (function () {
     var strong = document.createElement('b');
     var small = document.createElement('small');
     if (chosen) {
-      strong.textContent = Graph.placeName(chosen);
+      strong.textContent = label ? Graph.labelWith(chosen, label) : Graph.placeName(chosen);
       small.textContent = Graph.floorName(b(), chosen.floor);
     } else {
       strong.textContent = I18N.t(labelKey);
@@ -191,9 +209,9 @@ var Nav = (function () {
       Picker.open({
         title: I18N.t('whereTo'),
         filter: Graph.isDestination,
-        onPick: function (n) { setDest(n.id); }
+        onPick: function (n, service) { setDest(n.id, service); }
       });
-    }));
+    }, destService));
 
     var go = document.createElement('button');
     go.type = 'button';
