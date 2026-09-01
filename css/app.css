@@ -1,22 +1,18 @@
 /* Bright, high-contrast, thumb-sized. Corridors are brightly lit and people are
    usually standing, one-handed, in a hurry, so nothing here is subtle. */
 :root {
-  /* This page is light, and says so. Without it a browser set to "dark mode for
-     websites" repaints it on its own: the survey bar comes out charcoal, and --
-     the part that actually hurts -- every room number on the map is inverted
-     from near-black to white, leaving the white halo and the white glyph on top
-     of a pale floor plan. The plan is an image, so it is left alone, and the
-     number becomes unreadable. "only" is the keyword that declines that; plain
-     "light" still permits it. */
-  /* Declares that this page handles colour schemes itself, which is what stops
-     a browser set to "dark mode for websites" repainting it. That setting is
-     not cosmetic here: it inverts every SVG text fill, so each room number
-     flips from near-black to white while the floor plan underneath -- an
-     image, and so left alone -- stays pale. The number disappears.
+  /* Says the page handles colour schemes itself, which is what stops a browser
+     set to "dark mode for websites" repainting it from outside. That setting is
+     not cosmetic here: it inverts every SVG text fill, so each room number flips
+     from near-black to white while the floor plan underneath -- an image, and so
+     left alone -- stays pale, and the number disappears.
 
-     "light dark" rather than "only light": the opt-out is signalling that the
-     page has dark handled, not asserting that it is light. The page renders
-     the same either way; it simply is not repainted from outside. */
+     "light dark" rather than "only light": the opt-out is signalling that dark
+     is handled, not asserting that the page is light. The page renders the same
+     either way; it simply is not repainted from outside.
+
+     This applies to the whole tree by inheritance, so nothing below re-declares
+     it -- see the note on the controls. */
   color-scheme: light dark;
 
   --green: #0b6b4f;
@@ -34,12 +30,19 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-/* The root says "light dark" so the browser stops repainting the map, but that
-   also lets it draw form controls to match a dark phone -- and this page paints
-   its own surfaces, so a control it does not paint comes out charcoal on a white
-   sheet. The controls are light because the sheet behind them is; the parts the
-   browser draws itself, a caret or a dropdown arrow, follow from this too. */
-input, select, textarea, button { color-scheme: light; }
+/* No control names its own colour scheme. A phone forcing websites dark leaves
+   the page alone only because the root claims dark is handled -- and that claim
+   is per element, so an element that declares "light" is telling the browser it
+   does not handle dark, and gets repainted after all. That is what turned the
+   editor black on a white sheet: the controls asked for light, and the phone
+   inverted every one of them, author colours included, while the sheet they sit
+   on -- which had asked for nothing -- stayed as written.
+
+   So the scheme is inherited everywhere, and the controls carry their colours
+   instead. Both halves, on every control: with the scheme inherited as dark, an
+   unpainted background is charcoal and unpainted button text is white. */
+input, select, textarea { background: var(--card); color: var(--ink); }
+button { background: transparent; color: var(--ink); }
 ::placeholder { color: var(--muted); opacity: 1; }
 
 html, body {
@@ -64,7 +67,7 @@ html, body {
   background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.35);
   border-radius: 8px; padding: 8px 6px; font-size: .85rem; min-height: 40px;
 }
-#langSel option { color: #000; }
+#langSel option { background: #fff; color: #000; }
 
 button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .ghost {
@@ -204,6 +207,10 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
   border-radius: 10px; min-height: var(--tap);
   background: var(--card); color: var(--ink);
 }
+/* Same again for the search field's clear button: drawn pale for a dark phone,
+   invisible on the white field. The list below is the way out of a bad search,
+   so the button is dropped rather than left as a ghost. */
+#pickerInput::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
 #pickerList { list-style: none; margin: 10px 0 0; padding: 0; overflow-y: auto; }
 #pickerList li button {
   width: 100%; text-align: left; background: none; border: none; border-bottom: 1px solid var(--line);
@@ -227,6 +234,15 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
   background: var(--card); color: var(--ink);
 }
 .fields select option { background: var(--card); color: var(--ink); }
+/* The dropdown arrow is the one part of a select the browser still draws, and
+   it draws it for the phone's scheme: on a dark phone that is a pale chevron on
+   our white field, which is no chevron at all. Draw it here instead. */
+.fields select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 8l5 5 5-5' fill='none' stroke='%2314201c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;
+  padding-right: 44px;
+}
 .fields input#f_room { font-size: 1.5rem; font-weight: 700; letter-spacing: .04em; }
 .fields .row { display: flex; gap: 10px; }
 .fields .row > div { flex: 1; }
