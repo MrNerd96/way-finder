@@ -51,14 +51,25 @@ var MapView = (function () {
     var common = { x: x, y: y, 'text-anchor': 'middle', 'font-size': size };
     if (centred) common['dominant-baseline'] = 'central';
 
+    /* Painted through inline style, not just the class. A stylesheet rule beats
+       a presentation attribute, so a stale cached app.css -- which is exactly
+       what a service worker will hand you on a slow connection -- could put its
+       old fill and stroke back on both elements and reinstate the blob. Inline
+       style outranks it, so the two files can be out of step and the label is
+       still right. */
     var halo = el('text', common);
     halo.setAttribute('class', 'nodeLabel halo');
-    halo.setAttribute('stroke-width', size * HALO);
+    halo.style.fill = 'none';
+    halo.style.stroke = '#fff';
+    halo.style.strokeWidth = (size * HALO) + '';
+    halo.style.strokeLinejoin = 'round';
     halo.textContent = text;
     layers.labels.appendChild(halo);
 
     var ink = el('text', common);
     ink.setAttribute('class', 'nodeLabel ink');
+    ink.style.fill = '#14201c';
+    ink.style.stroke = 'none';
     ink.textContent = text;
     layers.labels.appendChild(ink);
   }

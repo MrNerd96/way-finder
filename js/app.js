@@ -3,7 +3,7 @@ var App = (function () {
   /* Printed to the console on every load. If the page is not behaving the way
      the code on disk says it should, check this first — a stale service worker
      cache is the usual culprit, and a hard reload clears it. */
-  var BUILD = '2026-09-01 · labels drawn as halo + ink (v15)';
+  var BUILD = '2026-09-01 · inline label paint (v16)';
 
   var LANG_KEY = 'wayfinder-lang';
   var OLD_LANG_KEY = 'aiims-nav-lang';    // read once, for sessions saved before the rename
@@ -17,8 +17,11 @@ var App = (function () {
     surveyBar.hidden = (m !== 'survey');
     sheet.style.display = (m === 'survey') ? 'none' : '';
     modeBtn.textContent = (m === 'survey') ? 'Done' : 'Survey';
+    // The version is on screen in survey mode on purpose: when a surveyor says
+    // "still broken", the screenshot itself has to say which build they are
+    // looking at, or the next hour goes on guessing about caches.
     document.getElementById('brandSub').textContent =
-      (m === 'survey') ? 'Survey mode — editing' : I18N.t('tagline');
+      (m === 'survey') ? 'Survey mode — ' + BUILD.split('·').pop().trim() : I18N.t('tagline');
     MapView.setMode(m);
     MapView.setSelection(null);
     if (m === 'survey') {
