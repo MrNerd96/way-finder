@@ -1,6 +1,24 @@
 /* Bright, high-contrast, thumb-sized. Corridors are brightly lit and people are
    usually standing, one-handed, in a hurry, so nothing here is subtle. */
 :root {
+  /* This page is light, and says so. Without it a browser set to "dark mode for
+     websites" repaints it on its own: the survey bar comes out charcoal, and --
+     the part that actually hurts -- every room number on the map is inverted
+     from near-black to white, leaving the white halo and the white glyph on top
+     of a pale floor plan. The plan is an image, so it is left alone, and the
+     number becomes unreadable. "only" is the keyword that declines that; plain
+     "light" still permits it. */
+  /* Declares that this page handles colour schemes itself, which is what stops
+     a browser set to "dark mode for websites" repainting it. That setting is
+     not cosmetic here: it inverts every SVG text fill, so each room number
+     flips from near-black to white while the floor plan underneath -- an
+     image, and so left alone -- stays pale. The number disappears.
+
+     "light dark" rather than "only light": the opt-out is signalling that the
+     page has dark handled, not asserting that it is light. The page renders
+     the same either way; it simply is not repainted from outside. */
+  color-scheme: light dark;
+
   --green: #0b6b4f;
   --ink: #14201c;
   --muted: #5d6b66;
