@@ -1,7 +1,5 @@
-/* Way Finder survey data, 2026-09-01 00:00.
-   The detected room boxes for every floor, as the Auto rooms tool adds them.
-   Every box is an unconfirmed guess read off the printed plan: no number and
-   no connection to the corridor graph until a surveyor walks the floor.
+/* Way Finder survey data, 2026-09-01 04:10.
+   Changes from wayfinder-changes-2026-09-01.json applied by tools/apply_changes.js.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -1062,15 +1060,21 @@ var SEED_BUILDING = {
     {
       "id": "r-48",
       "floor": "opd-f1",
-      "x": 0.5045,
-      "y": 0.5693,
-      "w": 0.0303,
-      "h": 0.0276,
+      "x": 0.5230200261449551,
+      "y": 0.5844278335987361,
+      "w": 0.06734005228991025,
+      "h": 0.05785566719747204,
       "kind": "room",
-      "name": "",
+      "name": "Spirometry",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "132",
+      "landmark": "",
+      "shaft": "",
+      "services": [
+        "Spirometry",
+        "EEG",
+        "Andrology"
+      ]
     },
     {
       "id": "r-49",
