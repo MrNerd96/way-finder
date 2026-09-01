@@ -3,7 +3,7 @@ var App = (function () {
   /* Printed to the console on every load. If the page is not behaving the way
      the code on disk says it should, check this first — a stale service worker
      cache is the usual culprit, and a hard reload clears it. */
-  var BUILD = '2026-09-01 · inline label paint (v16)';
+  var BUILD = '2026-09-01 · reload on update (v17)';
 
   var LANG_KEY = 'wayfinder-lang';
   var OLD_LANG_KEY = 'aiims-nav-lang';    // read once, for sessions saved before the rename
@@ -32,6 +32,32 @@ var App = (function () {
       Nav.refreshMap();
       Nav.render();
     }
+  }
+
+  /* A new service worker calls skipWaiting and clients.claim, so it takes over
+     the moment it installs -- but the page carries on running the scripts it
+     already loaded, and the next start serves the old shell from the cache
+     again. So an update lands, and nothing shows it: press home, come back,
+     and the old build is still there.
+
+     Reloading once when the worker changes is what actually closes that loop.
+     It is held back while the editor is open, because a surveyor halfway
+     through typing a room number should not lose it to a refresh. */
+  function watchForUpdate() {
+    // On a first-ever visit there is no controller to replace, and the
+    // controllerchange that follows registration is not an update.
+    var hadController = !!navigator.serviceWorker.controller;
+    var reloading = false;
+
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!hadController || reloading) return;
+      reloading = true;
+      (function whenIdle() {
+        var ed = document.getElementById('editor');
+        if (ed && !ed.hidden) { setTimeout(whenIdle, 2000); return; }
+        location.reload();
+      })();
+    });
   }
 
   function renderFloorStrip() {
@@ -135,7 +161,13 @@ var App = (function () {
       console.log('Way Finder — build ' + BUILD);
 
       if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-        navigator.serviceWorker.register('sw.js').catch(function () { /* fine without it */ });
+        watchForUpdate();
+        navigator.serviceWorker.register('sw.js').then(function (reg) {
+          // Ask on every load rather than waiting for the browser to feel like
+          // checking. On a corridor connection the update can take a while, and
+          // it only has to finish before the surveyor next opens the app.
+          if (reg && reg.update) reg.update();
+        }).catch(function () { /* fine without it */ });
       }
     }
   };
