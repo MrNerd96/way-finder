@@ -34,6 +34,14 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+/* The root says "light dark" so the browser stops repainting the map, but that
+   also lets it draw form controls to match a dark phone -- and this page paints
+   its own surfaces, so a control it does not paint comes out charcoal on a white
+   sheet. The controls are light because the sheet behind them is; the parts the
+   browser draws itself, a caret or a dropdown arrow, follow from this too. */
+input, select, textarea, button { color-scheme: light; }
+::placeholder { color: var(--muted); opacity: 1; }
+
 html, body {
   margin: 0; height: 100%; overflow: hidden;
   background: var(--bg); color: var(--ink);
@@ -194,6 +202,7 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 #pickerInput {
   width: 100%; padding: 14px; font-size: 1.05rem; border: 2px solid var(--line);
   border-radius: 10px; min-height: var(--tap);
+  background: var(--card); color: var(--ink);
 }
 #pickerList { list-style: none; margin: 10px 0 0; padding: 0; overflow-y: auto; }
 #pickerList li button {
@@ -215,7 +224,9 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .fields input[type=text], .fields select, .fields textarea {
   width: 100%; padding: 13px; font-size: 1.02rem; border: 2px solid var(--line);
   border-radius: 10px; min-height: var(--tap); font-family: inherit;
+  background: var(--card); color: var(--ink);
 }
+.fields select option { background: var(--card); color: var(--ink); }
 .fields input#f_room { font-size: 1.5rem; font-weight: 700; letter-spacing: .04em; }
 .fields .row { display: flex; gap: 10px; }
 .fields .row > div { flex: 1; }
