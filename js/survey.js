@@ -310,7 +310,20 @@ var Survey = (function () {
     roomIn.setAttribute('autocapitalize', 'characters');
     fieldsEl.appendChild(field('Room number', roomIn));
 
-    fieldsEl.appendChild(field('Name / department', textInput('f_name', n.name, 'e.g. Dermatology OPD')));
+    /* One field, not two. Standing at a door, "is Dermatology OPD a name or a
+       service?" is a question with no good answer, and asking it 300 times is
+       how the data ends up inconsistent. So: type what the plate says, in the
+       order it is written. The first entry is what the room gets called; the
+       rest are the other things a patient can be sent here for.
+
+       The list is flat and holds both levels of the hierarchy on purpose. Put
+       "Radiology" and "X-ray" in it and either finds the room, with nothing to
+       model about how the two relate. */
+    var placeIn = textInput('f_place', (n.services && n.services.length)
+      ? n.services.join(', ') : (n.name || ''), '');
+    var placeWrap = field('Name', placeIn);
+    var placeLabel = placeWrap.querySelector('label');
+    fieldsEl.appendChild(placeWrap);
 
     fieldsEl.appendChild(field('Landmark next to it',
       textInput('f_landmark', n.landmark, 'e.g. opposite the blue water cooler')));
@@ -338,6 +351,14 @@ var Survey = (function () {
     function syncShaft() {
       var k = kindSel.value;
       shaftField.hidden = (k !== 'lift' && k !== 'stair');
+      // A staircase or a corridor point is one thing with one name. A room is
+      // however many things are written on its door, so it gets asked
+      // differently — same field, different question.
+      var many = (k !== 'junction' && k !== 'lift' && k !== 'stair');
+      placeLabel.textContent = many ? "What's here" : 'Name';
+      placeIn.placeholder = many
+        ? 'e.g. Neurology, Spirometry, EEG'
+        : 'e.g. North-west staircase';
     }
     kindSel.addEventListener('change', syncShaft);
     syncShaft();
@@ -358,9 +379,19 @@ var Survey = (function () {
     Store.mark();
     n.kind = document.getElementById('f_kind').value;
     n.room = document.getElementById('f_room').value.trim();
-    n.name = document.getElementById('f_name').value.trim();
     n.landmark = document.getElementById('f_landmark').value.trim();
     n.shaft = document.getElementById('f_shaft').value.trim();
+
+    /* The first thing typed is the name, which is what the rest of the app
+       already reads. The whole list is kept only when there is more than one
+       thing, so a published data.js does not gain a one-item list on every
+       room that is simply itself. */
+    var typed = document.getElementById('f_place').value
+      .split(/[,\n]/)
+      .map(function (t) { return t.trim(); })
+      .filter(function (t) { return t.length; });
+    n.name = typed[0] || '';
+    if (typed.length > 1) n.services = typed; else delete n.services;
     delete n.seed;      // once a human has touched it, it is real data
     delete n.sample;
     delete n.auto;
@@ -496,6 +527,7 @@ var Survey = (function () {
     if (n.shaft) out.shaft = n.shaft;
     if (n.canStart) out.canStart = true;
     if (n.aliases && n.aliases.length) out.aliases = n.aliases.slice();
+    if (n.services && n.services.length) out.services = n.services.slice();
     return out;
   }
 
