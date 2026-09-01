@@ -1,5 +1,5 @@
-/* Way Finder survey data, 2026-09-01 04:10.
-   Changes from wayfinder-changes-2026-09-01.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-01 07:09.
+   Changes from wayfinder-changes-2026-09-01-1.json applied by tools/apply_changes.js.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -1164,8 +1164,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "136",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-56",
@@ -1203,8 +1204,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "137",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-59",
@@ -4494,6 +4496,18 @@ var SEED_BUILDING = {
       "aliases": [],
       "seed": true,
       "auto": true
+    },
+    {
+      "id": "r-312",
+      "floor": "opd-f1",
+      "x": 0.6130931740745394,
+      "y": 0.5843007461559135,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0324,
+      "h": 0.0565
     }
   ],
   "edges": [
