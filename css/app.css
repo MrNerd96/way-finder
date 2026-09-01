@@ -101,7 +101,11 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 
 .pin { fill: var(--route); stroke: #fff; }
 .pin.start { fill: #2f9e44; }
-.nodeLabel { fill: #14201c; paint-order: stroke; stroke: #fff; stroke-linejoin: round; font-weight: 700; pointer-events: none; }
+/* Drawn as two stacked <text> elements — see drawLabel() in js/mapview.js for
+   why this is not one element with paint-order: stroke. */
+.nodeLabel { font-weight: 700; pointer-events: none; }
+.nodeLabel.halo { fill: none; stroke: #fff; stroke-linejoin: round; stroke-linecap: round; }
+.nodeLabel.ink { fill: #14201c; stroke: none; }
 
 /* ---------- survey bar ---------- */
 #surveyBar { flex: none; background: var(--card); border-top: 1px solid var(--line); padding: 8px 8px calc(env(safe-area-inset-bottom) + 8px); }
