@@ -65,6 +65,30 @@ published. Moving one to the other is a deliberate step:
 Import reads that same `data.js` back, so you can carry a survey between devices
 by committing it, or hand one to someone else to continue.
 
+### Sending back only what changed
+
+A full export is the whole map — thousands of lines to say "I numbered twelve
+rooms", which is awkward to get off a phone and unreadable as a diff. **Changes**
+writes just the difference from the published `js/data.js` this page was loaded
+with: the rooms you numbered, the boxes you moved or deleted, the connections
+you drew, the floors you scaled. Send that file to whoever keeps the repo, and:
+
+```sh
+node tools/apply_changes.js wayfinder-changes-2026-09-01.json
+```
+
+That folds it back into `js/data.js`, ready to commit. Steps 4 and 5 above still
+apply.
+
+The patch always carries the *whole* difference from the published map, not just
+your last session, so a patch that never gets applied cannot quietly lose a day's
+work — the next one still contains it. It also records a fingerprint of the
+`js/data.js` it was cut from, and applying is refused if the published map has
+moved on since, because that would silently undo whatever landed in between.
+
+**Changes is not a backup.** It is only meaningful next to the published map it
+was cut from. **Export** is the backup — keep doing that too.
+
 Two things worth knowing before a long survey session:
 
 * **Export before you close the browser, every time.** There is no other copy.
@@ -103,6 +127,7 @@ Switch to **Survey**, pick the floor, and work with these tools:
 | **Scale** | Tap two ends of something you can measure, type the real distance in metres. |
 | **Add floor** | Photograph a floor-plan board and add it as a new floor on the spot. |
 | **Export / Import** | Export writes a `data.js` — drop it into `js/` and push to publish. Import reads one back (and still accepts older plain-JSON exports). |
+| **Changes** | Writes only what you have changed since the published map, small enough to send from a phone. Apply it with `node tools/apply_changes.js <file>`. See *Sending back only what changed*. |
 | **Auto rooms** | Drop every rectangle `tools/detect_rooms.py` found on this floor onto the map as an unnamed room box. Safe to press twice — boxes already on the map are skipped, and the whole batch is a single undo. |
 | **Copy / Paste** | **Ctrl+C** copies the highlighted room, **Ctrl+V** drops a duplicate at the middle of the view. The size, name and landmark travel; the room number does not, since no two doors share one. Repeated pastes cascade instead of stacking. Buttons are there too, for phones. |
 

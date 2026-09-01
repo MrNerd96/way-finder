@@ -632,6 +632,17 @@ var Survey = (function () {
         App.toast('Saved data.js — put it in js/ and push to publish it to everyone.');
       });
 
+      document.getElementById('changesBtn').addEventListener('click', function () {
+        var s = Store.exportChanges();
+        if (!s) { App.toast('Nothing has changed since the published map.'); return; }
+        var bits = [];
+        if (s.roomsNumbered) bits.push(s.roomsNumbered + ' room' + (s.roomsNumbered === 1 ? '' : 's') + ' numbered');
+        if (s.nodesAdded) bits.push(s.nodesAdded + ' added');
+        if (s.nodesRemoved) bits.push(s.nodesRemoved + ' deleted');
+        if (s.edgesAdded) bits.push(s.edgesAdded + ' connection' + (s.edgesAdded === 1 ? '' : 's'));
+        App.toast('Saved your changes' + (bits.length ? ' — ' + bits.join(', ') : '') + '. Send this file to publish it.');
+      });
+
       var importFile = document.getElementById('importFile');
       document.getElementById('importBtn').addEventListener('click', function () { importFile.click(); });
       importFile.addEventListener('change', function () {
