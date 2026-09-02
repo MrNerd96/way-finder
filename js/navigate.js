@@ -3,6 +3,11 @@
 var Picker = (function () {
   var box, input, list, title, close;
   var onPick = null, filter = null;
+  /* Both questions share this picker, but they hold different things: the
+     destination list is rooms, the start list is only lifts, staircases,
+     entrances and landmarks. Advice written for one is wrong in the other, so
+     the caller says which wording applies. */
+  var emptyKey = 'noMatch', placeholderKey = 'searchPlaceholder';
 
   function render() {
     var b = Store.get();
@@ -11,7 +16,7 @@ var Picker = (function () {
     if (!results.length) {
       var li = document.createElement('li');
       li.className = 'emptyMsg';
-      li.textContent = b.nodes.length ? I18N.t('noMatch') : I18N.t('nothingYet');
+      li.textContent = b.nodes.length ? I18N.t(emptyKey) : I18N.t('nothingYet');
       list.appendChild(li);
       return;
     }
@@ -82,9 +87,11 @@ var Picker = (function () {
     open: function (opts) {
       onPick = opts.onPick;
       filter = opts.filter;
+      emptyKey = opts.emptyKey || 'noMatch';
+      placeholderKey = opts.placeholderKey || 'searchPlaceholder';
       title.textContent = opts.title;
       input.value = '';
-      input.placeholder = I18N.t('searchPlaceholder');
+      input.placeholder = I18N.t(placeholderKey);
       box.hidden = false;
       render();
       // Don't steal focus on touch: the keyboard covering the list is worse
@@ -201,6 +208,8 @@ var Nav = (function () {
       Picker.open({
         title: I18N.t('whereAreYou'),
         filter: Graph.isStartPoint,
+        emptyKey: 'noMatchStart',
+        placeholderKey: 'startPlaceholder',
         onPick: function (n) { setStart(n.id); }
       });
     }));
