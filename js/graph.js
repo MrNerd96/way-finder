@@ -342,6 +342,13 @@ var Graph = (function () {
 
   function isStartPoint(n) {
     if (n.canStart) return true;
+    /* The number on the door is the most reliable thing someone can tell us
+       about where they are standing, so a room they can name counts as a
+       starting place. It has to be one they can name: the detector leaves
+       hundreds of blank boxes on every floor, and an empty search shows the
+       whole list, so admitting those would bury the six landmarks that most
+       people actually pick under rows with nothing written in them. */
+    if (n.kind === 'room') return !!(n.room || n.name);
     return ['lift', 'stair', 'entrance', 'landmark'].indexOf(n.kind) >= 0;
   }
 
