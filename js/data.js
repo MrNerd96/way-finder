@@ -1,5 +1,5 @@
-/* Way Finder survey data, 2026-09-02 05:02.
-   Changes from wayfinder-changes-2026-09-02b.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-02 05:57.
+   Changes from wayfinder-changes-2026-09-02c.json applied by tools/apply_changes.js.
    The corridor connections for the numbered OPD 1st floor rooms were added by
    hand, and survive this patch; each is a first approximation to be corrected
    on the floor with the Connect tool.
@@ -654,15 +654,16 @@ var SEED_BUILDING = {
     {
       "id": "r-16",
       "floor": "opd-f1",
-      "x": 0.8415,
-      "y": 0.2281,
-      "w": 0.0358,
-      "h": 0.0634,
+      "x": 0.8300049677005967,
+      "y": 0.22812138612501587,
+      "w": 0.08141885201977128,
+      "h": 0.06335722774996824,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Male",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-17",
@@ -699,9 +700,9 @@ var SEED_BUILDING = {
       "w": 0.030436718438579757,
       "h": 0.053381620087886106,
       "kind": "room",
-      "name": "110",
+      "name": "",
       "aliases": [],
-      "room": "",
+      "room": "110",
       "landmark": "",
       "shaft": ""
     },
@@ -889,10 +890,11 @@ var SEED_BUILDING = {
       "w": 0.1344,
       "h": 0.0827,
       "kind": "room",
-      "name": "",
+      "name": "Conference Room",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-35",
@@ -1175,11 +1177,15 @@ var SEED_BUILDING = {
       "w": 0.0517,
       "h": 0.0234,
       "kind": "room",
-      "name": "",
+      "name": "Electro Physiology Lab",
       "aliases": [],
       "room": "136",
       "landmark": "",
-      "shaft": ""
+      "shaft": "",
+      "services": [
+        "Electro Physiology Lab",
+        "Nerve Conduction Test"
+      ]
     },
     {
       "id": "r-56",
@@ -1273,10 +1279,11 @@ var SEED_BUILDING = {
       "w": 0.0503,
       "h": 0.0669,
       "kind": "room",
-      "name": "",
+      "name": "Neuro Rehabilitation",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-63",
@@ -4516,6 +4523,62 @@ var SEED_BUILDING = {
       "w": 0.042057705605738904,
       "h": 0.05633978724027383,
       "room": "107",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-276",
+      "floor": "opd-f1",
+      "x": 0.6027471450482489,
+      "y": 0.2264491476931003,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.04151976836271487,
+      "h": 0.054082443512123934,
+      "room": "111",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-299",
+      "floor": "opd-f1",
+      "x": 0.3222412733584395,
+      "y": 0.5259165288089351,
+      "kind": "room",
+      "name": "Wash room female",
+      "aliases": [],
+      "w": 0.043429403165912706,
+      "h": 0.05728338180994308,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-313",
+      "floor": "opd-f1",
+      "x": 0.3207144627789601,
+      "y": 0.300295420281886,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.056661780917876825,
+      "h": 0.05965605378820216,
+      "room": "Wash Room Male",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-314",
+      "floor": "opd-f1",
+      "x": 0.8313954402590125,
+      "y": 0.5196015349649177,
+      "kind": "room",
+      "name": "Toilet Female",
+      "aliases": [],
+      "w": 0.08202544132603273,
+      "h": 0.057313328987949885,
+      "room": "",
       "landmark": "",
       "shaft": ""
     }
