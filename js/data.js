@@ -1,5 +1,8 @@
 /* Way Finder survey data, 2026-09-02 00:52.
    Changes from wayfinder-changes-2026-09-02.json applied by tools/apply_changes.js.
+   Corridor connections for the numbered OPD 1st floor rooms added by hand;
+   each room is joined to its nearest corridor junction, which is a first
+   approximation to be corrected on the floor with the Connect tool.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -4613,6 +4616,34 @@ var SEED_BUILDING = {
     [
       "f2-c-5",
       "f2-sample-b"
+    ],
+    [
+      "r-48",
+      "f1-e-2"
+    ],
+    [
+      "r-50",
+      "f1-e-2"
+    ],
+    [
+      "r-51",
+      "f1-c-4"
+    ],
+    [
+      "r-52",
+      "f1-c-4"
+    ],
+    [
+      "r-55",
+      "f1-e-2"
+    ],
+    [
+      "r-58",
+      "f1-e-2"
+    ],
+    [
+      "r-312",
+      "f1-e-2"
     ]
   ]
 };
