@@ -1,5 +1,5 @@
-/* Way Finder survey data, 2026-09-01 07:09.
-   Changes from wayfinder-changes-2026-09-01-1.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-02 00:52.
+   Changes from wayfinder-changes-2026-09-02.json applied by tools/apply_changes.js.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -694,19 +694,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-20",
-      "floor": "opd-f1",
-      "x": 0.6837,
-      "y": 0.286,
-      "w": 0.0689,
-      "h": 0.3046,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-21",
       "floor": "opd-f1",
       "x": 0.4214,
@@ -982,15 +969,16 @@ var SEED_BUILDING = {
     {
       "id": "r-42",
       "floor": "opd-f1",
-      "x": 0.3215,
-      "y": 0.4469,
-      "w": 0.0489,
-      "h": 0.0917,
-      "kind": "room",
+      "x": 0.31885896044511025,
+      "y": 0.4465558996617696,
+      "w": 0.04452235759421619,
+      "h": 0.0910117993235392,
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-43",
@@ -1021,15 +1009,16 @@ var SEED_BUILDING = {
     {
       "id": "r-45",
       "floor": "opd-f1",
-      "x": 0.6092,
-      "y": 0.5227,
-      "w": 0.0276,
-      "h": 0.0558,
+      "x": 0.5801486817676311,
+      "y": 0.48402893509848155,
+      "w": 0.08570263646473741,
+      "h": 0.13314212980303708,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-46",
@@ -1099,8 +1088,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "131",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-51",
@@ -1112,8 +1102,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "133",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-52",
@@ -1125,8 +1116,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "134",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-53",
@@ -3861,19 +3853,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-263",
-      "floor": "opd-f4",
-      "x": 0.6068,
-      "y": 0.3608,
-      "w": 0.0856,
-      "h": 0.1757,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-264",
       "floor": "opd-f4",
       "x": 0.232,
@@ -4023,19 +4002,6 @@ var SEED_BUILDING = {
       "y": 0.5248,
       "w": 0.0261,
       "h": 0.0333,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-276",
-      "floor": "opd-f4",
-      "x": 0.6063,
-      "y": 0.5329,
-      "w": 0.0937,
-      "h": 0.1468,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -4329,19 +4295,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-299",
-      "floor": "opd-f4",
-      "x": 0.6077,
-      "y": 0.8198,
-      "w": 0.1018,
-      "h": 0.427,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-300",
       "floor": "opd-f4",
       "x": 0.2279,
@@ -4507,7 +4460,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0324,
-      "h": 0.0565
+      "h": 0.0565,
+      "room": "130",
+      "shaft": ""
     }
   ],
   "edges": [
