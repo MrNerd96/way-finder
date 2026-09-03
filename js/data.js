@@ -1,5 +1,5 @@
-/* Way Finder survey data, 2026-09-02 05:57.
-   Changes from wayfinder-changes-2026-09-02c.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-03 05:40.
+   Changes from wayfinder-changes-2026-09-03-remapped.json applied by tools/apply_changes.js.
    The corridor connections for the numbered OPD 1st floor rooms were added by
    hand, and survive this patch; each is a first approximation to be corrected
    on the floor with the Connect tool.
@@ -428,14 +428,14 @@ var SEED_BUILDING = {
     {
       "id": "f2-sample-a",
       "floor": "opd-f2",
-      "x": 0.42,
-      "y": 0.33,
+      "x": 0.4023893319130146,
+      "y": 0.3197536782348325,
       "kind": "room",
-      "room": "S1",
+      "room": "206",
       "name": "Sample Room A",
       "aliases": [],
-      "seed": true,
-      "sample": true
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "f2-sample-b",
@@ -443,11 +443,11 @@ var SEED_BUILDING = {
       "x": 0.42,
       "y": 0.665,
       "kind": "room",
-      "room": "S2",
+      "room": "227",
       "name": "Sample Room B",
       "aliases": [],
-      "seed": true,
-      "sample": true
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-1",
@@ -2875,15 +2875,16 @@ var SEED_BUILDING = {
     {
       "id": "r-185",
       "floor": "opd-f2",
-      "x": 0.2924,
-      "y": 0.2616,
-      "w": 0.0365,
-      "h": 0.0266,
+      "x": 0.396928399284758,
+      "y": 0.2444990515600293,
+      "w": 0.04802947369333915,
+      "h": 0.030927377243517407,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "201",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-186",
@@ -2934,8 +2935,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "209",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-190",
@@ -2947,21 +2949,23 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "208",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-191",
       "floor": "opd-f2",
-      "x": 0.3488,
-      "y": 0.3189,
+      "x": 0.3505833566158862,
+      "y": 0.3177862764359392,
       "w": 0.0498,
       "h": 0.0432,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "207",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-192",
@@ -3168,8 +3172,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "224",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-208",
@@ -3181,8 +3186,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "223",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-209",
@@ -3194,8 +3200,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "222",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-210",
@@ -3205,23 +3212,25 @@ var SEED_BUILDING = {
       "w": 0.0473,
       "h": 0.0548,
       "kind": "room",
-      "name": "",
+      "name": "225",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-211",
       "floor": "opd-f2",
-      "x": 0.3983,
-      "y": 0.6154,
-      "w": 0.0523,
-      "h": 0.0664,
+      "x": 0.3975038845547576,
+      "y": 0.613346686829529,
+      "w": 0.050707769109515244,
+      "h": 0.08533983620839491,
       "kind": "room",
-      "name": "",
+      "name": "Rheumatology and clinical immunology",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "221",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-212",
@@ -3324,8 +3333,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "231",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-220",
@@ -3337,8 +3347,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "230",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-221",
@@ -3350,8 +3361,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "229",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-222",
@@ -3363,21 +3375,23 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "228",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-223",
       "floor": "opd-f2",
-      "x": 0.3983,
-      "y": 0.7076,
-      "w": 0.0523,
-      "h": 0.0449,
+      "x": 0.397104795024516,
+      "y": 0.7063925653001633,
+      "w": 0.049909590049032004,
+      "h": 0.047314869399673776,
       "kind": "room",
-      "name": "",
+      "name": "General surgery",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-224",
@@ -3415,8 +3429,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "234",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-227",
@@ -3428,8 +3443,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "235",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-228",
@@ -3441,8 +3457,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "232",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-229",
@@ -3452,10 +3469,11 @@ var SEED_BUILDING = {
       "w": 0.0457,
       "h": 0.0432,
       "kind": "room",
-      "name": "",
+      "name": "233",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-230",
@@ -3486,15 +3504,16 @@ var SEED_BUILDING = {
     {
       "id": "r-232",
       "floor": "opd-f2",
-      "x": 0.3978,
-      "y": 0.8634,
+      "x": 0.397609288542468,
+      "y": 0.8262428986346895,
       "w": 0.0532,
       "h": 0.0341,
       "kind": "room",
-      "name": "",
+      "name": "Orthopaedics",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "236",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-233",
@@ -3519,8 +3538,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "239",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-235",
@@ -3532,8 +3552,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "238",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-236",
@@ -3545,8 +3566,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "237",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-237",
@@ -3558,8 +3580,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "240",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-238",
@@ -4580,6 +4603,62 @@ var SEED_BUILDING = {
       "h": 0.057313328987949885,
       "room": "",
       "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-315",
+      "floor": "opd-f2",
+      "x": 0.3461407652266628,
+      "y": 0.5126275549727136,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.042611907497753065,
+      "h": 0.041522915454218934,
+      "room": "217",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-316",
+      "floor": "opd-f2",
+      "x": 0.23861822478058134,
+      "y": 0.5100553508785187,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "219",
+      "shaft": ""
+    },
+    {
+      "id": "r-317",
+      "floor": "opd-f2",
+      "x": 0.29592695797540447,
+      "y": 0.5093786095831154,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "218",
+      "shaft": ""
+    },
+    {
+      "id": "r-318",
+      "floor": "opd-f2",
+      "x": 0.18380435279306317,
+      "y": 0.5112742812636576,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "220",
       "shaft": ""
     }
   ],
