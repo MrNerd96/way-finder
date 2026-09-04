@@ -1,8 +1,9 @@
-/* Way Finder survey data, 2026-09-03 05:40.
-   Changes from wayfinder-changes-2026-09-03-remapped.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-04 13:55.
+   OPD 3rd floor added: the 2nd floor plan and corridor skeleton reused, because
+   the two floors are built to the same plan. Its rooms are unsurveyed.
    The corridor connections for the numbered OPD 1st floor rooms were added by
-   hand, and survive this patch; each is a first approximation to be corrected
-   on the floor with the Connect tool.
+   hand; each is a first approximation to be corrected on the floor with the
+   Connect tool.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -35,6 +36,16 @@ var SEED_BUILDING = {
       "level": 2,
       "label": "OPD · 2nd Floor",
       "plan": "assets/plans/opd-f2.jpg",
+      "aspect": 1.0756,
+      "metresPerUnit": 75,
+      "calibrated": false
+    },
+    {
+      "id": "opd-f3",
+      "block": "OPD",
+      "level": 3,
+      "label": "OPD · 3rd Floor",
+      "plan": "assets/plans/opd-f3.jpg",
       "aspect": 1.0756,
       "metresPerUnit": 75,
       "calibrated": false
@@ -4660,6 +4671,207 @@ var SEED_BUILDING = {
       "h": 0.045993757768111765,
       "room": "220",
       "shaft": ""
+    },
+    {
+      "id": "f3-stair-nw",
+      "floor": "opd-f3",
+      "x": 0.09,
+      "y": 0.065,
+      "kind": "stair",
+      "name": "North-west staircase",
+      "shaft": "opd-stair-nw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-ne",
+      "floor": "opd-f3",
+      "x": 0.53,
+      "y": 0.065,
+      "kind": "stair",
+      "name": "North-east staircase",
+      "shaft": "opd-stair-ne",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-sw",
+      "floor": "opd-f3",
+      "x": 0.105,
+      "y": 0.985,
+      "kind": "stair",
+      "name": "South-west staircase",
+      "shaft": "opd-stair-sw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-e",
+      "floor": "opd-f3",
+      "x": 0.735,
+      "y": 0.33,
+      "kind": "stair",
+      "name": "East block staircase",
+      "shaft": "opd-stair-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-lift",
+      "floor": "opd-f3",
+      "x": 0.7,
+      "y": 0.47,
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-n",
+      "floor": "opd-f3",
+      "x": 0.13,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor (west end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-n2",
+      "floor": "opd-f3",
+      "x": 0.3,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-ne",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-1",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.2,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-2",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.33,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-3",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.45,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-4",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-5",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.665,
+      "kind": "junction",
+      "name": "Corridor junction (lift block turning)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-6",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.8,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-7",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "South corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-1",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.3,
+      "kind": "junction",
+      "name": "West corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-2",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.65,
+      "kind": "junction",
+      "name": "West corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-3",
+      "floor": "opd-f3",
+      "x": 0.12,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "South corridor (west end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-elink",
+      "floor": "opd-f3",
+      "x": 0.62,
+      "y": 0.665,
+      "kind": "junction",
+      "name": "Link corridor to lift block",
+      "seed": true,
+      "aliases": []
     }
   ],
   "edges": [
@@ -4838,6 +5050,82 @@ var SEED_BUILDING = {
     [
       "r-312",
       "f1-e-2"
+    ],
+    [
+      "f3-stair-nw",
+      "f3-c-n"
+    ],
+    [
+      "f3-c-n",
+      "f3-c-n2"
+    ],
+    [
+      "f3-c-n2",
+      "f3-c-ne"
+    ],
+    [
+      "f3-c-ne",
+      "f3-stair-ne"
+    ],
+    [
+      "f3-c-ne",
+      "f3-c-1"
+    ],
+    [
+      "f3-c-1",
+      "f3-c-2"
+    ],
+    [
+      "f3-c-2",
+      "f3-c-3"
+    ],
+    [
+      "f3-c-3",
+      "f3-c-4"
+    ],
+    [
+      "f3-c-4",
+      "f3-c-5"
+    ],
+    [
+      "f3-c-5",
+      "f3-c-6"
+    ],
+    [
+      "f3-c-6",
+      "f3-c-7"
+    ],
+    [
+      "f3-c-n",
+      "f3-w-1"
+    ],
+    [
+      "f3-w-1",
+      "f3-w-2"
+    ],
+    [
+      "f3-w-2",
+      "f3-w-3"
+    ],
+    [
+      "f3-w-3",
+      "f3-stair-sw"
+    ],
+    [
+      "f3-w-3",
+      "f3-c-7"
+    ],
+    [
+      "f3-c-5",
+      "f3-elink"
+    ],
+    [
+      "f3-elink",
+      "f3-lift"
+    ],
+    [
+      "f3-lift",
+      "f3-stair-e"
     ]
   ]
 };
