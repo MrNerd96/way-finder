@@ -1,9 +1,7 @@
-/* Way Finder survey data, 2026-09-05 05:26.
-   OPD 3rd floor began as a mirror of the 2nd -- same plan, same corridor, room
-   numbers rewritten 2xx to 3xx -- and is now being surveyed in its own right.
-   The corridor connections for the numbered OPD 1st floor rooms were added by
-   hand; each is a first approximation to be corrected on the floor with the
-   Connect tool.
+/* Way Finder survey data, 2026-09-05 10:57.
+   Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
+   each link is the perpendicular to the nearest corridor, a first
+   approximation to be corrected on the floor with the Connect tool.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -5442,6 +5440,386 @@ var SEED_BUILDING = {
       "room": "216",
       "landmark": "",
       "shaft": ""
+    },
+    {
+      "id": "f3-door-304",
+      "floor": "opd-f3",
+      "x": 0.23987703488731643,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-302",
+      "floor": "opd-f3",
+      "x": 0.3425898561212487,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-301",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.2444990515600293,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-311",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.3912691281341762,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-316",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.5082542713579004,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-321",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.613346686829529,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-336",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.8262428986346895,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-305",
+      "floor": "opd-f3",
+      "x": 0.12417169460698879,
+      "y": 0.1929968962517975,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-315",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.39034475868889285,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-320",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.5112742812636576,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-325",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.593,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-331",
+      "floor": "opd-f3",
+      "x": 0.11605154606311763,
+      "y": 0.7088865795345872,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-332",
+      "floor": "opd-f3",
+      "x": 0.11745014344915525,
+      "y": 0.7872080331526937,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-340",
+      "floor": "opd-f3",
+      "x": 0.1873,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-339",
+      "floor": "opd-f3",
+      "x": 0.23959999999999998,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-338",
+      "floor": "opd-f3",
+      "x": 0.2915,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-337",
+      "floor": "opd-f3",
+      "x": 0.343,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x0-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.278,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x0-e",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.278,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x1-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.355,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x1-e",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.355,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x2-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.452,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x3-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x4-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.671,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x5-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.747,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x5-e",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.747,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x6-w",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.864,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-x6-e",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.864,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-314",
+      "floor": "opd-f3",
+      "x": 0.2425492384577455,
+      "y": 0.355,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-308",
+      "floor": "opd-f3",
+      "x": 0.29730000000000006,
+      "y": 0.355,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-307",
+      "floor": "opd-f3",
+      "x": 0.3505833566158862,
+      "y": 0.355,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-319",
+      "floor": "opd-f3",
+      "x": 0.24,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-318",
+      "floor": "opd-f3",
+      "x": 0.2924,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-317",
+      "floor": "opd-f3",
+      "x": 0.3439,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-330",
+      "floor": "opd-f3",
+      "x": 0.24029917847579607,
+      "y": 0.6690472855302474,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-329",
+      "floor": "opd-f3",
+      "x": 0.292186576375446,
+      "y": 0.6682386507577853,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-333",
+      "floor": "opd-f3",
+      "x": 0.29860000000000003,
+      "y": 0.747,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-door-328",
+      "floor": "opd-f3",
+      "x": 0.3443,
+      "y": 0.747,
+      "kind": "junction",
+      "name": "",
+      "seed": true,
+      "aliases": []
     }
   ],
   "edges": [
@@ -5626,14 +6004,6 @@ var SEED_BUILDING = {
       "f3-c-n"
     ],
     [
-      "f3-c-n",
-      "f3-c-n2"
-    ],
-    [
-      "f3-c-n2",
-      "f3-c-ne"
-    ],
-    [
       "f3-c-ne",
       "f3-stair-ne"
     ],
@@ -5642,48 +6012,8 @@ var SEED_BUILDING = {
       "f3-c-1"
     ],
     [
-      "f3-c-1",
-      "f3-c-2"
-    ],
-    [
-      "f3-c-2",
-      "f3-c-3"
-    ],
-    [
-      "f3-c-3",
-      "f3-c-4"
-    ],
-    [
-      "f3-c-4",
-      "f3-c-5"
-    ],
-    [
-      "f3-c-5",
-      "f3-c-6"
-    ],
-    [
-      "f3-c-6",
-      "f3-c-7"
-    ],
-    [
-      "f3-c-n",
-      "f3-w-1"
-    ],
-    [
-      "f3-w-1",
-      "f3-w-2"
-    ],
-    [
-      "f3-w-2",
-      "f3-w-3"
-    ],
-    [
       "f3-w-3",
       "f3-stair-sw"
-    ],
-    [
-      "f3-w-3",
-      "f3-c-7"
     ],
     [
       "f3-c-5",
@@ -5704,6 +6034,378 @@ var SEED_BUILDING = {
     [
       "f3-c-5",
       "r-320"
+    ],
+    [
+      "f3-door-304",
+      "r-352"
+    ],
+    [
+      "f3-c-n",
+      "f3-door-304"
+    ],
+    [
+      "f3-door-304",
+      "f3-c-n2"
+    ],
+    [
+      "f3-door-302",
+      "r-355"
+    ],
+    [
+      "f3-c-n2",
+      "f3-door-302"
+    ],
+    [
+      "f3-door-302",
+      "f3-c-ne"
+    ],
+    [
+      "f3-door-301",
+      "r-321"
+    ],
+    [
+      "f3-c-1",
+      "f3-door-301"
+    ],
+    [
+      "f3-door-311",
+      "r-351"
+    ],
+    [
+      "f3-door-311",
+      "f3-c-3"
+    ],
+    [
+      "f3-door-316",
+      "r-357"
+    ],
+    [
+      "f3-c-3",
+      "f3-door-316"
+    ],
+    [
+      "f3-door-316",
+      "f3-c-4"
+    ],
+    [
+      "f3-door-321",
+      "r-329"
+    ],
+    [
+      "f3-c-4",
+      "f3-door-321"
+    ],
+    [
+      "f3-door-321",
+      "f3-c-5"
+    ],
+    [
+      "f3-door-336",
+      "r-338"
+    ],
+    [
+      "f3-c-6",
+      "f3-door-336"
+    ],
+    [
+      "f3-door-305",
+      "r-354"
+    ],
+    [
+      "f3-c-n",
+      "f3-door-305"
+    ],
+    [
+      "f3-door-315",
+      "r-347"
+    ],
+    [
+      "f3-door-320",
+      "r-346"
+    ],
+    [
+      "f3-door-325",
+      "r-328"
+    ],
+    [
+      "f3-door-325",
+      "f3-w-2"
+    ],
+    [
+      "f3-door-331",
+      "r-330"
+    ],
+    [
+      "f3-door-332",
+      "r-336"
+    ],
+    [
+      "f3-door-340",
+      "r-342"
+    ],
+    [
+      "f3-door-339",
+      "r-339"
+    ],
+    [
+      "f3-door-338",
+      "r-340"
+    ],
+    [
+      "f3-door-337",
+      "r-341"
+    ],
+    [
+      "f3-w-3",
+      "f3-door-340"
+    ],
+    [
+      "f3-door-340",
+      "f3-door-339"
+    ],
+    [
+      "f3-door-339",
+      "f3-door-338"
+    ],
+    [
+      "f3-door-338",
+      "f3-door-337"
+    ],
+    [
+      "f3-door-337",
+      "f3-c-7"
+    ],
+    [
+      "f3-w-1",
+      "r-322"
+    ],
+    [
+      "f3-c-6",
+      "r-335"
+    ],
+    [
+      "f3-c-n2",
+      "r-353"
+    ],
+    [
+      "f3-door-305",
+      "f3-x0-w"
+    ],
+    [
+      "f3-x0-w",
+      "f3-w-1"
+    ],
+    [
+      "f3-door-301",
+      "f3-x0-e"
+    ],
+    [
+      "f3-x0-e",
+      "f3-c-2"
+    ],
+    [
+      "f3-x0-w",
+      "f3-x0-e"
+    ],
+    [
+      "f3-w-1",
+      "f3-x1-w"
+    ],
+    [
+      "f3-x1-w",
+      "f3-door-315"
+    ],
+    [
+      "f3-c-2",
+      "f3-x1-e"
+    ],
+    [
+      "f3-x1-e",
+      "f3-door-311"
+    ],
+    [
+      "f3-door-315",
+      "f3-x2-w"
+    ],
+    [
+      "f3-x2-w",
+      "f3-door-320"
+    ],
+    [
+      "f3-x2-w",
+      "f3-c-3"
+    ],
+    [
+      "f3-door-320",
+      "f3-x3-w"
+    ],
+    [
+      "f3-x3-w",
+      "f3-door-325"
+    ],
+    [
+      "f3-w-2",
+      "f3-x4-w"
+    ],
+    [
+      "f3-x4-w",
+      "f3-door-331"
+    ],
+    [
+      "f3-door-331",
+      "f3-x5-w"
+    ],
+    [
+      "f3-x5-w",
+      "f3-door-332"
+    ],
+    [
+      "f3-c-5",
+      "f3-x5-e"
+    ],
+    [
+      "f3-x5-e",
+      "f3-c-6"
+    ],
+    [
+      "f3-door-332",
+      "f3-x6-w"
+    ],
+    [
+      "f3-x6-w",
+      "f3-w-3"
+    ],
+    [
+      "f3-door-336",
+      "f3-x6-e"
+    ],
+    [
+      "f3-x6-e",
+      "f3-c-7"
+    ],
+    [
+      "f3-x6-w",
+      "f3-x6-e"
+    ],
+    [
+      "f3-door-314",
+      "r-348"
+    ],
+    [
+      "f3-door-308",
+      "r-323"
+    ],
+    [
+      "f3-door-308",
+      "r-349"
+    ],
+    [
+      "f3-door-307",
+      "r-324"
+    ],
+    [
+      "f3-door-307",
+      "r-350"
+    ],
+    [
+      "f3-x1-w",
+      "f3-door-314"
+    ],
+    [
+      "f3-door-314",
+      "f3-door-308"
+    ],
+    [
+      "f3-door-308",
+      "f3-door-307"
+    ],
+    [
+      "f3-door-307",
+      "f3-x1-e"
+    ],
+    [
+      "f3-door-319",
+      "r-325"
+    ],
+    [
+      "f3-door-319",
+      "r-344"
+    ],
+    [
+      "f3-door-318",
+      "r-326"
+    ],
+    [
+      "f3-door-318",
+      "r-345"
+    ],
+    [
+      "f3-door-317",
+      "r-327"
+    ],
+    [
+      "f3-door-317",
+      "r-343"
+    ],
+    [
+      "f3-x3-w",
+      "f3-door-319"
+    ],
+    [
+      "f3-door-319",
+      "f3-door-318"
+    ],
+    [
+      "f3-door-318",
+      "f3-door-317"
+    ],
+    [
+      "f3-door-317",
+      "f3-c-4"
+    ],
+    [
+      "f3-door-330",
+      "r-331"
+    ],
+    [
+      "f3-door-329",
+      "r-332"
+    ],
+    [
+      "f3-x4-w",
+      "f3-door-330"
+    ],
+    [
+      "f3-door-330",
+      "f3-door-329"
+    ],
+    [
+      "f3-door-329",
+      "f3-c-5"
+    ],
+    [
+      "f3-door-333",
+      "r-337"
+    ],
+    [
+      "f3-door-328",
+      "r-333"
+    ],
+    [
+      "f3-door-328",
+      "r-334"
+    ],
+    [
+      "f3-x5-w",
+      "f3-door-333"
+    ],
+    [
+      "f3-door-333",
+      "f3-door-328"
+    ],
+    [
+      "f3-door-328",
+      "f3-x5-e"
     ]
   ]
 };
