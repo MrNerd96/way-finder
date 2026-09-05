@@ -17,3 +17,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Claude Code's local working directory. launch.json is the one thing here the
+# repo wants -- it is what starts tools/serve.py in the editor's preview pane --
+# so keep that and leave everyone's own skills and scratch out of it.
+.claude/*
+!.claude/launch.json
