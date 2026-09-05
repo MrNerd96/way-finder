@@ -12,6 +12,7 @@ var SEED_BUILDING = {
   "floors": [
     {
       "id": "ipd-g",
+      "hidden": true,
       "block": "IPD",
       "level": 0,
       "label": "IPD · Ground",
@@ -52,6 +53,7 @@ var SEED_BUILDING = {
     },
     {
       "id": "opd-f4",
+      "hidden": true,
       "block": "OPD",
       "level": 4,
       "label": "OPD · 4th Floor",
