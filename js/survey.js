@@ -126,10 +126,10 @@ var Survey = (function () {
 
     if (tool === 'erase') {
       if (hit) {
-        if (!confirm('Delete "' + Graph.placeName(hit) + '"?')) return;
+        var gone = shortName(hit);
         Store.mark();
         Store.removeNode(hit.id);
-        App.toast('Deleted');
+        undoably('Deleted ' + gone);
         refreshStatus();
         return;
       }
@@ -223,10 +223,6 @@ var Survey = (function () {
       App.toast('All ' + list.length + ' detected boxes are already on the map.');
       return;
     }
-    if (!confirm('Add ' + fresh.length + ' detected room boxes to this floor? ' +
-                 'They are guesses read off the printed plan — some will be cupboards ' +
-                 'or toilets, and a few will be wrong. Delete or resize those as you go.')) return;
-
     Store.mark();
     fresh.forEach(function (box) {
       b().nodes.push({
@@ -238,7 +234,10 @@ var Survey = (function () {
       });
     });
     Store.commit();
-    App.toast('Added ' + fresh.length + ' boxes. Tap each one and type its number.');
+    // The warning that used to be in the dialog belongs here now: these are
+    // guesses read off the printed plan, and some will be cupboards.
+    App.toast('Added ' + fresh.length + ' guessed boxes · tap each one and type its ' +
+              'number, delete the ones that are not rooms · Undo removes them all');
     refreshStatus();
   }
 
@@ -248,6 +247,29 @@ var Survey = (function () {
       var w = n.w || 0.045, h = n.h || 0.045;
       return Math.abs(n.x - box.x) < w / 2 && Math.abs(n.y - box.y) < h / 2;
     });
+  }
+
+  /* What to call a thing in a toast. Graph.placeName falls back to "this
+     point", which reads oddly once it is already gone. */
+  function shortName(n) {
+    if (!n) return 'that';
+    if (n.room && n.name) return n.room + ' — ' + n.name;
+    return n.room || n.name || (n.kind === 'room' ? 'that room' : 'that point');
+  }
+
+  /* Deleting used to go through window.confirm. Where a browser suppresses
+     dialogs -- an embedded preview, an iframe without allow-modals, a phone
+     set to block them -- confirm returns false and the delete silently did
+     nothing, which is indistinguishable from a broken tool. Deleting a
+     connection never asked and always worked, so the two behaved differently
+     for no reason a surveyor could see.
+
+     So nothing asks now. Every one of these was already wrapped in Store.mark()
+     and undoable, the toast says what went, and Undo puts it back. That is also
+     the better trade in a corridor: a modal is two taps and a stop, and the
+     thing being deleted is usually a point placed a second ago. */
+  function undoably(msg) {
+    App.toast(msg + ' · Undo to put it back');
   }
 
   function createNode(pt, kind, alreadyMarked) {
@@ -435,11 +457,11 @@ var Survey = (function () {
   function deleteEditing() {
     if (!editingId) return;
     var n = Store.node(editingId);
-    if (!confirm('Delete "' + Graph.placeName(n) + '"?')) return;
+    var gone = shortName(n);
     Store.mark();
     Store.removeNode(editingId);
     closeEditor();
-    App.toast('Deleted');
+    undoably('Deleted ' + gone);
     refreshStatus();
   }
 
