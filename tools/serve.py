@@ -24,8 +24,12 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 
-class Server(socketserver.TCPServer):
+class Server(socketserver.ThreadingTCPServer):
+    """Threaded: index.html asks for ten files at once, and a serial server
+    stalls them in a five-deep accept queue until the browser gives up and
+    reports ERR_CONNECTION_REFUSED on whichever scripts lost the race."""
     allow_reuse_address = True     # so a restart does not trip over TIME_WAIT
+    daemon_threads = True          # Ctrl-C exits without waiting on open sockets
 
 
 if __name__ == "__main__":
