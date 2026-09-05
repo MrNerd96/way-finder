@@ -1,4 +1,4 @@
-/* Way Finder survey data, 2026-09-05 01:12.
+/* Way Finder survey data, 2026-09-05 01:18.
    OPD 3rd floor mirrors the 2nd: same plan, same corridor, same room boxes,
    with each 2xx number rewritten as 3xx. Its room names are deliberately
    blank -- the departments are the 2nd floor's, not the 3rd's.
@@ -3224,9 +3224,9 @@ var SEED_BUILDING = {
       "w": 0.0473,
       "h": 0.0548,
       "kind": "room",
-      "name": "225",
+      "name": "",
       "aliases": [],
-      "room": "",
+      "room": "225",
       "landmark": "",
       "shaft": ""
     },
@@ -3481,9 +3481,9 @@ var SEED_BUILDING = {
       "w": 0.0457,
       "h": 0.0432,
       "kind": "room",
-      "name": "233",
+      "name": "",
       "aliases": [],
-      "room": "",
+      "room": "233",
       "landmark": "",
       "shaft": ""
     },
