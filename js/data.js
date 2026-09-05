@@ -1,8 +1,10 @@
-/* Way Finder survey data, 2026-09-03 05:40.
-   Changes from wayfinder-changes-2026-09-03-remapped.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-05 01:18.
+   OPD 3rd floor mirrors the 2nd: same plan, same corridor, same room boxes,
+   with each 2xx number rewritten as 3xx. Its room names are deliberately
+   blank -- the departments are the 2nd floor's, not the 3rd's.
    The corridor connections for the numbered OPD 1st floor rooms were added by
-   hand, and survive this patch; each is a first approximation to be corrected
-   on the floor with the Connect tool.
+   hand; each is a first approximation to be corrected on the floor with the
+   Connect tool.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -35,6 +37,16 @@ var SEED_BUILDING = {
       "level": 2,
       "label": "OPD · 2nd Floor",
       "plan": "assets/plans/opd-f2.jpg",
+      "aspect": 1.0756,
+      "metresPerUnit": 75,
+      "calibrated": false
+    },
+    {
+      "id": "opd-f3",
+      "block": "OPD",
+      "level": 3,
+      "label": "OPD · 3rd Floor",
+      "plan": "assets/plans/opd-f3.jpg",
       "aspect": 1.0756,
       "metresPerUnit": 75,
       "calibrated": false
@@ -3212,9 +3224,9 @@ var SEED_BUILDING = {
       "w": 0.0473,
       "h": 0.0548,
       "kind": "room",
-      "name": "225",
+      "name": "",
       "aliases": [],
-      "room": "",
+      "room": "225",
       "landmark": "",
       "shaft": ""
     },
@@ -3469,9 +3481,9 @@ var SEED_BUILDING = {
       "w": 0.0457,
       "h": 0.0432,
       "kind": "room",
-      "name": "233",
+      "name": "",
       "aliases": [],
-      "room": "",
+      "room": "233",
       "landmark": "",
       "shaft": ""
     },
@@ -4660,6 +4672,595 @@ var SEED_BUILDING = {
       "h": 0.045993757768111765,
       "room": "220",
       "shaft": ""
+    },
+    {
+      "id": "f3-stair-nw",
+      "floor": "opd-f3",
+      "x": 0.09,
+      "y": 0.065,
+      "kind": "stair",
+      "name": "North-west staircase",
+      "shaft": "opd-stair-nw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-ne",
+      "floor": "opd-f3",
+      "x": 0.53,
+      "y": 0.065,
+      "kind": "stair",
+      "name": "North-east staircase",
+      "shaft": "opd-stair-ne",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-sw",
+      "floor": "opd-f3",
+      "x": 0.105,
+      "y": 0.985,
+      "kind": "stair",
+      "name": "South-west staircase",
+      "shaft": "opd-stair-sw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-stair-e",
+      "floor": "opd-f3",
+      "x": 0.735,
+      "y": 0.33,
+      "kind": "stair",
+      "name": "East block staircase",
+      "shaft": "opd-stair-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-lift",
+      "floor": "opd-f3",
+      "x": 0.7,
+      "y": 0.47,
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-n",
+      "floor": "opd-f3",
+      "x": 0.13,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor (west end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-n2",
+      "floor": "opd-f3",
+      "x": 0.3,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-ne",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.125,
+      "kind": "junction",
+      "name": "North corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-1",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.2,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-2",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.33,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-3",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.45,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-4",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.55,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-5",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.665,
+      "kind": "junction",
+      "name": "Corridor junction (lift block turning)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-6",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.8,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-c-7",
+      "floor": "opd-f3",
+      "x": 0.5,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "South corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-1",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.3,
+      "kind": "junction",
+      "name": "West corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-2",
+      "floor": "opd-f3",
+      "x": 0.115,
+      "y": 0.65,
+      "kind": "junction",
+      "name": "West corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-w-3",
+      "floor": "opd-f3",
+      "x": 0.12,
+      "y": 0.93,
+      "kind": "junction",
+      "name": "South corridor (west end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "f3-elink",
+      "floor": "opd-f3",
+      "x": 0.62,
+      "y": 0.665,
+      "kind": "junction",
+      "name": "Link corridor to lift block",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "r-319",
+      "floor": "opd-f3",
+      "x": 0.4023893319130146,
+      "y": 0.3197536782348325,
+      "kind": "room",
+      "room": "306",
+      "name": "",
+      "aliases": [],
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-320",
+      "floor": "opd-f3",
+      "x": 0.42,
+      "y": 0.665,
+      "kind": "room",
+      "room": "327",
+      "name": "",
+      "aliases": [],
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-321",
+      "floor": "opd-f3",
+      "x": 0.396928399284758,
+      "y": 0.2444990515600293,
+      "w": 0.04802947369333915,
+      "h": 0.030927377243517407,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "301",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-322",
+      "floor": "opd-f3",
+      "x": 0.2454,
+      "y": 0.3181,
+      "w": 0.0507,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "309",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-323",
+      "floor": "opd-f3",
+      "x": 0.2973,
+      "y": 0.3181,
+      "w": 0.0465,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "308",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-324",
+      "floor": "opd-f3",
+      "x": 0.3505833566158862,
+      "y": 0.3177862764359392,
+      "w": 0.0498,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "307",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-325",
+      "floor": "opd-f3",
+      "x": 0.24,
+      "y": 0.5876,
+      "w": 0.0498,
+      "h": 0.044,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "324",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-326",
+      "floor": "opd-f3",
+      "x": 0.2924,
+      "y": 0.588,
+      "w": 0.0465,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "323",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-327",
+      "floor": "opd-f3",
+      "x": 0.3439,
+      "y": 0.588,
+      "w": 0.0482,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "322",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-328",
+      "floor": "opd-f3",
+      "x": 0.1873,
+      "y": 0.593,
+      "w": 0.0473,
+      "h": 0.0548,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "325",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-329",
+      "floor": "opd-f3",
+      "x": 0.3975038845547576,
+      "y": 0.613346686829529,
+      "w": 0.050707769109515244,
+      "h": 0.08533983620839491,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "321",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-330",
+      "floor": "opd-f3",
+      "x": 0.1881,
+      "y": 0.7076,
+      "w": 0.0473,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "331",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-331",
+      "floor": "opd-f3",
+      "x": 0.2409,
+      "y": 0.7076,
+      "w": 0.0482,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "330",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-332",
+      "floor": "opd-f3",
+      "x": 0.2928,
+      "y": 0.7076,
+      "w": 0.0473,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "329",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-333",
+      "floor": "opd-f3",
+      "x": 0.3443,
+      "y": 0.7076,
+      "w": 0.0473,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "328",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-334",
+      "floor": "opd-f3",
+      "x": 0.3501,
+      "y": 0.7845,
+      "w": 0.049,
+      "h": 0.044,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "334",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-335",
+      "floor": "opd-f3",
+      "x": 0.4016,
+      "y": 0.7845,
+      "w": 0.0457,
+      "h": 0.044,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "335",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-336",
+      "floor": "opd-f3",
+      "x": 0.2467,
+      "y": 0.7849,
+      "w": 0.0498,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "332",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-337",
+      "floor": "opd-f3",
+      "x": 0.2986,
+      "y": 0.7849,
+      "w": 0.0457,
+      "h": 0.0432,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "333",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-338",
+      "floor": "opd-f3",
+      "x": 0.397609288542468,
+      "y": 0.8262428986346895,
+      "w": 0.0532,
+      "h": 0.0341,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "336",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-339",
+      "floor": "opd-f3",
+      "x": 0.2396,
+      "y": 0.907,
+      "w": 0.049,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "339",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-340",
+      "floor": "opd-f3",
+      "x": 0.2915,
+      "y": 0.907,
+      "w": 0.0465,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "338",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-341",
+      "floor": "opd-f3",
+      "x": 0.343,
+      "y": 0.907,
+      "w": 0.0482,
+      "h": 0.0449,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "337",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-342",
+      "floor": "opd-f3",
+      "x": 0.1873,
+      "y": 0.9074,
+      "w": 0.0473,
+      "h": 0.044,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "room": "340",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-343",
+      "floor": "opd-f3",
+      "x": 0.3461407652266628,
+      "y": 0.5126275549727136,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.042611907497753065,
+      "h": 0.041522915454218934,
+      "room": "317",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-344",
+      "floor": "opd-f3",
+      "x": 0.23861822478058134,
+      "y": 0.5100553508785187,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "319",
+      "shaft": ""
+    },
+    {
+      "id": "r-345",
+      "floor": "opd-f3",
+      "x": 0.29592695797540447,
+      "y": 0.5093786095831154,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "318",
+      "shaft": ""
+    },
+    {
+      "id": "r-346",
+      "floor": "opd-f3",
+      "x": 0.18380435279306317,
+      "y": 0.5112742812636576,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04369474599065215,
+      "h": 0.045993757768111765,
+      "room": "320",
+      "shaft": ""
     }
   ],
   "edges": [
@@ -4838,6 +5439,90 @@ var SEED_BUILDING = {
     [
       "r-312",
       "f1-e-2"
+    ],
+    [
+      "f3-stair-nw",
+      "f3-c-n"
+    ],
+    [
+      "f3-c-n",
+      "f3-c-n2"
+    ],
+    [
+      "f3-c-n2",
+      "f3-c-ne"
+    ],
+    [
+      "f3-c-ne",
+      "f3-stair-ne"
+    ],
+    [
+      "f3-c-ne",
+      "f3-c-1"
+    ],
+    [
+      "f3-c-1",
+      "f3-c-2"
+    ],
+    [
+      "f3-c-2",
+      "f3-c-3"
+    ],
+    [
+      "f3-c-3",
+      "f3-c-4"
+    ],
+    [
+      "f3-c-4",
+      "f3-c-5"
+    ],
+    [
+      "f3-c-5",
+      "f3-c-6"
+    ],
+    [
+      "f3-c-6",
+      "f3-c-7"
+    ],
+    [
+      "f3-c-n",
+      "f3-w-1"
+    ],
+    [
+      "f3-w-1",
+      "f3-w-2"
+    ],
+    [
+      "f3-w-2",
+      "f3-w-3"
+    ],
+    [
+      "f3-w-3",
+      "f3-stair-sw"
+    ],
+    [
+      "f3-w-3",
+      "f3-c-7"
+    ],
+    [
+      "f3-c-5",
+      "f3-elink"
+    ],
+    [
+      "f3-elink",
+      "f3-lift"
+    ],
+    [
+      "f3-lift",
+      "f3-stair-e"
+    ],
+    [
+      "f3-c-2",
+      "r-319"
+    ],
+    [
+      "f3-c-5",
+      "r-320"
     ]
   ]
 };
