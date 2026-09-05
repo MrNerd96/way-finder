@@ -266,31 +266,54 @@ var MapView = (function () {
       }));
     });
 
-    if (vb.w <= 0.75 || mode === 'survey') {
-      var fs = px(14);
-      nodes.forEach(function (n) {
-        var text = n.room || (n.kind === 'lift' ? 'LIFT' : n.kind === 'stair' ? 'STAIR' : '');
-        if (!text && mode === 'survey' && hasBox(n)) text = n.name || '?';
-        if (!text) return;
-        if (text.length > 14) text = text.slice(0, 13) + '…';
-        if (hasBox(n)) {
-          // Sit the label inside the box, shrinking it if the box is small --
-          // but never below MIN_LABEL_PX. A room number that spills a little
-          // past a small box still reads as a number; a shrunken one is a
-          // smudge, and the number is the whole point of the label. A long
-          // name is clipped rather than shrunk, so a label can only ever
-          // spill so far over the rooms either side of it.
-          var b = boxOf(n);
-          var maxChars = Math.max(2, Math.floor(b.w * 1.25 / (px(MIN_LABEL_PX) * CHAR_EM)));
+    /* Whether a number can be read depends on how many screen pixels its box
+       covers -- that is zoom AND screen width, not zoom alone. This used to be
+       one viewBox threshold tuned on a 360px phone, so on any wider screen
+       every number stayed hidden through the whole range where it would have
+       read perfectly well: on a 736px pane nothing appeared until you were
+       about twice as far in as you needed to be. Ask each box whether its own
+       label fits instead, and a number shows the moment it is legible, at
+       whatever zoom that happens to be on whatever screen. */
+    var fs = px(14);
+    var minPx = px(MIN_LABEL_PX);
+    var surveying = mode === 'survey';
+    nodes.forEach(function (n) {
+      var text = n.room || (n.kind === 'lift' ? 'LIFT' : n.kind === 'stair' ? 'STAIR' : '');
+      if (!text && surveying && hasBox(n)) text = n.name || '?';
+      if (!text) return;
+      if (text.length > 14) text = text.slice(0, 13) + '…';
+      if (hasBox(n)) {
+        // Sit the label inside the box, shrinking it to suit -- but never
+        // below MIN_LABEL_PX, because a shrunken number is a smudge and the
+        // number is the whole point of the label.
+        var b = boxOf(n);
+        // Measured against the full width of the box, not an inset: a number
+        // that reaches its own edges still cannot reach into the room next
+        // door, and the inset would have cost a band of zoom where the number
+        // was perfectly readable.
+        var fit = Math.min(b.h * 0.6, b.w / (text.length * CHAR_EM));
+        if (fit < minPx) {
+          /* The box cannot hold the whole thing at a legible size. For a
+             patient, say nothing: a number that spilled over the rooms either
+             side would collide with its neighbours now that labels are drawn
+             this far out, and a clipped one -- "2…" -- reads worse than the
+             bare box. Keeping every number inside its own box is what makes
+             the fit test enough on its own to guarantee no two ever touch.
+             A surveyor is reading the plan rather than walking it, so there
+             the old clip-and-spill still beats a blank room. */
+          if (!surveying) return;
+          var maxChars = Math.max(2, Math.floor(b.w * 1.25 / (minPx * CHAR_EM)));
           if (text.length > maxChars) text = text.slice(0, maxChars - 1) + '…';
-          var fit = Math.min(b.h * 0.6, b.w * 0.88 / (text.length * CHAR_EM));
-          var size = Math.max(px(MIN_LABEL_PX), Math.min(fs, fit));
-          drawLabel(text, n.x, n.y, size, true);
-          return;
+          fit = Math.min(b.h * 0.6, b.w * 0.88 / (text.length * CHAR_EM));
         }
-        drawLabel(text, n.x, n.y - r - px(4), fs, false);
-      });
-    }
+        drawLabel(text, n.x, n.y, Math.max(minPx, Math.min(fs, fit)), true);
+        return;
+      }
+      // LIFT and STAIR hang off a circle with no box to bound them, so there
+      // is nothing to fit them against. They keep a zoom gate of their own
+      // rather than crowding a view of the whole floor.
+      if (surveying || vb.w <= 0.75) drawLabel(text, n.x, n.y - r - px(4), fs, false);
+    });
 
     if (showHandles) {
       var hs = px(7);
