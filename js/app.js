@@ -3,7 +3,7 @@ var App = (function () {
   /* Printed to the console on every load. If the page is not behaving the way
      the code on disk says it should, check this first — a stale service worker
      cache is the usual culprit, and a hard reload clears it. */
-  var BUILD = '2026-09-05 · departments on 2nd and 3rd (v30)';
+  var BUILD = '2026-09-05 · room numbers as soon as they fit (v31)';
 
   var LANG_KEY = 'wayfinder-lang';
   var OLD_LANG_KEY = 'aiims-nav-lang';    // read once, for sessions saved before the rename
