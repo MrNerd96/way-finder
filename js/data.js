@@ -1,5 +1,4 @@
-/* Way Finder survey data, 2026-09-05 05:20.
-   Changes from wayfinder-changes-2026-09-05b.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-05 05:26.
    OPD 3rd floor began as a mirror of the 2nd -- same plan, same corridor, room
    numbers rewritten 2xx to 3xx -- and is now being surveyed in its own right.
    The corridor connections for the numbered OPD 1st floor rooms were added by
@@ -3409,7 +3408,7 @@ var SEED_BUILDING = {
       "w": 0.049909590049032004,
       "h": 0.047314869399673776,
       "kind": "room",
-      "name": "General surgery",
+      "name": "",
       "aliases": [],
       "room": "",
       "landmark": "",
