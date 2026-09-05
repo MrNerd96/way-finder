@@ -1,5 +1,4 @@
-/* Way Finder survey data, 2026-09-05 01:52.
-   Changes from wayfinder-changes-2026-09-05.json applied by tools/apply_changes.js.
+/* Way Finder survey data, 2026-09-05 05:26.
    OPD 3rd floor began as a mirror of the 2nd -- same plan, same corridor, room
    numbers rewritten 2xx to 3xx -- and is now being surveyed in its own right.
    The corridor connections for the numbered OPD 1st floor rooms were added by
@@ -444,7 +443,7 @@ var SEED_BUILDING = {
       "y": 0.3197536782348325,
       "kind": "room",
       "room": "206",
-      "name": "Sample Room A",
+      "name": "Refraction room",
       "aliases": [],
       "landmark": "",
       "shaft": ""
@@ -456,7 +455,7 @@ var SEED_BUILDING = {
       "y": 0.665,
       "kind": "room",
       "room": "227",
-      "name": "Sample Room B",
+      "name": "General surgery",
       "aliases": [],
       "landmark": "",
       "shaft": ""
@@ -2892,12 +2891,12 @@ var SEED_BUILDING = {
     {
       "id": "r-185",
       "floor": "opd-f2",
-      "x": 0.396928399284758,
-      "y": 0.2444990515600293,
-      "w": 0.04802947369333915,
-      "h": 0.030927377243517407,
+      "x": 0.3968477383225821,
+      "y": 0.2775859363406326,
+      "w": 0.056536557771961204,
+      "h": 0.032846767980445946,
       "kind": "room",
-      "name": "",
+      "name": "Ophthalmology",
       "aliases": [],
       "room": "201",
       "landmark": "",
@@ -3034,7 +3033,7 @@ var SEED_BUILDING = {
       "w": 0.0465,
       "h": 0.0432,
       "kind": "room",
-      "name": "",
+      "name": "Neurology",
       "aliases": [],
       "room": "211",
       "landmark": "",
@@ -3409,7 +3408,7 @@ var SEED_BUILDING = {
       "w": 0.049909590049032004,
       "h": 0.047314869399673776,
       "kind": "room",
-      "name": "General surgery",
+      "name": "",
       "aliases": [],
       "room": "",
       "landmark": "",
@@ -4920,7 +4919,7 @@ var SEED_BUILDING = {
       "w": 0.04802947369333915,
       "h": 0.030927377243517407,
       "kind": "room",
-      "name": "",
+      "name": "Obstetrics and Gynaecology",
       "aliases": [],
       "room": "301",
       "landmark": "",
@@ -5426,6 +5425,20 @@ var SEED_BUILDING = {
       "w": 0.042611907497753065,
       "h": 0.041522915454218934,
       "room": "316",
+      "shaft": ""
+    },
+    {
+      "id": "r-358",
+      "floor": "opd-f2",
+      "x": 0.3982986666566143,
+      "y": 0.49711579235986925,
+      "kind": "room",
+      "name": "Psychiatry",
+      "aliases": [],
+      "w": 0.05588646463117586,
+      "h": 0.07725657612564141,
+      "room": "216",
+      "landmark": "",
       "shaft": ""
     }
   ],
