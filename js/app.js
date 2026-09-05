@@ -3,7 +3,7 @@ var App = (function () {
   /* Printed to the console on every load. If the page is not behaving the way
      the code on disk says it should, check this first — a stale service worker
      cache is the usual culprit, and a hard reload clears it. */
-  var BUILD = '2026-09-05 · room numbers as soon as they fit (v31)';
+  var BUILD = '2026-09-05 · only floors with corridors (v32)';
 
   var LANG_KEY = 'wayfinder-lang';
   var OLD_LANG_KEY = 'aiims-nav-lang';    // read once, for sessions saved before the rename
@@ -29,6 +29,11 @@ var App = (function () {
       MapView.setRoute(null, 0, null);
       Survey.refreshStatus();
     } else {
+      // Survey mode can leave you standing on a floor a patient never sees.
+      var shown = visibleFloors(Store.get());
+      var here = MapView.getFloor();
+      var stillThere = shown.some(function (f) { return f.id === here; });
+      if (!stillThere && shown[0]) MapView.setFloor(shown[0].id);
       Nav.refreshMap();
       Nav.render();
     }
@@ -60,11 +65,21 @@ var App = (function () {
     });
   }
 
+  /* A floor with no corridor graph on it cannot be routed to or through, so to
+     a patient it is a plan of a place the app cannot actually take them
+     anywhere on. Hidden ones stay in the data and stay in survey mode -- that
+     is where the corridors get drawn, and hiding them there would put the work
+     out of reach. Drop the flag once a floor has a spine. */
+  function visibleFloors(b) {
+    if (mode === 'survey') return b.floors;
+    return b.floors.filter(function (f) { return !f.hidden; });
+  }
+
   function renderFloorStrip() {
     var b = Store.get();
     var onRoute = Nav.routeFloors();
     strip.innerHTML = '';
-    b.floors.forEach(function (f) {
+    visibleFloors(b).forEach(function (f) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'floorChip';
@@ -131,7 +146,7 @@ var App = (function () {
         MapView.draw();
       });
 
-      var first = building.floors[0];
+      var first = visibleFloors(building)[0] || building.floors[0];
       if (first) MapView.setFloor(first.id);
       renderFloorStrip();
 
