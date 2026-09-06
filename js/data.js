@@ -1,7 +1,5 @@
-/* Way Finder survey data, 2026-09-05 10:57.
-   Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
-   each link is the perpendicular to the nearest corridor, a first
-   approximation to be corrected on the floor with the Connect tool.
+/* Way Finder survey data, 2026-09-05 11:39.
+   Changes from wayfinder-changes-new 2026-09-05.json applied by tools/apply_changes.js.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -4774,76 +4772,6 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "f3-c-1",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.2,
-      "kind": "junction",
-      "name": "Main corridor",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-2",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.33,
-      "kind": "junction",
-      "name": "Main corridor",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-3",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.45,
-      "kind": "junction",
-      "name": "Main corridor",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-4",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.55,
-      "kind": "junction",
-      "name": "Main corridor",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-5",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.665,
-      "kind": "junction",
-      "name": "Corridor junction (lift block turning)",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-6",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.8,
-      "kind": "junction",
-      "name": "Main corridor",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-c-7",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.93,
-      "kind": "junction",
-      "name": "South corridor (east end)",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "f3-w-1",
       "floor": "opd-f3",
       "x": 0.115,
@@ -4902,14 +4830,16 @@ var SEED_BUILDING = {
     {
       "id": "r-320",
       "floor": "opd-f3",
-      "x": 0.42,
-      "y": 0.665,
+      "x": 0.4130348952569253,
+      "y": 0.6638710311727006,
       "kind": "room",
       "room": "327",
       "name": "Pediatric Surgery",
       "aliases": [],
       "landmark": "",
-      "shaft": ""
+      "shaft": "",
+      "w": 0.031069790513850726,
+      "h": 0.04274206234540112
     },
     {
       "id": "r-321",
@@ -5278,8 +5208,8 @@ var SEED_BUILDING = {
     {
       "id": "r-347",
       "floor": "opd-f3",
-      "x": 0.18744527190625782,
-      "y": 0.39034475868889285,
+      "x": 0.18668538210213248,
+      "y": 0.3952814147915035,
       "kind": "room",
       "name": "",
       "landmark": "",
@@ -5462,56 +5392,6 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "f3-door-301",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.2444990515600293,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-door-311",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.3912691281341762,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-door-316",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.5082542713579004,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-door-321",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.613346686829529,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-door-336",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.8262428986346895,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "f3-door-305",
       "floor": "opd-f3",
       "x": 0.12417169460698879,
@@ -5524,8 +5404,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-315",
       "floor": "opd-f3",
-      "x": 0.115,
-      "y": 0.39034475868889285,
+      "x": 0.1442539893295122,
+      "y": 0.4203444542391934,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5622,30 +5502,10 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "f3-x0-e",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.278,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "f3-x1-w",
       "floor": "opd-f3",
-      "x": 0.115,
-      "y": 0.355,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-x1-e",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.355,
+      "x": 0.14729334564592844,
+      "y": 0.3489241033085942,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5654,8 +5514,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-x2-w",
       "floor": "opd-f3",
-      "x": 0.115,
-      "y": 0.452,
+      "x": 0.14767326156226462,
+      "y": 0.4759238350740095,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5692,16 +5552,6 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "f3-x5-e",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.747,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "f3-x6-w",
       "floor": "opd-f3",
       "x": 0.115,
@@ -5712,20 +5562,10 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "f3-x6-e",
-      "floor": "opd-f3",
-      "x": 0.5,
-      "y": 0.864,
-      "kind": "junction",
-      "name": "",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "f3-door-314",
       "floor": "opd-f3",
-      "x": 0.2425492384577455,
-      "y": 0.355,
+      "x": 0.24234759583188228,
+      "y": 0.3497600807690267,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5734,8 +5574,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-308",
       "floor": "opd-f3",
-      "x": 0.29730000000000006,
-      "y": 0.355,
+      "x": 0.2954853394326114,
+      "y": 0.3497600807690267,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5744,8 +5584,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-307",
       "floor": "opd-f3",
-      "x": 0.3505833566158862,
-      "y": 0.355,
+      "x": 0.34856705342263433,
+      "y": 0.3499905375989392,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5755,7 +5595,7 @@ var SEED_BUILDING = {
       "id": "f3-door-319",
       "floor": "opd-f3",
       "x": 0.24,
-      "y": 0.55,
+      "y": 0.5432297634530008,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5764,8 +5604,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-318",
       "floor": "opd-f3",
-      "x": 0.2924,
-      "y": 0.55,
+      "x": 0.29332365923189446,
+      "y": 0.544768443972445,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5774,8 +5614,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-317",
       "floor": "opd-f3",
-      "x": 0.3439,
-      "y": 0.55,
+      "x": 0.3445157454166946,
+      "y": 0.5441529647210931,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5784,8 +5624,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-330",
       "floor": "opd-f3",
-      "x": 0.24029917847579607,
-      "y": 0.6690472855302474,
+      "x": 0.24347730029975162,
+      "y": 0.6722239056476008,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5794,8 +5634,8 @@ var SEED_BUILDING = {
     {
       "id": "f3-door-329",
       "floor": "opd-f3",
-      "x": 0.292186576375446,
-      "y": 0.6682386507577853,
+      "x": 0.29306938649647657,
+      "y": 0.6724741487356821,
       "kind": "junction",
       "name": "",
       "seed": true,
@@ -5819,6 +5659,249 @@ var SEED_BUILDING = {
       "kind": "junction",
       "name": "",
       "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "p-1",
+      "floor": "opd-f3",
+      "x": 0.4640615197907083,
+      "y": 0.1612704047454132,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-2",
+      "floor": "opd-f3",
+      "x": 0.43781217855783494,
+      "y": 0.9423637485831899,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-3",
+      "floor": "opd-f3",
+      "x": 0.4393993268158822,
+      "y": 0.8352800018548308,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-4",
+      "floor": "opd-f3",
+      "x": 0.43903422311501755,
+      "y": 0.7427657695553346,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-5",
+      "floor": "opd-f3",
+      "x": 0.43983565650911743,
+      "y": 0.6583083611102437,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-6",
+      "floor": "opd-f3",
+      "x": 0.4399667847429005,
+      "y": 0.5750366859689302,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-7",
+      "floor": "opd-f3",
+      "x": 0.4394422918158908,
+      "y": 0.5450080263207546,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-8",
+      "floor": "opd-f3",
+      "x": 0.44022903120640544,
+      "y": 0.524158680576574,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-9",
+      "floor": "opd-f3",
+      "x": 0.4389178188970038,
+      "y": 0.4436506230960275,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-10",
+      "floor": "opd-f3",
+      "x": 0.43839332596999403,
+      "y": 0.3508203767349746,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-11",
+      "floor": "opd-f3",
+      "x": 0.43760659658354073,
+      "y": 0.26519608431429126,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-12",
+      "floor": "opd-f3",
+      "x": 0.43786886305516814,
+      "y": 0.16068724249705085,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-13",
+      "floor": "opd-f3",
+      "x": 0.14585299414332292,
+      "y": 0.15858850060994986,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-14",
+      "floor": "opd-f3",
+      "x": 0.34969932497259765,
+      "y": 0.2644433193970282,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-15",
+      "floor": "opd-f3",
+      "x": 0.349439524403921,
+      "y": 0.23290748105591688,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-16",
+      "floor": "opd-f3",
+      "x": 0.24903154535194183,
+      "y": 0.23306154369416643,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-17",
+      "floor": "opd-f3",
+      "x": 0.24934506718236868,
+      "y": 0.28291541699380424,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-18",
+      "floor": "opd-f3",
+      "x": 0.34983187089734197,
+      "y": 0.2839157240303098,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-19",
+      "floor": "opd-f3",
+      "x": 0.34540757690270807,
+      "y": 0.44340847872457473,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-20",
+      "floor": "opd-f3",
+      "x": 0.3452051417382437,
+      "y": 0.47861616857395395,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-21",
+      "floor": "opd-f3",
+      "x": 0.24398603046954548,
+      "y": 0.4782131152567587,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-22",
+      "floor": "opd-f3",
+      "x": 0.2433787095313392,
+      "y": 0.4288414019135238,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-23",
+      "floor": "opd-f3",
+      "x": 0.34540762323714724,
+      "y": 0.4292460856526258,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-24",
+      "floor": "opd-f3",
+      "x": 0.34052755156983316,
+      "y": 0.6573703780931205,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-25",
+      "floor": "opd-f3",
+      "x": 0.33868026246808175,
+      "y": 0.6244423379297648,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-26",
+      "floor": "opd-f3",
+      "x": 0.24388450207202636,
+      "y": 0.6242011018027734,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-27",
+      "floor": "opd-f3",
+      "x": 0.33960908546860263,
+      "y": 0.6732489566419974,
+      "kind": "junction",
+      "name": "",
       "aliases": []
     }
   ],
@@ -6008,16 +6091,8 @@ var SEED_BUILDING = {
       "f3-stair-ne"
     ],
     [
-      "f3-c-ne",
-      "f3-c-1"
-    ],
-    [
       "f3-w-3",
       "f3-stair-sw"
-    ],
-    [
-      "f3-c-5",
-      "f3-elink"
     ],
     [
       "f3-elink",
@@ -6028,24 +6103,8 @@ var SEED_BUILDING = {
       "f3-stair-e"
     ],
     [
-      "f3-c-2",
-      "r-319"
-    ],
-    [
-      "f3-c-5",
-      "r-320"
-    ],
-    [
       "f3-door-304",
       "r-352"
-    ],
-    [
-      "f3-c-n",
-      "f3-door-304"
-    ],
-    [
-      "f3-door-304",
-      "f3-c-n2"
     ],
     [
       "f3-door-302",
@@ -6060,64 +6119,12 @@ var SEED_BUILDING = {
       "f3-c-ne"
     ],
     [
-      "f3-door-301",
-      "r-321"
-    ],
-    [
-      "f3-c-1",
-      "f3-door-301"
-    ],
-    [
-      "f3-door-311",
-      "r-351"
-    ],
-    [
-      "f3-door-311",
-      "f3-c-3"
-    ],
-    [
-      "f3-door-316",
-      "r-357"
-    ],
-    [
-      "f3-c-3",
-      "f3-door-316"
-    ],
-    [
-      "f3-door-316",
-      "f3-c-4"
-    ],
-    [
-      "f3-door-321",
-      "r-329"
-    ],
-    [
-      "f3-c-4",
-      "f3-door-321"
-    ],
-    [
-      "f3-door-321",
-      "f3-c-5"
-    ],
-    [
-      "f3-door-336",
-      "r-338"
-    ],
-    [
-      "f3-c-6",
-      "f3-door-336"
-    ],
-    [
       "f3-door-305",
       "r-354"
     ],
     [
       "f3-c-n",
       "f3-door-305"
-    ],
-    [
-      "f3-door-315",
-      "r-347"
     ],
     [
       "f3-door-320",
@@ -6172,16 +6179,8 @@ var SEED_BUILDING = {
       "f3-door-337"
     ],
     [
-      "f3-door-337",
-      "f3-c-7"
-    ],
-    [
       "f3-w-1",
       "r-322"
-    ],
-    [
-      "f3-c-6",
-      "r-335"
     ],
     [
       "f3-c-n2",
@@ -6196,18 +6195,6 @@ var SEED_BUILDING = {
       "f3-w-1"
     ],
     [
-      "f3-door-301",
-      "f3-x0-e"
-    ],
-    [
-      "f3-x0-e",
-      "f3-c-2"
-    ],
-    [
-      "f3-x0-w",
-      "f3-x0-e"
-    ],
-    [
       "f3-w-1",
       "f3-x1-w"
     ],
@@ -6216,24 +6203,12 @@ var SEED_BUILDING = {
       "f3-door-315"
     ],
     [
-      "f3-c-2",
-      "f3-x1-e"
-    ],
-    [
-      "f3-x1-e",
-      "f3-door-311"
-    ],
-    [
       "f3-door-315",
       "f3-x2-w"
     ],
     [
       "f3-x2-w",
       "f3-door-320"
-    ],
-    [
-      "f3-x2-w",
-      "f3-c-3"
     ],
     [
       "f3-door-320",
@@ -6260,32 +6235,12 @@ var SEED_BUILDING = {
       "f3-door-332"
     ],
     [
-      "f3-c-5",
-      "f3-x5-e"
-    ],
-    [
-      "f3-x5-e",
-      "f3-c-6"
-    ],
-    [
       "f3-door-332",
       "f3-x6-w"
     ],
     [
       "f3-x6-w",
       "f3-w-3"
-    ],
-    [
-      "f3-door-336",
-      "f3-x6-e"
-    ],
-    [
-      "f3-x6-e",
-      "f3-c-7"
-    ],
-    [
-      "f3-x6-w",
-      "f3-x6-e"
     ],
     [
       "f3-door-314",
@@ -6318,10 +6273,6 @@ var SEED_BUILDING = {
     [
       "f3-door-308",
       "f3-door-307"
-    ],
-    [
-      "f3-door-307",
-      "f3-x1-e"
     ],
     [
       "f3-door-319",
@@ -6360,10 +6311,6 @@ var SEED_BUILDING = {
       "f3-door-317"
     ],
     [
-      "f3-door-317",
-      "f3-c-4"
-    ],
-    [
       "f3-door-330",
       "r-331"
     ],
@@ -6378,10 +6325,6 @@ var SEED_BUILDING = {
     [
       "f3-door-330",
       "f3-door-329"
-    ],
-    [
-      "f3-door-329",
-      "f3-c-5"
     ],
     [
       "f3-door-333",
@@ -6404,8 +6347,132 @@ var SEED_BUILDING = {
       "f3-door-328"
     ],
     [
-      "f3-door-328",
-      "f3-x5-e"
+      "f3-c-n2",
+      "f3-c-ne"
+    ],
+    [
+      "p-2",
+      "p-3"
+    ],
+    [
+      "p-3",
+      "p-4"
+    ],
+    [
+      "p-4",
+      "p-5"
+    ],
+    [
+      "p-5",
+      "p-6"
+    ],
+    [
+      "p-6",
+      "p-7"
+    ],
+    [
+      "p-7",
+      "p-8"
+    ],
+    [
+      "p-8",
+      "p-9"
+    ],
+    [
+      "p-9",
+      "p-10"
+    ],
+    [
+      "p-10",
+      "p-11"
+    ],
+    [
+      "p-11",
+      "p-12"
+    ],
+    [
+      "p-12",
+      "p-13"
+    ],
+    [
+      "p-14",
+      "p-15"
+    ],
+    [
+      "p-15",
+      "p-16"
+    ],
+    [
+      "p-16",
+      "p-17"
+    ],
+    [
+      "p-17",
+      "p-18"
+    ],
+    [
+      "p-18",
+      "p-14"
+    ],
+    [
+      "p-14",
+      "p-11"
+    ],
+    [
+      "f3-door-307",
+      "p-10"
+    ],
+    [
+      "p-9",
+      "p-19"
+    ],
+    [
+      "p-19",
+      "p-20"
+    ],
+    [
+      "p-20",
+      "p-21"
+    ],
+    [
+      "p-21",
+      "p-22"
+    ],
+    [
+      "p-22",
+      "p-23"
+    ],
+    [
+      "p-23",
+      "p-19"
+    ],
+    [
+      "p-7",
+      "f3-door-317"
+    ],
+    [
+      "p-5",
+      "p-24"
+    ],
+    [
+      "p-24",
+      "p-25"
+    ],
+    [
+      "p-25",
+      "p-26"
+    ],
+    [
+      "p-26",
+      "f3-door-330"
+    ],
+    [
+      "f3-door-329",
+      "p-27"
+    ],
+    [
+      "p-27",
+      "p-24"
     ]
   ]
 };
