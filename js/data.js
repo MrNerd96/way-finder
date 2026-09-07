@@ -1,7 +1,12 @@
-/* Way Finder survey data, 2026-09-06 05:55.
+/* Way Finder survey data, 2026-09-07 05:40.
    Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
    each link is the perpendicular to the nearest corridor, a first
    approximation to be corrected on the floor with the Connect tool.
+   The OPD ground floor was added from its fire-evacuation board:
+   the lifts and staircases sit on the shafts the floors above
+   already use, and the corridors follow the escape routes printed
+   on the plan. Like every other seed here they are read off a
+   photograph rather than walked -- correct them on the floor.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -17,6 +22,16 @@ var SEED_BUILDING = {
       "plan": "assets/plans/ipd-g.jpg",
       "aspect": 1.147,
       "metresPerUnit": 95,
+      "calibrated": false
+    },
+    {
+      "id": "opd-g",
+      "block": "OPD",
+      "level": 0,
+      "label": "OPD · Ground",
+      "plan": "assets/plans/opd-g.jpg",
+      "aspect": 0.8836,
+      "metresPerUnit": 79,
       "calibrated": false
     },
     {
@@ -6619,6 +6634,393 @@ var SEED_BUILDING = {
       "name": "",
       "seed": true,
       "aliases": []
+    },
+    {
+      "id": "g-stair-nw",
+      "floor": "opd-g",
+      "x": 0.3,
+      "y": 0.068,
+      "kind": "stair",
+      "name": "North-west staircase",
+      "shaft": "opd-stair-nw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-stair-ne",
+      "floor": "opd-g",
+      "x": 0.659,
+      "y": 0.073,
+      "kind": "stair",
+      "name": "North-east staircase",
+      "shaft": "opd-stair-ne",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-stair-sw",
+      "floor": "opd-g",
+      "x": 0.313,
+      "y": 0.824,
+      "kind": "stair",
+      "name": "South-west staircase",
+      "shaft": "opd-stair-sw",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-stair-e",
+      "floor": "opd-g",
+      "x": 0.806,
+      "y": 0.303,
+      "kind": "stair",
+      "name": "East block staircase",
+      "shaft": "opd-stair-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-lift",
+      "floor": "opd-g",
+      "x": 0.797,
+      "y": 0.383,
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-entry-imaging",
+      "floor": "opd-g",
+      "x": 0.276,
+      "y": 0.7,
+      "kind": "entrance",
+      "name": "OPD imaging entrance",
+      "landmark": "The OPD imaging entrance, on the west side",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-entry-prc",
+      "floor": "opd-g",
+      "x": 0.726,
+      "y": 0.712,
+      "kind": "entrance",
+      "name": "PRC entrance",
+      "landmark": "The PRC entrance, on the east side",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-nw",
+      "floor": "opd-g",
+      "x": 0.3,
+      "y": 0.098,
+      "kind": "junction",
+      "name": "North corridor (west end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-n1",
+      "floor": "opd-g",
+      "x": 0.388,
+      "y": 0.098,
+      "kind": "junction",
+      "name": "North corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-n2",
+      "floor": "opd-g",
+      "x": 0.457,
+      "y": 0.098,
+      "kind": "junction",
+      "name": "North corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-ne",
+      "floor": "opd-g",
+      "x": 0.65,
+      "y": 0.098,
+      "kind": "junction",
+      "name": "North corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-1",
+      "floor": "opd-g",
+      "x": 0.457,
+      "y": 0.2,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-2",
+      "floor": "opd-g",
+      "x": 0.457,
+      "y": 0.33,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-3",
+      "floor": "opd-g",
+      "x": 0.457,
+      "y": 0.45,
+      "kind": "junction",
+      "name": "Main corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-4",
+      "floor": "opd-g",
+      "x": 0.457,
+      "y": 0.598,
+      "kind": "junction",
+      "name": "Main corridor (south end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-5",
+      "floor": "opd-g",
+      "x": 0.383,
+      "y": 0.598,
+      "kind": "junction",
+      "name": "Imaging corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-c-6",
+      "floor": "opd-g",
+      "x": 0.383,
+      "y": 0.7,
+      "kind": "junction",
+      "name": "Entrance corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-0",
+      "floor": "opd-g",
+      "x": 0.258,
+      "y": 0.135,
+      "kind": "junction",
+      "name": "Oncology corridor (north end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-1",
+      "floor": "opd-g",
+      "x": 0.215,
+      "y": 0.2,
+      "kind": "junction",
+      "name": "Oncology corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-2",
+      "floor": "opd-g",
+      "x": 0.215,
+      "y": 0.33,
+      "kind": "junction",
+      "name": "Oncology corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-3",
+      "floor": "opd-g",
+      "x": 0.215,
+      "y": 0.47,
+      "kind": "junction",
+      "name": "Oncology corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-4",
+      "floor": "opd-g",
+      "x": 0.215,
+      "y": 0.61,
+      "kind": "junction",
+      "name": "Oncology corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-w-5",
+      "floor": "opd-g",
+      "x": 0.215,
+      "y": 0.69,
+      "kind": "junction",
+      "name": "Oncology corridor (south end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-e-1",
+      "floor": "opd-g",
+      "x": 0.32,
+      "y": 0.7,
+      "kind": "junction",
+      "name": "Entrance corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-e-2",
+      "floor": "opd-g",
+      "x": 0.52,
+      "y": 0.7,
+      "kind": "junction",
+      "name": "Entrance corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-e-3",
+      "floor": "opd-g",
+      "x": 0.64,
+      "y": 0.7,
+      "kind": "junction",
+      "name": "Entrance corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-e-4",
+      "floor": "opd-g",
+      "x": 0.695,
+      "y": 0.697,
+      "kind": "junction",
+      "name": "Entrance corridor (east end)",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-s-1",
+      "floor": "opd-g",
+      "x": 0.32,
+      "y": 0.762,
+      "kind": "junction",
+      "name": "South corridor",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-k-1",
+      "floor": "opd-g",
+      "x": 0.722,
+      "y": 0.62,
+      "kind": "junction",
+      "name": "Walkway to the east block",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-l-outdoor",
+      "floor": "opd-g",
+      "x": 0.745,
+      "y": 0.378,
+      "kind": "landmark",
+      "name": "Outdoor waiting",
+      "landmark": "The outdoor waiting area beside the lift lobby",
+      "canStart": true,
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-cancer",
+      "floor": "opd-g",
+      "x": 0.318,
+      "y": 0.156,
+      "kind": "room",
+      "name": "Cancer waiting",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-tumor",
+      "floor": "opd-g",
+      "x": 0.3,
+      "y": 0.202,
+      "kind": "room",
+      "name": "Tumor registration",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-radonc",
+      "floor": "opd-g",
+      "x": 0.195,
+      "y": 0.28,
+      "kind": "room",
+      "name": "Radiation oncology",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-us",
+      "floor": "opd-g",
+      "x": 0.412,
+      "y": 0.572,
+      "kind": "room",
+      "name": "Ultrasound",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-imgwait",
+      "floor": "opd-g",
+      "x": 0.418,
+      "y": 0.648,
+      "kind": "room",
+      "name": "Imaging waiting",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-toilet",
+      "floor": "opd-g",
+      "x": 0.49,
+      "y": 0.752,
+      "kind": "toilet",
+      "name": "Toilet",
+      "seed": true,
+      "aliases": []
+    },
+    {
+      "id": "g-r-security",
+      "floor": "opd-g",
+      "x": 0.765,
+      "y": 0.225,
+      "kind": "counter",
+      "name": "Security",
+      "seed": true,
+      "aliases": []
     }
   ],
   "edges": [
@@ -7825,6 +8227,154 @@ var SEED_BUILDING = {
     [
       "p-3",
       "r-338"
+    ],
+    [
+      "g-stair-nw",
+      "g-c-nw"
+    ],
+    [
+      "g-c-nw",
+      "g-c-n1"
+    ],
+    [
+      "g-c-n1",
+      "g-c-n2"
+    ],
+    [
+      "g-c-n2",
+      "g-c-ne"
+    ],
+    [
+      "g-c-ne",
+      "g-stair-ne"
+    ],
+    [
+      "g-c-n2",
+      "g-c-1"
+    ],
+    [
+      "g-c-1",
+      "g-c-2"
+    ],
+    [
+      "g-c-2",
+      "g-c-3"
+    ],
+    [
+      "g-c-3",
+      "g-c-4"
+    ],
+    [
+      "g-c-4",
+      "g-c-5"
+    ],
+    [
+      "g-c-5",
+      "g-c-6"
+    ],
+    [
+      "g-c-nw",
+      "g-w-0"
+    ],
+    [
+      "g-w-0",
+      "g-w-1"
+    ],
+    [
+      "g-w-1",
+      "g-w-2"
+    ],
+    [
+      "g-w-2",
+      "g-w-3"
+    ],
+    [
+      "g-w-3",
+      "g-w-4"
+    ],
+    [
+      "g-w-4",
+      "g-w-5"
+    ],
+    [
+      "g-w-5",
+      "g-entry-imaging"
+    ],
+    [
+      "g-entry-imaging",
+      "g-e-1"
+    ],
+    [
+      "g-e-1",
+      "g-c-6"
+    ],
+    [
+      "g-c-6",
+      "g-e-2"
+    ],
+    [
+      "g-e-2",
+      "g-e-3"
+    ],
+    [
+      "g-e-3",
+      "g-e-4"
+    ],
+    [
+      "g-e-4",
+      "g-entry-prc"
+    ],
+    [
+      "g-e-1",
+      "g-s-1"
+    ],
+    [
+      "g-s-1",
+      "g-stair-sw"
+    ],
+    [
+      "g-entry-prc",
+      "g-k-1"
+    ],
+    [
+      "g-k-1",
+      "g-l-outdoor"
+    ],
+    [
+      "g-l-outdoor",
+      "g-lift"
+    ],
+    [
+      "g-lift",
+      "g-stair-e"
+    ],
+    [
+      "g-r-cancer",
+      "g-c-nw"
+    ],
+    [
+      "g-r-tumor",
+      "g-w-0"
+    ],
+    [
+      "g-r-radonc",
+      "g-w-2"
+    ],
+    [
+      "g-r-us",
+      "g-c-4"
+    ],
+    [
+      "g-r-imgwait",
+      "g-c-5"
+    ],
+    [
+      "g-r-toilet",
+      "g-e-2"
+    ],
+    [
+      "g-r-security",
+      "g-stair-e"
     ]
   ]
 };

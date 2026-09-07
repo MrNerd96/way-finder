@@ -19,10 +19,14 @@ import sys
 import cv2
 import numpy as np
 
+# opd-f3 shares opd-f2's photograph, so it is listed with the same plan and
+# comes out with the same rectangles; the app still needs it under its own key.
 PLANS = [
     ("ipd-g", "assets/plans/ipd-g.jpg"),
+    ("opd-g", "assets/plans/opd-g.jpg"),
     ("opd-f1", "assets/plans/opd-f1.jpg"),
     ("opd-f2", "assets/plans/opd-f2.jpg"),
+    ("opd-f3", "assets/plans/opd-f3.jpg"),
     ("opd-f4", "assets/plans/opd-f4.jpg"),
 ]
 

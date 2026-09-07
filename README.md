@@ -249,6 +249,15 @@ Add your photo to the `BOARDS` list at the top of that file. If the board is
 badly tilted and the colour detection clips it, pass the four corners by hand —
 `opd-f4.jpg` is there as a worked example.
 
+A photo taken close up has no corners to find, because the board runs off the
+edge of the frame. Give that one `{"rectify": "lines"}` instead: the walls on
+these plans run in two families at right angles to each other, and where each
+family vanishes to is enough to work out how the board was tilted and undo it —
+proportions included, so the drawing does not come out stretched one way.
+`opd-g.jpg` is the worked example. Such a photo is usually already cropped past
+the title band, so it also takes a `title` fraction saying how much of the top
+to ignore when hunting for the drawing.
+
 For a quick add while walking, the **Add floor** button in Survey mode takes a
 photo straight from the phone camera. It does not correct perspective, so
 redo it with the script later.
@@ -267,8 +276,8 @@ kept or thrown away on size, on how squarely they fill their bounding box, and
 on whether they sit on the solid red the boards use for staircases and lift
 cores.
 
-Current yield: **95 candidates on IPD Ground, 74 on OPD 1st, 69 on OPD 2nd, 74
-on OPD 4th.**
+Current yield: **95 candidates on IPD Ground, 75 on OPD Ground, 74 on OPD 1st,
+69 on OPD 2nd and 3rd, 74 on OPD 4th.**
 
 These are candidates, not data. On the OPD floors, where rooms are drawn as
 clean empty rectangles, most are real. On IPD Ground the wards are drawn with
@@ -284,8 +293,14 @@ see what it matched.
 * **The seeded points are eyeballed.** Every pre-loaded corridor and lift was
   placed by reading the photographed fire plans, not by visiting the building.
   Correct or delete them.
-* **No OPD Ground or 3rd floor.** Those boards were not photographed. OPD Ground
-  matters most — it is where patients come in.
+* **No OPD 3rd floor board.** It was not photographed, so that floor is drawn
+  on the 2nd floor's plan. The rooms are in roughly the right places; the plan
+  underneath them is not the right drawing.
+* **The OPD ground floor is a seed, not a survey.** Its corridors are the
+  escape routes printed on the board, its lifts and staircases are on the
+  shafts the floors above already use, and the departments on it are the
+  labels the plan happens to carry — no room numbers, no landmarks. It is
+  where patients come in, so it is the floor most worth walking first.
 * **OPD and IPD are not connected** to each other, because the ground-floor link
   between them is not mapped.
 * **No live position.** The app never knows where you are; it asks. A link that
@@ -312,9 +327,12 @@ see what it matched.
 
 ## Worth doing next
 
-1. Photograph the missing floor plans, starting with OPD Ground.
-2. Survey one floor completely and test it on real patients — especially elderly
-   and low-literacy ones. That will change the design more than anything else.
-3. Replace the seeded corridors with traced ones.
+1. Survey the OPD ground floor completely — number its rooms, trace its
+   corridors over the seeded ones, write its landmarks — and test it on real
+   patients, especially elderly and low-literacy ones. It is the floor they
+   arrive on, and that will change the design more than anything else.
+2. Photograph the OPD 3rd floor board, which is still standing in for itself
+   with the 2nd floor's plan.
+3. Replace the seeded corridors on the floors above with traced ones.
 4. Take a photo of each lift lobby and junction and show it on the step card. A
    photograph of the actual place beats any map for someone who cannot read.
