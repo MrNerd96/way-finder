@@ -115,15 +115,17 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .routeLine.active { opacity: 1; }
 .node { fill: #fff; stroke: var(--green); }
 .node.room { fill: #fff; stroke: #1c7ed6; }
-.node.lift { fill: #fff3bf; stroke: #b54708; }
 .node.stair { fill: #ffe8cc; stroke: #b54708; }
 .node.entrance { fill: #d3f9d8; stroke: #2f9e44; }
 .node.junction { fill: #eef2f0; stroke: #94a3a0; }
 .node.sel { stroke: var(--route); }
 
 /* Rooms are footprints, not dots: a translucent box over the plan so you can
-   see the room underneath while you size it. */
+   see the room underneath while you size it. Lifts are drawn the same way, in
+   violet, because a lift shaft is a room-sized thing on the plan too -- and in
+   a lobby full of corridor dots it is the one a patient has to pick out. */
 .roomBox { fill: rgba(28,126,214,.16); stroke: #1c7ed6; }
+.roomBox.lift { fill: rgba(103,65,217,.20); stroke: #6741d9; }
 .roomBox.sel { fill: rgba(232,89,12,.18); stroke: var(--route); }
 .handle { fill: #fff; stroke: var(--route); }
 .rubber { fill: rgba(232,89,12,.16); stroke: var(--route); }
