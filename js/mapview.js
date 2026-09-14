@@ -29,7 +29,11 @@ var MapView = (function () {
   var DEFAULT_ROOM_SIDE = 0.045;
   var MIN_ROOM_SIDE = 0.012;
 
-  function hasBox(n) { return n.kind === 'room'; }
+  /* Lifts get a box for the same reasons rooms do, and one of their own: a
+     lift shaft is a room-sized thing drawn on the plan, and the lobby around
+     it is where the corridor points crowd together. A dot there is one more
+     dot; a box sits on the shaft itself and can be dragged onto it. */
+  function hasBox(n) { return n.kind === 'room' || n.kind === 'lift'; }
 
   /* Label sizing. The white halo behind a label is a stroke centred on the
      glyph, so half of it eats into the letter itself: much past 0.16em and a
@@ -253,7 +257,7 @@ var MapView = (function () {
       if (hasBox(n)) {
         var b = boxOf(n);
         layers.nodes.appendChild(el('rect', {
-          class: 'roomBox' + (picked ? ' sel' : ''),
+          class: 'roomBox ' + n.kind + (picked ? ' sel' : ''),
           x: b.x, y: b.y, width: b.w, height: b.h,
           rx: px(3), 'stroke-width': picked ? selW : sw
         }));
