@@ -29,11 +29,13 @@ var MapView = (function () {
   var DEFAULT_ROOM_SIDE = 0.045;
   var MIN_ROOM_SIDE = 0.012;
 
-  /* Lifts get a box for the same reasons rooms do, and one of their own: a
-     lift shaft is a room-sized thing drawn on the plan, and the lobby around
-     it is where the corridor points crowd together. A dot there is one more
-     dot; a box sits on the shaft itself and can be dragged onto it. */
-  function hasBox(n) { return n.kind === 'room' || n.kind === 'lift'; }
+  /* Lifts and staircases get a box for the same reasons rooms do, and one of
+     their own: a shaft is a room-sized thing drawn on the plan, and the lobby
+     around it is where the corridor points crowd together. A dot there is one
+     more dot; a box sits on the shaft itself and can be dragged onto it. */
+  var BOXED = { room: true, lift: true, stair: true };
+
+  function hasBox(n) { return BOXED[n.kind] === true; }
 
   /* Label sizing. The white halo behind a label is a stroke centred on the
      glyph, so half of it eats into the letter itself: much past 0.16em and a
