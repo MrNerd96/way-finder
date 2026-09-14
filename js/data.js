@@ -901,11 +901,12 @@ var SEED_BUILDING = {
       "w": 0.0214,
       "h": 0.0255,
       "kind": "lift",
-      "name": "",
+      "name": "Lift lobby (east block)",
       "aliases": [],
       "room": "",
-      "landmark": "",
-      "shaft": ""
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "r-40",
@@ -3105,11 +3106,12 @@ var SEED_BUILDING = {
       "w": 0.0249,
       "h": 0.0307,
       "kind": "lift",
-      "name": "",
+      "name": "Lift lobby (east block)",
       "aliases": [],
       "room": "",
-      "landmark": "",
-      "shaft": ""
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "r-206",
@@ -8013,11 +8015,13 @@ var SEED_BUILDING = {
       "x": 0.6972400027681569,
       "y": 0.4988779963164477,
       "kind": "lift",
-      "name": "",
-      "landmark": "",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
       "aliases": [],
       "w": 0.02534711055688521,
-      "h": 0.03142498086394485
+      "h": 0.03142498086394485,
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "p-114",
@@ -8073,11 +8077,13 @@ var SEED_BUILDING = {
       "x": 0.8042506450317642,
       "y": 0.34646542821502235,
       "kind": "lift",
-      "name": "",
-      "landmark": "",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
       "aliases": [],
       "w": 0.0206,
-      "h": 0.0253
+      "h": 0.0253,
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "p-124",
@@ -9420,6 +9426,38 @@ var SEED_BUILDING = {
     [
       "g-r-security",
       "g-stair-e"
+    ],
+    [
+      "r-39",
+      "f1-stair-e"
+    ],
+    [
+      "r-39",
+      "f1-link"
+    ],
+    [
+      "r-205",
+      "f2-stair-e"
+    ],
+    [
+      "r-205",
+      "p-64"
+    ],
+    [
+      "p-119",
+      "f3-stair-e"
+    ],
+    [
+      "p-119",
+      "f3-elink"
+    ],
+    [
+      "p-123",
+      "g-stair-e"
+    ],
+    [
+      "p-123",
+      "g-l-outdoor"
     ]
   ]
 };
