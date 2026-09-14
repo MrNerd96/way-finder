@@ -1,16 +1,16 @@
-/* Way Finder survey data, 2026-09-14 06:50.
-   Changes applied by tools/apply_changes.js. Every lift shaft on the OPD
-   floors is now drawn as its own box over the shaft on the plan -- sixty of
-   them, the individual cars rather than one dot for the lobby -- and the four
-   seeded lobby points they replace are gone.
+/* Way Finder survey data, 2026-09-14 12:39.
+   Changes applied by tools/apply_changes.js, from the walk that followed the
+   staircases becoming boxes: every named staircase dragged onto its own
+   footprint, the second east-block staircase drawn on all four OPD floors,
+   the wash rooms named, and the 4th floor's corridors traced -- its first
+   graph, twenty-one points and thirty-eight links.
 
-   None of those boxes carries a name or a shaft id yet, and none is joined to
-   a corridor, so two things follow until they are: `opd-lift-east` no longer
-   exists, so every route between floors is sent up the stairs; and because a
-   lift counts as a place a patient can be standing whether or not it has a
-   name, the "where are you now?" list opens with sixty blank rows. Naming one
-   car per bank, giving it the shaft id, and joining it to the lobby is what
-   closes both.
+   Two things that graph does not close yet. The 4th floor has no lift or
+   staircase carrying a shaft id, so nothing can route on or off it and it
+   stays hidden. And the new east-block staircases have neither a shaft nor a
+   corridor to join, so each floor now offers two places called "East block
+   staircase" of which one goes nowhere; giving them a shaft of their own and
+   joining them to the lobby is what separates them.
 
    Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
    each link is the perpendicular to the nearest corridor, a first
@@ -92,50 +92,58 @@ var SEED_BUILDING = {
     {
       "id": "f1-stair-nw",
       "floor": "opd-f1",
-      "x": 0.31,
-      "y": 0.055,
+      "x": 0.31127127749127304,
+      "y": 0.06460336960456832,
       "kind": "stair",
       "name": "North-west staircase",
       "shaft": "opd-stair-nw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.05210361840681438,
+      "h": 0.05829316278083102
     },
     {
       "id": "f1-stair-ne",
       "floor": "opd-f1",
-      "x": 0.68,
-      "y": 0.055,
+      "x": 0.6816090240953411,
+      "y": 0.06303717357053591,
       "kind": "stair",
       "name": "North-east staircase",
       "shaft": "opd-stair-ne",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.05421718689959909,
+      "h": 0.05925240089961162
     },
     {
       "id": "f1-stair-sw",
       "floor": "opd-f1",
-      "x": 0.32,
-      "y": 0.83,
+      "x": 0.32855819114172746,
+      "y": 0.848368969762465,
       "kind": "stair",
       "name": "South-west staircase",
       "shaft": "opd-stair-sw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.05926972520537477,
+      "h": 0.058974290610689484
     },
     {
       "id": "f1-stair-e",
       "floor": "opd-f1",
-      "x": 0.845,
-      "y": 0.285,
+      "x": 0.8435839407358023,
+      "y": 0.28871674860112045,
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.06140037114911967,
+      "h": 0.052433497202241
     },
     {
       "id": "f1-c-n",
@@ -220,50 +228,58 @@ var SEED_BUILDING = {
     {
       "id": "f2-stair-nw",
       "floor": "opd-f2",
-      "x": 0.09,
-      "y": 0.065,
+      "x": 0.09102638409684108,
+      "y": 0.07816679125649958,
       "kind": "stair",
       "name": "North-west staircase",
       "shaft": "opd-stair-nw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.06888589335968406,
+      "h": 0.06870716564968415
     },
     {
       "id": "f2-stair-ne",
       "floor": "opd-f2",
-      "x": 0.53,
-      "y": 0.065,
+      "x": 0.5404529377419165,
+      "y": 0.07932618759196715,
       "kind": "stair",
       "name": "North-east staircase",
       "shaft": "opd-stair-ne",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.0687579016902572,
+      "h": 0.07486076906232156
     },
     {
       "id": "f2-stair-sw",
       "floor": "opd-f2",
-      "x": 0.105,
-      "y": 0.985,
+      "x": 0.11419531407025764,
+      "y": 1.000885909806164,
       "kind": "stair",
       "name": "South-west staircase",
       "shaft": "opd-stair-sw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.07503547568073884,
+      "h": 0.06513189411689946
     },
     {
       "id": "f2-stair-e",
       "floor": "opd-f2",
-      "x": 0.735,
-      "y": 0.33,
+      "x": 0.7334746243219921,
+      "y": 0.3525985855989221,
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.07367960398153639,
+      "h": 0.05906759173250964
     },
     {
       "id": "f2-c-n2",
@@ -1376,16 +1392,17 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-74",
-      "floor": "opd-f1",
-      "x": 0.3725,
-      "y": 0.8642,
-      "w": 0.0269,
-      "h": 0.0248,
-      "kind": "room",
+      "floor": "opd-f4",
+      "x": 0.12229728949170583,
+      "y": 0.08748052768544745,
+      "kind": "stair",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.07638787089435847,
+      "h": 0.0722441467059362,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-75",
@@ -2978,16 +2995,17 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-196",
-      "floor": "opd-f2",
-      "x": 0.1013,
-      "y": 0.3949,
-      "w": 0.0515,
-      "h": 0.054,
+      "floor": "opd-f3",
+      "x": 0.10173225705328152,
+      "y": 0.37311452376097703,
       "kind": "room",
-      "name": "",
+      "name": "Staff Wash Room Male",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.05605830378798901,
+      "h": 0.09924199704793824,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-197",
@@ -3061,15 +3079,16 @@ var SEED_BUILDING = {
     {
       "id": "r-202",
       "floor": "opd-f2",
-      "x": 0.1017,
-      "y": 0.4522,
-      "w": 0.0523,
-      "h": 0.0523,
+      "x": 0.10207423744336103,
+      "y": 0.6352244740279828,
+      "w": 0.05304847488672204,
+      "h": 0.08222672900871153,
       "kind": "room",
-      "name": "",
+      "name": "Staff Wash Room Female",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-203",
@@ -3631,19 +3650,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-246",
-      "floor": "opd-f4",
-      "x": 0.6054,
-      "y": 0.2167,
-      "w": 0.0883,
-      "h": 0.0892,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-247",
       "floor": "opd-f4",
       "x": 0.4117,
@@ -3724,10 +3730,10 @@ var SEED_BUILDING = {
     {
       "id": "r-255",
       "floor": "opd-f4",
-      "x": 0.2293,
-      "y": 0.3347,
-      "w": 0.0333,
-      "h": 0.0568,
+      "x": 0.225827436551218,
+      "y": 0.33771761195746874,
+      "w": 0.04024512689756399,
+      "h": 0.06283522391493745,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -3870,15 +3876,16 @@ var SEED_BUILDING = {
     {
       "id": "r-269",
       "floor": "opd-f4",
-      "x": 0.1365,
-      "y": 0.4257,
-      "w": 0.0586,
-      "h": 0.0586,
+      "x": 0.13771943956030624,
+      "y": 0.39114505430011076,
+      "w": 0.0598599758755296,
+      "h": 0.08729920259219892,
       "kind": "room",
-      "name": "",
+      "name": "Staff Wash Room Male",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-270",
@@ -4016,15 +4023,16 @@ var SEED_BUILDING = {
     {
       "id": "r-281",
       "floor": "opd-f4",
-      "x": 0.1423,
-      "y": 0.5829,
-      "w": 0.0685,
-      "h": 0.1081,
+      "x": 0.13835137289531452,
+      "y": 0.694387789613869,
+      "w": 0.06649735196059506,
+      "h": 0.10666792215190479,
       "kind": "room",
-      "name": "",
+      "name": "Staff Wash Room Female",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-282",
@@ -4423,13 +4431,13 @@ var SEED_BUILDING = {
     {
       "id": "r-299",
       "floor": "opd-f1",
-      "x": 0.3222412733584395,
-      "y": 0.5259165288089351,
+      "x": 0.3172978559264047,
+      "y": 0.5330899504575041,
       "kind": "room",
       "name": "Wash room female",
       "aliases": [],
-      "w": 0.043429403165912706,
-      "h": 0.05728338180994308,
+      "w": 0.04276460736240845,
+      "h": 0.07027821103654364,
       "room": "",
       "landmark": "",
       "shaft": ""
@@ -4437,13 +4445,13 @@ var SEED_BUILDING = {
     {
       "id": "r-313",
       "floor": "opd-f1",
-      "x": 0.3207144627789601,
-      "y": 0.300295420281886,
+      "x": 0.3162236158259703,
+      "y": 0.30083198321602755,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "w": 0.056661780917876825,
-      "h": 0.05965605378820216,
+      "w": 0.0476800870118973,
+      "h": 0.06643795788617796,
       "room": "Wash Room Male",
       "landmark": "",
       "shaft": ""
@@ -4521,50 +4529,58 @@ var SEED_BUILDING = {
     {
       "id": "f3-stair-nw",
       "floor": "opd-f3",
-      "x": 0.09,
-      "y": 0.065,
+      "x": 0.09100491854692078,
+      "y": 0.07807427095915284,
       "kind": "stair",
       "name": "North-west staircase",
       "shaft": "opd-stair-nw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.06900240821426212,
+      "h": 0.07174267530555478
     },
     {
       "id": "f3-stair-ne",
       "floor": "opd-f3",
-      "x": 0.53,
-      "y": 0.065,
+      "x": 0.5407380950505697,
+      "y": 0.07955673785185277,
       "kind": "stair",
       "name": "North-east staircase",
       "shaft": "opd-stair-ne",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.06647619010113925,
+      "h": 0.07411347570370552
     },
     {
       "id": "f3-stair-sw",
       "floor": "opd-f3",
-      "x": 0.105,
-      "y": 0.985,
+      "x": 0.11328743055732089,
+      "y": 0.999985736910812,
       "kind": "stair",
       "name": "South-west staircase",
       "shaft": "opd-stair-sw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.07710910834490756,
+      "h": 0.06484473864060136
     },
     {
       "id": "f3-stair-e",
       "floor": "opd-f3",
-      "x": 0.735,
-      "y": 0.33,
+      "x": 0.7329459097454408,
+      "y": 0.3516733574442915,
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.07336109286458492,
+      "h": 0.062031423662107066
     },
     {
       "id": "f3-c-n",
@@ -6516,50 +6532,58 @@ var SEED_BUILDING = {
     {
       "id": "g-stair-nw",
       "floor": "opd-g",
-      "x": 0.3,
-      "y": 0.068,
+      "x": 0.3054656597086152,
+      "y": 0.07348354274320604,
       "kind": "stair",
       "name": "North-west staircase",
       "shaft": "opd-stair-nw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.052036167959140456,
+      "h": 0.05957180207650439
     },
     {
       "id": "g-stair-ne",
       "floor": "opd-g",
-      "x": 0.659,
-      "y": 0.073,
+      "x": 0.656271854760772,
+      "y": 0.07470648852219688,
       "kind": "stair",
       "name": "North-east staircase",
       "shaft": "opd-stair-ne",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.053724792212742956,
+      "h": 0.06134899327280424
     },
     {
       "id": "g-stair-sw",
       "floor": "opd-g",
-      "x": 0.313,
-      "y": 0.824,
+      "x": 0.3156505917736585,
+      "y": 0.8250030406138547,
       "kind": "stair",
       "name": "South-west staircase",
       "shaft": "opd-stair-sw",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.0489280053549066,
+      "h": 0.0548772413928893
     },
     {
       "id": "g-stair-e",
       "floor": "opd-g",
-      "x": 0.806,
-      "y": 0.303,
+      "x": 0.8106795161546656,
+      "y": 0.30388791075480687,
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
       "canStart": true,
       "seed": true,
-      "aliases": []
+      "aliases": [],
+      "w": 0.05913855059653084,
+      "h": 0.051459608975814364
     },
     {
       "id": "g-entry-imaging",
@@ -6858,26 +6882,6 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "g-r-toilet",
-      "floor": "opd-g",
-      "x": 0.49,
-      "y": 0.752,
-      "kind": "toilet",
-      "name": "Toilet",
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "g-r-security",
-      "floor": "opd-g",
-      "x": 0.765,
-      "y": 0.225,
-      "kind": "counter",
-      "name": "Security",
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "r-359",
       "floor": "opd-g",
       "x": 0.5868,
@@ -6919,19 +6923,6 @@ var SEED_BUILDING = {
       "shaft": ""
     },
     {
-      "id": "r-365",
-      "floor": "opd-g",
-      "x": 0.3052,
-      "y": 0.1164,
-      "w": 0.0638,
-      "h": 0.0253,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-366",
       "floor": "opd-g",
       "x": 0.4927,
@@ -6952,19 +6943,6 @@ var SEED_BUILDING = {
       "y": 0.1592,
       "w": 0.0399,
       "h": 0.0512,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-369",
-      "floor": "opd-g",
-      "x": 0.8793,
-      "y": 0.1742,
-      "w": 0.0206,
-      "h": 0.0239,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7006,19 +6984,6 @@ var SEED_BUILDING = {
       "y": 0.1965,
       "w": 0.0332,
       "h": 0.0259,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-373",
-      "floor": "opd-g",
-      "x": 0.8527,
-      "y": 0.1988,
-      "w": 0.0233,
-      "h": 0.0226,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7108,10 +7073,10 @@ var SEED_BUILDING = {
     {
       "id": "r-380",
       "floor": "opd-g",
-      "x": 0.8128,
-      "y": 0.2437,
-      "w": 0.0273,
-      "h": 0.0618,
+      "x": 0.7930071983996756,
+      "y": 0.24449513658568187,
+      "w": 0.06937231412679856,
+      "h": 0.06108272455866498,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7205,19 +7170,6 @@ var SEED_BUILDING = {
       "y": 0.3029,
       "w": 0.0751,
       "h": 0.0818,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-388",
-      "floor": "opd-g",
-      "x": 0.767,
-      "y": 0.3035,
-      "w": 0.0299,
-      "h": 0.0512,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7557,19 +7509,6 @@ var SEED_BUILDING = {
       "y": 0.4581,
       "w": 0.0219,
       "h": 0.0332,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-415",
-      "floor": "opd-g",
-      "x": 0.766,
-      "y": 0.4668,
-      "w": 0.0293,
-      "h": 0.0492,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -8108,6 +8047,347 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.0206,
       "h": 0.0253
+    },
+    {
+      "id": "p-126",
+      "floor": "opd-g",
+      "x": 0.8095237450181119,
+      "y": 0.4666675700147997,
+      "kind": "stair",
+      "name": "East block staircase",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05913855059653084,
+      "h": 0.051459608975814364,
+      "canStart": true
+    },
+    {
+      "id": "p-127",
+      "floor": "opd-f1",
+      "x": 0.844324242174665,
+      "y": 0.45795815245964855,
+      "kind": "stair",
+      "name": "East block staircase",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.06264677264359397,
+      "h": 0.050638246994322345,
+      "canStart": true
+    },
+    {
+      "id": "p-128",
+      "floor": "opd-f2",
+      "x": 0.7329003997258093,
+      "y": 0.5500263827297432,
+      "kind": "stair",
+      "name": "East block staircase",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.07019142692222347,
+      "h": 0.05912002506988889,
+      "canStart": true
+    },
+    {
+      "id": "p-129",
+      "floor": "opd-f3",
+      "x": 0.733946606433451,
+      "y": 0.5523592218854729,
+      "kind": "stair",
+      "name": "East block staircase",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.07336109286458492,
+      "h": 0.062031423662107066,
+      "canStart": true
+    },
+    {
+      "id": "r-224",
+      "floor": "opd-f4",
+      "x": 0.22924029081170905,
+      "y": 0.1271266847163276,
+      "kind": "room",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-130",
+      "floor": "opd-f4",
+      "x": 0.6094168527458869,
+      "y": 0.08278455244724212,
+      "kind": "stair",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.06992426836960797,
+      "h": 0.072244141104524,
+      "room": "",
+      "shaft": ""
+    },
+    {
+      "id": "p-131",
+      "floor": "opd-f4",
+      "x": 0.8099802826622353,
+      "y": 0.3687319302599115,
+      "kind": "stair",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0721790638112424,
+      "h": 0.06491414599799228
+    },
+    {
+      "id": "p-132",
+      "floor": "opd-f4",
+      "x": 0.8140402086483388,
+      "y": 0.5809205706624387,
+      "kind": "stair",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0721790638112424,
+      "h": 0.06491414599799228
+    },
+    {
+      "id": "r-245",
+      "floor": "opd-g",
+      "x": 0.478047293647953,
+      "y": 0.7535342966463283,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.08236418455328953,
+      "h": 0.08094178331192803,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-249",
+      "floor": "opd-g",
+      "x": 0.6403173332772591,
+      "y": 0.7568410405147754,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.07987729432791879,
+      "h": 0.0854047436987021
+    },
+    {
+      "id": "r-254",
+      "floor": "opd-f2",
+      "x": 0.10030848431360377,
+      "y": 0.37263239356234457,
+      "kind": "room",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05768686430871792,
+      "h": 0.09944708934171981,
+      "room": "Staff Wash Room Male",
+      "shaft": ""
+    },
+    {
+      "id": "r-261",
+      "floor": "opd-f3",
+      "x": 0.10233099310284562,
+      "y": 0.6356647735805456,
+      "kind": "room",
+      "name": "Staff Wash Room Female",
+      "aliases": [],
+      "w": 0.05523842369648421,
+      "h": 0.08512321541777845,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "p-133",
+      "floor": "opd-f4",
+      "x": 0.559301309097733,
+      "y": 0.6094469021359802,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-134",
+      "floor": "opd-f4",
+      "x": 0.5613591780725378,
+      "y": 0.7904586690195694,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-135",
+      "floor": "opd-f4",
+      "x": 0.5660660865206701,
+      "y": 1.0237925827519156,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-136",
+      "floor": "opd-f4",
+      "x": 0.19008181156890414,
+      "y": 1.034538172543709,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-137",
+      "floor": "opd-f4",
+      "x": 0.18990032877404783,
+      "y": 0.7971740346893716,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-138",
+      "floor": "opd-f4",
+      "x": 0.18914953596703576,
+      "y": 0.5846855320097124,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-139",
+      "floor": "opd-f4",
+      "x": 0.18708654513609424,
+      "y": 0.3818563692662334,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-140",
+      "floor": "opd-f4",
+      "x": 0.5570505031054795,
+      "y": 0.3784090319340586,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-141",
+      "floor": "opd-f4",
+      "x": 0.5591135201687728,
+      "y": 0.5788184616017942,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-142",
+      "floor": "opd-f4",
+      "x": 0.5603692223293244,
+      "y": 0.1738678207389155,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-143",
+      "floor": "opd-f4",
+      "x": 0.1860734535793384,
+      "y": 0.1732302694709773,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-144",
+      "floor": "opd-f4",
+      "x": 0.24368942017676712,
+      "y": 0.38149543567960764,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-145",
+      "floor": "opd-f4",
+      "x": 0.2800636902998894,
+      "y": 0.380611432601333,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-146",
+      "floor": "opd-f4",
+      "x": 0.35552198788143147,
+      "y": 0.3802716662650928,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-147",
+      "floor": "opd-f4",
+      "x": 0.40038907182580247,
+      "y": 0.3795921465533727,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-148",
+      "floor": "opd-f4",
+      "x": 0.47380794824953776,
+      "y": 0.37959214655337276,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-149",
+      "floor": "opd-f4",
+      "x": 0.2450936691048048,
+      "y": 0.5838761465596987,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-150",
+      "floor": "opd-f4",
+      "x": 0.281864921548276,
+      "y": 0.5835785340713663,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-151",
+      "floor": "opd-f4",
+      "x": 0.34781497391942395,
+      "y": 0.5813464063493077,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-152",
+      "floor": "opd-f4",
+      "x": 0.4055770971019999,
+      "y": 0.5817928307584006,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-153",
+      "floor": "opd-f4",
+      "x": 0.471824876451547,
+      "y": 0.5803002150107226,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
     }
   ],
   "edges": [
@@ -9420,14 +9700,6 @@ var SEED_BUILDING = {
       "g-c-4"
     ],
     [
-      "g-r-toilet",
-      "g-e-2"
-    ],
-    [
-      "g-r-security",
-      "g-stair-e"
-    ],
-    [
       "r-39",
       "f1-stair-e"
     ],
@@ -9458,6 +9730,158 @@ var SEED_BUILDING = {
     [
       "p-123",
       "g-l-outdoor"
+    ],
+    [
+      "p-133",
+      "p-134"
+    ],
+    [
+      "p-134",
+      "p-135"
+    ],
+    [
+      "p-135",
+      "p-136"
+    ],
+    [
+      "p-137",
+      "p-138"
+    ],
+    [
+      "p-138",
+      "p-139"
+    ],
+    [
+      "p-140",
+      "p-141"
+    ],
+    [
+      "p-143",
+      "p-139"
+    ],
+    [
+      "p-140",
+      "p-142"
+    ],
+    [
+      "p-133",
+      "p-141"
+    ],
+    [
+      "p-144",
+      "p-145"
+    ],
+    [
+      "p-145",
+      "p-146"
+    ],
+    [
+      "p-146",
+      "p-147"
+    ],
+    [
+      "p-147",
+      "p-148"
+    ],
+    [
+      "p-148",
+      "p-140"
+    ],
+    [
+      "p-139",
+      "p-144"
+    ],
+    [
+      "p-144",
+      "r-264"
+    ],
+    [
+      "p-145",
+      "r-265"
+    ],
+    [
+      "p-145",
+      "r-260"
+    ],
+    [
+      "p-146",
+      "r-47"
+    ],
+    [
+      "p-146",
+      "r-257"
+    ],
+    [
+      "p-147",
+      "r-258"
+    ],
+    [
+      "r-49",
+      "p-147"
+    ],
+    [
+      "r-53",
+      "p-148"
+    ],
+    [
+      "p-149",
+      "p-150"
+    ],
+    [
+      "p-150",
+      "p-151"
+    ],
+    [
+      "p-151",
+      "p-152"
+    ],
+    [
+      "p-152",
+      "p-153"
+    ],
+    [
+      "p-153",
+      "p-141"
+    ],
+    [
+      "p-138",
+      "p-149"
+    ],
+    [
+      "r-280",
+      "p-149"
+    ],
+    [
+      "r-285",
+      "p-149"
+    ],
+    [
+      "r-284",
+      "p-150"
+    ],
+    [
+      "r-279",
+      "p-150"
+    ],
+    [
+      "r-278",
+      "p-151"
+    ],
+    [
+      "r-283",
+      "p-151"
+    ],
+    [
+      "r-282",
+      "p-152"
+    ],
+    [
+      "r-277",
+      "p-152"
+    ],
+    [
+      "r-272",
+      "p-153"
     ]
   ]
 };
