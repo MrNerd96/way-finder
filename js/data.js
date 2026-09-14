@@ -1,18 +1,24 @@
-/* Way Finder survey data, 2026-09-07 07:03.
-   Changes applied by tools/apply_changes.js, from the first walk of the OPD
-   ground floor: 23 of the detected boxes now carry the number on their door,
-   two boxes were drawn by hand, and the seeded "Imaging waiting" was deleted.
-   None of the numbered rooms is joined to a corridor yet, so the app cannot
-   route to them -- a search finds the room and then says there is no path.
-   Connecting them is the next pass.
+/* Way Finder survey data, 2026-09-14 06:50.
+   Changes applied by tools/apply_changes.js. Every lift shaft on the OPD
+   floors is now drawn as its own box over the shaft on the plan -- sixty of
+   them, the individual cars rather than one dot for the lobby -- and the four
+   seeded lobby points they replace are gone.
+
+   None of those boxes carries a name or a shaft id yet, and none is joined to
+   a corridor, so two things follow until they are: `opd-lift-east` no longer
+   exists, so every route between floors is sent up the stairs; and because a
+   lift counts as a place a patient can be standing whether or not it has a
+   name, the "where are you now?" list opens with sixty blank rows. Naming one
+   car per bank, giving it the shaft id, and joining it to the lobby is what
+   closes both.
+
    Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
    each link is the perpendicular to the nearest corridor, a first
    approximation to be corrected on the floor with the Connect tool.
-   The OPD ground floor was added from its fire-evacuation board:
-   the lifts and staircases sit on the shafts the floors above
-   already use, and the corridors follow the escape routes printed
-   on the plan. Like every other seed here they are read off a
-   photograph rather than walked -- correct them on the floor.
+   The OPD ground floor was added from its fire-evacuation board: its
+   staircases sit on the shafts the floors above already use, and its
+   corridors follow the escape routes printed on the plan. Like every other
+   seed here they are read off a photograph rather than walked.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -127,19 +133,6 @@ var SEED_BUILDING = {
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
-      "canStart": true,
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f1-lift",
-      "floor": "opd-f1",
-      "x": 0.815,
-      "y": 0.44,
-      "kind": "lift",
-      "name": "Lift lobby (east block)",
-      "landmark": "The lift lobby in the east block",
-      "shaft": "opd-lift-east",
       "canStart": true,
       "seed": true,
       "aliases": []
@@ -268,19 +261,6 @@ var SEED_BUILDING = {
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
-      "canStart": true,
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f2-lift",
-      "floor": "opd-f2",
-      "x": 0.7,
-      "y": 0.47,
-      "kind": "lift",
-      "name": "Lift lobby (east block)",
-      "landmark": "The lift lobby in the east block",
-      "shaft": "opd-lift-east",
       "canStart": true,
       "seed": true,
       "aliases": []
@@ -418,11 +398,12 @@ var SEED_BUILDING = {
       "y": 0.0486,
       "w": 0.0276,
       "h": 0.0227,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-2",
@@ -431,11 +412,12 @@ var SEED_BUILDING = {
       "y": 0.0758,
       "w": 0.0269,
       "h": 0.0234,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-3",
@@ -549,16 +531,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-11",
-      "floor": "opd-f1",
-      "x": 0.9142,
-      "y": 0.1595,
-      "w": 0.0227,
-      "h": 0.0241,
+      "floor": "opd-f4",
+      "x": 0.30107331332470866,
+      "y": 0.8431235760502894,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.056671585439545535,
+      "h": 0.051263014857164446
     },
     {
       "id": "r-12",
@@ -575,16 +556,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-13",
-      "floor": "opd-f1",
-      "x": 0.888,
-      "y": 0.1837,
-      "w": 0.0227,
-      "h": 0.0227,
+      "floor": "opd-f4",
+      "x": 0.41480464726919275,
+      "y": 0.8409777503399084,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.05201361384763953,
+      "h": 0.04774736142961733
     },
     {
       "id": "r-14",
@@ -616,10 +596,10 @@ var SEED_BUILDING = {
     {
       "id": "r-16",
       "floor": "opd-f1",
-      "x": 0.8300049677005967,
-      "y": 0.22812138612501587,
-      "w": 0.08141885201977128,
-      "h": 0.06335722774996824,
+      "x": 0.8302415737326461,
+      "y": 0.22921301875109976,
+      "w": 0.08662240664833176,
+      "h": 0.06554049300213599,
       "kind": "room",
       "name": "Toilet Male",
       "aliases": [],
@@ -786,11 +766,12 @@ var SEED_BUILDING = {
       "y": 0.3312,
       "w": 0.0214,
       "h": 0.0255,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-30",
@@ -799,11 +780,12 @@ var SEED_BUILDING = {
       "y": 0.3312,
       "w": 0.0214,
       "h": 0.0255,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-31",
@@ -812,11 +794,12 @@ var SEED_BUILDING = {
       "y": 0.3312,
       "w": 0.0214,
       "h": 0.0255,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-32",
@@ -860,16 +843,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-35",
-      "floor": "opd-f1",
-      "x": 0.9139,
-      "y": 0.3728,
-      "w": 0.0234,
-      "h": 0.0469,
+      "floor": "opd-f4",
+      "x": 0.3582495366618465,
+      "y": 0.8427885840487963,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.051780753026377135,
+      "h": 0.04671305568903539
     },
     {
       "id": "r-36",
@@ -918,11 +900,13 @@ var SEED_BUILDING = {
       "y": 0.4132,
       "w": 0.0214,
       "h": 0.0255,
-      "kind": "room",
-      "name": "",
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "r-40",
@@ -931,11 +915,12 @@ var SEED_BUILDING = {
       "y": 0.4132,
       "w": 0.0214,
       "h": 0.0255,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-41",
@@ -944,11 +929,12 @@ var SEED_BUILDING = {
       "y": 0.4135,
       "w": 0.0214,
       "h": 0.0262,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-42",
@@ -1020,16 +1006,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-47",
-      "floor": "opd-f1",
-      "x": 0.888,
-      "y": 0.5682,
-      "w": 0.0227,
-      "h": 0.0227,
+      "floor": "opd-f4",
+      "x": 0.3488393062861444,
+      "y": 0.4187440242171288,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.051780753026377135,
+      "h": 0.04671305568903539
     },
     {
       "id": "r-48",
@@ -1052,16 +1037,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-49",
-      "floor": "opd-f1",
-      "x": 0.7857,
-      "y": 0.5817,
-      "w": 0.0221,
-      "h": 0.0496,
+      "floor": "opd-f4",
+      "x": 0.4044745477044821,
+      "y": 0.41875622279548724,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.051780753026377135,
+      "h": 0.04671305568903539
     },
     {
       "id": "r-50",
@@ -1107,16 +1091,15 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-53",
-      "floor": "opd-f1",
-      "x": 0.9142,
-      "y": 0.5951,
-      "w": 0.0227,
-      "h": 0.0227,
+      "floor": "opd-f4",
+      "x": 0.46453468201060444,
+      "y": 0.4166860563452884,
       "kind": "room",
       "name": "",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.051780753026377135,
+      "h": 0.04671305568903539
     },
     {
       "id": "r-54",
@@ -2646,11 +2629,12 @@ var SEED_BUILDING = {
       "y": 0.0569,
       "w": 0.0341,
       "h": 0.0241,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-171",
@@ -2659,11 +2643,12 @@ var SEED_BUILDING = {
       "y": 0.0577,
       "w": 0.0332,
       "h": 0.0241,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-172",
@@ -2672,11 +2657,12 @@ var SEED_BUILDING = {
       "y": 0.0606,
       "w": 0.0324,
       "h": 0.0282,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-173",
@@ -2685,11 +2671,12 @@ var SEED_BUILDING = {
       "y": 0.0851,
       "w": 0.0341,
       "h": 0.0241,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-174",
@@ -2698,11 +2685,12 @@ var SEED_BUILDING = {
       "y": 0.086,
       "w": 0.0332,
       "h": 0.0241,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-175",
@@ -2711,11 +2699,12 @@ var SEED_BUILDING = {
       "y": 0.093,
       "w": 0.0324,
       "h": 0.0282,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-176",
@@ -2733,15 +2722,14 @@ var SEED_BUILDING = {
     {
       "id": "r-177",
       "floor": "opd-f2",
-      "x": 0.8152,
-      "y": 0.196,
-      "w": 0.0257,
-      "h": 0.0282,
+      "x": 0.7185212227571968,
+      "y": 0.6252093282068258,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Female",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.09725904360624926,
+      "h": 0.07398943030166405
     },
     {
       "id": "r-178",
@@ -2815,29 +2803,27 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-183",
-      "floor": "opd-f2",
-      "x": 0.6657,
-      "y": 0.2097,
-      "w": 0.0257,
-      "h": 0.054,
+      "floor": "opd-f3",
+      "x": 0.7189249289977322,
+      "y": 0.6254273153969112,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Female",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.09926886074698327,
+      "h": 0.07296571819245046
     },
     {
       "id": "r-184",
-      "floor": "opd-f2",
-      "x": 0.7853,
-      "y": 0.2255,
-      "w": 0.0257,
-      "h": 0.0274,
+      "floor": "opd-f4",
+      "x": 0.8014762501379183,
+      "y": 0.6592331283502086,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Female",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.10282982620394399,
+      "h": 0.08053418514073563
     },
     {
       "id": "r-185",
@@ -3024,11 +3010,12 @@ var SEED_BUILDING = {
       "y": 0.4037,
       "w": 0.0249,
       "h": 0.0316,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-199",
@@ -3037,11 +3024,12 @@ var SEED_BUILDING = {
       "y": 0.4037,
       "w": 0.0249,
       "h": 0.0316,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-200",
@@ -3050,11 +3038,12 @@ var SEED_BUILDING = {
       "y": 0.4037,
       "w": 0.0249,
       "h": 0.0316,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-201",
@@ -3102,11 +3091,12 @@ var SEED_BUILDING = {
       "y": 0.4992,
       "w": 0.0249,
       "h": 0.0316,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-205",
@@ -3115,11 +3105,13 @@ var SEED_BUILDING = {
       "y": 0.4996,
       "w": 0.0249,
       "h": 0.0307,
-      "kind": "room",
-      "name": "",
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "r-206",
@@ -3128,11 +3120,12 @@ var SEED_BUILDING = {
       "y": 0.4996,
       "w": 0.0249,
       "h": 0.0307,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-207",
@@ -3207,15 +3200,14 @@ var SEED_BUILDING = {
     {
       "id": "r-212",
       "floor": "opd-f2",
-      "x": 0.7209879039024527,
-      "y": 0.6262927558229576,
-      "w": 0.1088,
-      "h": 0.0855,
+      "x": 0.7185672192523194,
+      "y": 0.2794409623180458,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Male",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.09972069901856584,
+      "h": 0.07356981140469007
     },
     {
       "id": "r-213",
@@ -3271,29 +3263,27 @@ var SEED_BUILDING = {
     },
     {
       "id": "r-217",
-      "floor": "opd-f2",
-      "x": 0.7849,
-      "y": 0.6798,
-      "w": 0.0249,
-      "h": 0.0257,
+      "floor": "opd-f3",
+      "x": 0.7179829967061577,
+      "y": 0.2801816278472898,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Male",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.10038260627170348,
+      "h": 0.07564008823768856
     },
     {
       "id": "r-218",
-      "floor": "opd-f2",
-      "x": 0.6661,
-      "y": 0.6952,
-      "w": 0.0249,
-      "h": 0.0565,
+      "floor": "opd-f4",
+      "x": 0.7946725855792853,
+      "y": 0.2914378470717686,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Male",
+      "landmark": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "w": 0.10612353156773924,
+      "h": 0.07935323863522092
     },
     {
       "id": "r-219",
@@ -3364,19 +3354,6 @@ var SEED_BUILDING = {
       "room": "",
       "landmark": "",
       "shaft": ""
-    },
-    {
-      "id": "r-224",
-      "floor": "opd-f2",
-      "x": 0.814,
-      "y": 0.7105,
-      "w": 0.0266,
-      "h": 0.0257,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
     },
     {
       "id": "r-225",
@@ -3563,11 +3540,12 @@ var SEED_BUILDING = {
       "y": 0.0631,
       "w": 0.0369,
       "h": 0.0252,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-239",
@@ -3576,11 +3554,12 @@ var SEED_BUILDING = {
       "y": 0.064,
       "w": 0.0369,
       "h": 0.0252,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-240",
@@ -3589,11 +3568,12 @@ var SEED_BUILDING = {
       "y": 0.0644,
       "w": 0.0351,
       "h": 0.0297,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-241",
@@ -3602,11 +3582,12 @@ var SEED_BUILDING = {
       "y": 0.0932,
       "w": 0.036,
       "h": 0.0261,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-242",
@@ -3615,11 +3596,12 @@ var SEED_BUILDING = {
       "y": 0.0937,
       "w": 0.0378,
       "h": 0.0252,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-243",
@@ -3628,11 +3610,12 @@ var SEED_BUILDING = {
       "y": 0.0991,
       "w": 0.0351,
       "h": 0.0306,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-244",
@@ -3641,19 +3624,6 @@ var SEED_BUILDING = {
       "y": 0.191,
       "w": 0.0874,
       "h": 0.0595,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-245",
-      "floor": "opd-f4",
-      "x": 0.8901,
-      "y": 0.2023,
-      "w": 0.0252,
-      "h": 0.0297,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -3693,19 +3663,6 @@ var SEED_BUILDING = {
       "y": 0.2189,
       "w": 0.0541,
       "h": 0.045,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-249",
-      "floor": "opd-f4",
-      "x": 0.7387,
-      "y": 0.2189,
-      "w": 0.027,
-      "h": 0.0577,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -3758,19 +3715,6 @@ var SEED_BUILDING = {
       "y": 0.2198,
       "w": 0.0333,
       "h": 0.045,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-254",
-      "floor": "opd-f4",
-      "x": 0.8599,
-      "y": 0.2333,
-      "w": 0.0261,
-      "h": 0.0288,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -3856,32 +3800,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-261",
-      "floor": "opd-f4",
-      "x": 0.8626,
-      "y": 0.3491,
-      "w": 0.0279,
-      "h": 0.1324,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-262",
-      "floor": "opd-f4",
-      "x": 0.7149,
-      "y": 0.3586,
-      "w": 0.1162,
-      "h": 0.1712,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-264",
       "floor": "opd-f4",
       "x": 0.232,
@@ -3914,11 +3832,12 @@ var SEED_BUILDING = {
       "y": 0.4212,
       "w": 0.0252,
       "h": 0.0333,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-267",
@@ -3927,11 +3846,12 @@ var SEED_BUILDING = {
       "y": 0.4221,
       "w": 0.0261,
       "h": 0.0333,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-268",
@@ -3940,11 +3860,12 @@ var SEED_BUILDING = {
       "y": 0.4225,
       "w": 0.0252,
       "h": 0.0342,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-269",
@@ -4005,11 +3926,12 @@ var SEED_BUILDING = {
       "y": 0.5239,
       "w": 0.0252,
       "h": 0.0333,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-274",
@@ -4018,11 +3940,12 @@ var SEED_BUILDING = {
       "y": 0.5243,
       "w": 0.0261,
       "h": 0.0342,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-275",
@@ -4031,11 +3954,12 @@ var SEED_BUILDING = {
       "y": 0.5248,
       "w": 0.0261,
       "h": 0.0333,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-277",
@@ -4207,45 +4131,6 @@ var SEED_BUILDING = {
       "auto": true
     },
     {
-      "id": "r-290",
-      "floor": "opd-f4",
-      "x": 0.8707,
-      "y": 0.7171,
-      "w": 0.0261,
-      "h": 0.0288,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-291",
-      "floor": "opd-f4",
-      "x": 0.7486,
-      "y": 0.736,
-      "w": 0.027,
-      "h": 0.0613,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-292",
-      "floor": "opd-f4",
-      "x": 0.9009,
-      "y": 0.7495,
-      "w": 0.027,
-      "h": 0.0288,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-293",
       "floor": "opd-f4",
       "x": 0.4653,
@@ -4378,10 +4263,10 @@ var SEED_BUILDING = {
     {
       "id": "r-304",
       "floor": "opd-f4",
-      "x": 0.4428,
-      "y": 0.8964,
-      "w": 0.0369,
-      "h": 0.0775,
+      "x": 0.4419089431831349,
+      "y": 0.9013468733859785,
+      "w": 0.0386821136337302,
+      "h": 0.06760625322804303,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -4496,13 +4381,13 @@ var SEED_BUILDING = {
     {
       "id": "r-20",
       "floor": "opd-f1",
-      "x": 0.4012983047826527,
-      "y": 0.06278471140729212,
+      "x": 0.3560540660763231,
+      "y": 0.047212121648606685,
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "w": 0.1113623298620483,
-      "h": 0.05827476166757756,
+      "w": 0.026769764460284007,
+      "h": 0.020514795906689157,
       "room": "",
       "landmark": "",
       "shaft": ""
@@ -4566,13 +4451,13 @@ var SEED_BUILDING = {
     {
       "id": "r-314",
       "floor": "opd-f1",
-      "x": 0.8313954402590125,
-      "y": 0.5196015349649177,
+      "x": 0.8309330403158197,
+      "y": 0.5196688967788041,
       "kind": "room",
       "name": "Toilet Female",
       "aliases": [],
-      "w": 0.08202544132603273,
-      "h": 0.057313328987949885,
+      "w": 0.08519455061487557,
+      "h": 0.06755593508882907,
       "room": "",
       "landmark": "",
       "shaft": ""
@@ -4677,19 +4562,6 @@ var SEED_BUILDING = {
       "kind": "stair",
       "name": "East block staircase",
       "shaft": "opd-stair-east",
-      "canStart": true,
-      "seed": true,
-      "aliases": []
-    },
-    {
-      "id": "f3-lift",
-      "floor": "opd-f3",
-      "x": 0.7,
-      "y": 0.47,
-      "kind": "lift",
-      "name": "Lift lobby (east block)",
-      "landmark": "The lift lobby in the east block",
-      "shaft": "opd-lift-east",
       "canStart": true,
       "seed": true,
       "aliases": []
@@ -6690,19 +6562,6 @@ var SEED_BUILDING = {
       "aliases": []
     },
     {
-      "id": "g-lift",
-      "floor": "opd-g",
-      "x": 0.797,
-      "y": 0.383,
-      "kind": "lift",
-      "name": "Lift lobby (east block)",
-      "landmark": "The lift lobby in the east block",
-      "shaft": "opd-lift-east",
-      "canStart": true,
-      "seed": true,
-      "aliases": []
-    },
-    {
       "id": "g-entry-imaging",
       "floor": "opd-g",
       "x": 0.276,
@@ -6729,8 +6588,8 @@ var SEED_BUILDING = {
     {
       "id": "g-c-nw",
       "floor": "opd-g",
-      "x": 0.3,
-      "y": 0.098,
+      "x": 0.31797406713335274,
+      "y": 0.11550578956236912,
       "kind": "junction",
       "name": "North corridor (west end)",
       "seed": true,
@@ -6739,8 +6598,8 @@ var SEED_BUILDING = {
     {
       "id": "g-c-n1",
       "floor": "opd-g",
-      "x": 0.388,
-      "y": 0.098,
+      "x": 0.3890598389881788,
+      "y": 0.11468534282203331,
       "kind": "junction",
       "name": "North corridor",
       "seed": true,
@@ -6749,8 +6608,8 @@ var SEED_BUILDING = {
     {
       "id": "g-c-n2",
       "floor": "opd-g",
-      "x": 0.457,
-      "y": 0.098,
+      "x": 0.4575299093867157,
+      "y": 0.11442049001663825,
       "kind": "junction",
       "name": "North corridor",
       "seed": true,
@@ -6759,8 +6618,8 @@ var SEED_BUILDING = {
     {
       "id": "g-c-ne",
       "floor": "opd-g",
-      "x": 0.65,
-      "y": 0.098,
+      "x": 0.6600684400655775,
+      "y": 0.11547988103201558,
       "kind": "junction",
       "name": "North corridor (east end)",
       "seed": true,
@@ -7034,67 +6893,30 @@ var SEED_BUILDING = {
     {
       "id": "r-360",
       "floor": "opd-g",
-      "x": 0.4694,
-      "y": 0.0728,
-      "w": 0.0492,
-      "h": 0.0552,
-      "kind": "room",
+      "x": 0.3479977149662511,
+      "y": 0.054636978670925415,
+      "w": 0.02597581624516726,
+      "h": 0.02071377550537118,
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-361",
-      "floor": "opd-g",
-      "x": 0.5322,
-      "y": 0.0745,
-      "w": 0.0698,
-      "h": 0.0585,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-362",
       "floor": "opd-g",
-      "x": 0.6137,
-      "y": 0.0805,
-      "w": 0.0266,
-      "h": 0.0705,
-      "kind": "room",
+      "x": 0.5533385665951038,
+      "y": 0.0579963070204836,
+      "w": 0.02688832801216201,
+      "h": 0.02419200858391965,
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-363",
-      "floor": "opd-g",
-      "x": 0.9092,
-      "y": 0.0924,
-      "w": 0.0299,
-      "h": 0.0957,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-364",
-      "floor": "opd-g",
-      "x": 0.9581,
-      "y": 0.0924,
-      "w": 0.0652,
-      "h": 0.0957,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-365",
@@ -7130,19 +6952,6 @@ var SEED_BUILDING = {
       "y": 0.1592,
       "w": 0.0399,
       "h": 0.0512,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
-      "id": "r-368",
-      "floor": "opd-g",
-      "x": 0.1602,
-      "y": 0.1652,
-      "w": 0.1117,
-      "h": 0.0219,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7532,11 +7341,12 @@ var SEED_BUILDING = {
       "y": 0.3457,
       "w": 0.0206,
       "h": 0.0253,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-398",
@@ -7545,11 +7355,12 @@ var SEED_BUILDING = {
       "y": 0.3457,
       "w": 0.0206,
       "h": 0.0253,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-399",
@@ -7632,19 +7443,6 @@ var SEED_BUILDING = {
       "shaft": ""
     },
     {
-      "id": "r-405",
-      "floor": "opd-g",
-      "x": 0.8763,
-      "y": 0.3803,
-      "w": 0.0213,
-      "h": 0.0332,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "seed": true,
-      "auto": true
-    },
-    {
       "id": "r-406",
       "floor": "opd-g",
       "x": 0.507,
@@ -7706,11 +7504,12 @@ var SEED_BUILDING = {
       "y": 0.4249,
       "w": 0.0206,
       "h": 0.0253,
-      "kind": "room",
+      "kind": "lift",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-411",
@@ -8039,6 +7838,276 @@ var SEED_BUILDING = {
       "room": "9",
       "landmark": "",
       "shaft": ""
+    },
+    {
+      "id": "p-104",
+      "floor": "opd-f1",
+      "x": 0.35636171910374576,
+      "y": 0.06979898309293217,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.026769764460284007,
+      "h": 0.020514795906689157
+    },
+    {
+      "id": "p-105",
+      "floor": "opd-f1",
+      "x": 0.4401547030512022,
+      "y": 0.047419316861971844,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.026769764460284007,
+      "h": 0.020514795906689157
+    },
+    {
+      "id": "p-106",
+      "floor": "opd-f1",
+      "x": 0.4400438590148267,
+      "y": 0.07079609436145383,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.026769764460284007,
+      "h": 0.020514795906689157
+    },
+    {
+      "id": "p-107",
+      "floor": "opd-f3",
+      "x": 0.1469870203665262,
+      "y": 0.056492282228812564,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0341,
+      "h": 0.0241
+    },
+    {
+      "id": "p-108",
+      "floor": "opd-f3",
+      "x": 0.14716502783478042,
+      "y": 0.08466075099374767,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0341,
+      "h": 0.0241
+    },
+    {
+      "id": "p-109",
+      "floor": "opd-f3",
+      "x": 0.25051169529456063,
+      "y": 0.05723666593810692,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0341,
+      "h": 0.0241
+    },
+    {
+      "id": "p-110",
+      "floor": "opd-f3",
+      "x": 0.25084832422461223,
+      "y": 0.08567022376104125,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0341,
+      "h": 0.0241
+    },
+    {
+      "id": "p-111",
+      "floor": "opd-f3",
+      "x": 0.41257242475880684,
+      "y": 0.06059575075753938,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.03430655384630832,
+      "h": 0.028453373494499924
+    },
+    {
+      "id": "p-112",
+      "floor": "opd-f3",
+      "x": 0.41250092647253445,
+      "y": 0.0924464610988093,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.032395354629286055,
+      "h": 0.028784891492323703
+    },
+    {
+      "id": "p-113",
+      "floor": "opd-f3",
+      "x": 0.6969452884475525,
+      "y": 0.403424599194829,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485,
+      "room": "",
+      "shaft": ""
+    },
+    {
+      "id": "p-115",
+      "floor": "opd-f3",
+      "x": 0.7263204112349756,
+      "y": 0.4030317910079679,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485
+    },
+    {
+      "id": "p-116",
+      "floor": "opd-f3",
+      "x": 0.7550078322954694,
+      "y": 0.40381741112784014,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485
+    },
+    {
+      "id": "p-117",
+      "floor": "opd-f3",
+      "x": 0.7548113460877754,
+      "y": 0.5002528521300497,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485
+    },
+    {
+      "id": "p-118",
+      "floor": "opd-f3",
+      "x": 0.7265168974426696,
+      "y": 0.49966361643631996,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485
+    },
+    {
+      "id": "p-119",
+      "floor": "opd-f3",
+      "x": 0.6972400027681569,
+      "y": 0.4988779963164477,
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
+      "aliases": [],
+      "w": 0.02534711055688521,
+      "h": 0.03142498086394485,
+      "shaft": "opd-lift-east",
+      "canStart": true
+    },
+    {
+      "id": "p-114",
+      "floor": "opd-g",
+      "x": 0.34785383926049224,
+      "y": 0.07925359862760425,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02606375670517147,
+      "h": 0.021612464479093083
+    },
+    {
+      "id": "p-120",
+      "floor": "opd-g",
+      "x": 0.4278748806989252,
+      "y": 0.056378284412721164,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02695088359617198,
+      "h": 0.022088652374114545
+    },
+    {
+      "id": "p-121",
+      "floor": "opd-g",
+      "x": 0.42767030983427246,
+      "y": 0.08008039939448794,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02683499101750564,
+      "h": 0.020956402324050633
+    },
+    {
+      "id": "p-122",
+      "floor": "opd-g",
+      "x": 0.5534714990553646,
+      "y": 0.08611951948666471,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.02688832801216201,
+      "h": 0.02419200858391965
+    },
+    {
+      "id": "p-123",
+      "floor": "opd-g",
+      "x": 0.8042506450317642,
+      "y": 0.34646542821502235,
+      "kind": "lift",
+      "name": "Lift lobby (east block)",
+      "landmark": "The lift lobby in the east block",
+      "aliases": [],
+      "w": 0.0206,
+      "h": 0.0253,
+      "shaft": "opd-lift-east",
+      "canStart": true
+    },
+    {
+      "id": "p-124",
+      "floor": "opd-g",
+      "x": 0.8280887426315977,
+      "y": 0.42512101938470404,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0206,
+      "h": 0.0253
+    },
+    {
+      "id": "p-125",
+      "floor": "opd-g",
+      "x": 0.7804125650892315,
+      "y": 0.42465832889865596,
+      "kind": "lift",
+      "name": "",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.0206,
+      "h": 0.0253
     }
   ],
   "edges": [
@@ -8067,14 +8136,6 @@ var SEED_BUILDING = {
       "f1-stair-sw"
     ],
     [
-      "f1-link",
-      "f1-lift"
-    ],
-    [
-      "f1-lift",
-      "f1-stair-e"
-    ],
-    [
       "f2-c-n2",
       "f2-c-ne"
     ],
@@ -8099,10 +8160,6 @@ var SEED_BUILDING = {
       "f2-stair-sw"
     ],
     [
-      "f2-lift",
-      "f2-stair-e"
-    ],
-    [
       "f2-c-5",
       "f2-sample-b"
     ],
@@ -8117,14 +8174,6 @@ var SEED_BUILDING = {
     [
       "f3-w-3",
       "f3-stair-sw"
-    ],
-    [
-      "f3-elink",
-      "f3-lift"
-    ],
-    [
-      "f3-lift",
-      "f3-stair-e"
     ],
     [
       "f3-door-304",
@@ -8717,10 +8766,6 @@ var SEED_BUILDING = {
     [
       "p-62",
       "p-64"
-    ],
-    [
-      "p-64",
-      "f2-lift"
     ],
     [
       "p-65",
@@ -9359,14 +9404,6 @@ var SEED_BUILDING = {
       "g-l-outdoor"
     ],
     [
-      "g-l-outdoor",
-      "g-lift"
-    ],
-    [
-      "g-lift",
-      "g-stair-e"
-    ],
-    [
       "g-r-cancer",
       "g-c-nw"
     ],
@@ -9389,6 +9426,38 @@ var SEED_BUILDING = {
     [
       "g-r-security",
       "g-stair-e"
+    ],
+    [
+      "r-39",
+      "f1-stair-e"
+    ],
+    [
+      "r-39",
+      "f1-link"
+    ],
+    [
+      "r-205",
+      "f2-stair-e"
+    ],
+    [
+      "r-205",
+      "p-64"
+    ],
+    [
+      "p-119",
+      "f3-stair-e"
+    ],
+    [
+      "p-119",
+      "f3-elink"
+    ],
+    [
+      "p-123",
+      "g-stair-e"
+    ],
+    [
+      "p-123",
+      "g-l-outdoor"
     ]
   ]
 };

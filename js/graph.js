@@ -340,16 +340,19 @@ var Graph = (function () {
     return !!(n.room || n.name);
   }
 
+  /* Somewhere a patient can say they are standing: anything this map can put
+     a name to, plus whatever has been forced into the list with canStart.
+
+     The name is the whole requirement. An empty search shows the list entire,
+     so a place with nothing written on it is a row a patient cannot read,
+     cannot pick, and has to scroll past to reach the handful of landmarks
+     anyone actually chooses. Mid-survey there are hundreds of those: the
+     detector leaves blank boxes on every floor, and a lift bank drawn car by
+     car leaves a dozen more. This used to ask it of rooms only, and a floor of
+     nameless lifts went straight to the top of the list. */
   function isStartPoint(n) {
     if (n.canStart) return true;
-    /* The number on the door is the most reliable thing someone can tell us
-       about where they are standing, so a room they can name counts as a
-       starting place. It has to be one they can name: the detector leaves
-       hundreds of blank boxes on every floor, and an empty search shows the
-       whole list, so admitting those would bury the six landmarks that most
-       people actually pick under rows with nothing written in them. */
-    if (n.kind === 'room') return !!(n.room || n.name);
-    return ['lift', 'stair', 'entrance', 'landmark'].indexOf(n.kind) >= 0;
+    return isDestination(n);
   }
 
   /* Results are hits, not nodes: { node, service }. One room can be several
