@@ -10,8 +10,14 @@ var Graph = (function () {
   /* Cost of moving between floors, expressed in metres-of-walking so it can be
      compared against corridor lengths. Stairs are deliberately expensive: many
      people here are unwell, elderly, or carrying a child, so the router should
-     send them to the lift unless the stairs are dramatically shorter. */
+     send them to the lift unless the stairs are dramatically shorter.
+
+     A ramp costs what it actually is. Climbing a storey at the gradient these
+     are built to is the better part of forty metres of walking, which is why it
+     loses to the lift -- but it is forty metres on the flat, so it beats the
+     stairs, and that is the right order for the people this is built for. */
   var LIFT_BASE = 12, LIFT_PER_LEVEL = 5;
+  var RAMP_BASE = 8, RAMP_PER_LEVEL = 40;
   var STAIR_BASE = 10, STAIR_PER_LEVEL = 45;
 
   var STEP_LENGTH_M = 0.72;   // an average adult pace
@@ -59,9 +65,32 @@ var Graph = (function () {
     return { key: 'around', icon: '↩' };
   }
 
-  /* Adjacency including the implicit vertical links: any two lift or stair
-     nodes that share a shaft id are connected. */
-  function adjacency(building) {
+  /* How the two ends of a vertical link agree on what they are. Both ends have
+     to be the same thing: a lift on one floor and a staircase on the next is
+     not a shaft anyone can travel, and costing it as either would be a lie. */
+  function verticalKind(a, b) {
+    return (a.kind === b.kind && (a.kind === 'lift' || a.kind === 'ramp'))
+      ? a.kind : 'stair';
+  }
+
+  function verticalCost(a, b, levels) {
+    var kind = verticalKind(a, b);
+    if (kind === 'lift') return LIFT_BASE + LIFT_PER_LEVEL * levels;
+    if (kind === 'ramp') return RAMP_BASE + RAMP_PER_LEVEL * levels;
+    return STAIR_BASE + STAIR_PER_LEVEL * levels;
+  }
+
+  /* Adjacency including the implicit vertical links: any two nodes that share
+     a shaft id are connected. A shaft is whatever carries people between
+     floors in one place -- a lift, a staircase, or the ramp, which is one
+     continuous climb drawn in pieces on each floor's plan.
+
+     opts.allow names the ways up a patient will accept -- 'lift', 'ramp',
+     'stair' -- and the rest are dropped out of the graph rather than made
+     dear. To someone in a chair a flight of stairs is not an expensive route,
+     it is a wall, and no amount of weighting says that honestly. */
+  function adjacency(building, opts) {
+    var allow = opts && opts.allow;
     var nodes = byId(building);
     var adj = {};
     building.nodes.forEach(function (n) { adj[n.id] = []; });
@@ -88,11 +117,9 @@ var Graph = (function () {
           if (a.floor === b.floor) continue;
           var fa = floorOf(building, a.floor), fb = floorOf(building, b.floor);
           if (!fa || !fb) continue;
+          if (allow && !allow[verticalKind(a, b)]) continue;
           var levels = Math.abs((fa.level || 0) - (fb.level || 0)) || 1;
-          var lift = a.kind === 'lift' && b.kind === 'lift';
-          var cost = lift
-            ? LIFT_BASE + LIFT_PER_LEVEL * levels
-            : STAIR_BASE + STAIR_PER_LEVEL * levels;
+          var cost = verticalCost(a, b, levels);
           adj[a.id].push({ to: b.id, cost: cost, vertical: true });
           adj[b.id].push({ to: a.id, cost: cost, vertical: true });
         }
@@ -104,12 +131,12 @@ var Graph = (function () {
 
   /* Plain Dijkstra with a linear scan for the next node. The graph is a few
      hundred points at most, so a real priority queue buys nothing. */
-  function route(building, fromId, toId) {
+  function route(building, fromId, toId, opts) {
     var nodes = byId(building);
     if (!nodes[fromId] || !nodes[toId]) return null;
     if (fromId === toId) return [nodes[fromId]];
 
-    var adj = adjacency(building);
+    var adj = adjacency(building, opts);
     var dist = {}, prev = {}, done = {};
     building.nodes.forEach(function (n) { dist[n.id] = Infinity; });
     dist[fromId] = 0;
@@ -244,11 +271,11 @@ var Graph = (function () {
         }
         var fa = floorOf(building, prev.floor), fb = floorOf(building, cur.floor);
         var up = (fb.level || 0) > (fa.level || 0);
-        var byLift = prev.kind === 'lift' && cur.kind === 'lift';
+        var by = verticalKind(prev, cur);
         steps.push({
           kind: 'vertical',
-          icon: byLift ? '🛗' : '🪜',
-          title: I18N.t(byLift ? (up ? 'liftUp' : 'liftDown') : (up ? 'stairsUp' : 'stairsDown')),
+          icon: { lift: '🛗', ramp: '♿' }[by] || '🪜',
+          title: I18N.t(by + (up ? 'Up' : 'Down')),
           detail: floorName(building, cur.floor),
           meta: '',
           floor: cur.floor,

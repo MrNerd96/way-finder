@@ -64,7 +64,7 @@ var Picker = (function () {
   }
 
   function iconFor(kind) {
-    return { lift: '🛗', stair: '🪜', entrance: '🚪', toilet: '🚻', counter: '🧾', landmark: '📌' }[kind] || '📍';
+    return { lift: '🛗', stair: '🪜', ramp: '♿', entrance: '🚪', toilet: '🚻', counter: '🧾', landmark: '📌' }[kind] || '📍';
   }
 
   function hide() {
@@ -108,6 +108,38 @@ var Nav = (function () {
   var destService = null;     // the one of several behind that door they asked for
   var path = null, steps = null, idx = 0;
 
+  /* How the patient will change floors. Each choice is the ways up it will
+     accept, widest last: the lift alone, anything step-free, or anything at
+     all. Remembered once set, because someone who travels one of these ways
+     travels it every visit and should not have to say so twice. */
+  var WAY_KEY = 'wayfinder-way';
+  var WAYS = [
+    { id: 'lift',  icon: '🛗', allow: { lift: true } },
+    { id: 'chair', icon: '♿', allow: { lift: true, ramp: true } },
+    { id: 'steps', icon: '🪜', allow: null }
+  ];
+  var way = 'lift';
+  var wayDenied = false;          // asked one way, and there was no route that way
+
+  function wayOf(id) {
+    for (var i = 0; i < WAYS.length; i++) if (WAYS[i].id === id) return WAYS[i];
+    return WAYS[0];
+  }
+
+  function loadWay() {
+    var saved = null;
+    try { saved = localStorage.getItem(WAY_KEY); } catch (e) {}
+    way = (saved && wayOf(saved).id === saved) ? saved : 'lift';
+  }
+
+  function setWay(id) {
+    way = wayOf(id).id;
+    try { localStorage.setItem(WAY_KEY, way); } catch (e) {}
+    // A route already on screen was worked out under the old answer, so it is
+    // no longer the answer to the question being asked.
+    if (steps && steps.length) computeRoute(); else render();
+  }
+
   function b() { return Store.get(); }
 
   function node(id) { return id ? Store.node(id) : null; }
@@ -141,7 +173,17 @@ var Nav = (function () {
   function computeRoute() {
     if (!startId || !destId) return;
     if (startId === destId) { App.toast(I18N.t('samePlace')); return; }
-    path = Graph.route(b(), startId, destId);
+    wayDenied = false;
+    var allow = wayOf(way).allow;
+    path = Graph.route(b(), startId, destId, { allow: allow });
+    if (!path && allow) {
+      /* There is no way there the way they asked. Saying "no path" would be a
+         half-truth and leaves them nowhere; show the one route there is and
+         say plainly that it is not the way they chose, so it is their call. */
+      path = Graph.route(b(), startId, destId);
+      wayDenied = !!path;
+      if (path) App.toast(I18N.t('noSuchWay'));
+    }
     if (!path) { App.toast(I18N.t('noRoute')); return; }
     steps = Graph.directions(b(), path, destService);
     idx = 0;
@@ -222,6 +264,8 @@ var Nav = (function () {
       });
     }, destService));
 
+    sheet.appendChild(wayPicker());
+
     var go = document.createElement('button');
     go.type = 'button';
     go.className = 'primary go';
@@ -231,9 +275,56 @@ var Nav = (function () {
     sheet.appendChild(go);
   }
 
+  /* Three ways up, one of them chosen. It sits with the two questions because
+     it is a third thing the route depends on, not a setting buried elsewhere.
+     Whole buttons rather than a row of radio dots: this has to be hittable
+     with a thumb, from a chair, by someone who is unwell. */
+  function wayPicker() {
+    var wrap = document.createElement('div');
+    wrap.className = 'wayPick';
+
+    var caption = document.createElement('small');
+    caption.className = 'wayCaption';
+    caption.textContent = I18N.t('howUp');
+    wrap.appendChild(caption);
+
+    var row = document.createElement('div');
+    row.className = 'ways';
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', I18N.t('howUp'));
+
+    WAYS.forEach(function (w) {
+      var on = (w.id === way);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'wayBtn' + (on ? ' on' : '');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+
+      var ico = document.createElement('span');
+      ico.className = 'ico';
+      ico.textContent = w.icon;
+      var label = document.createElement('b');
+      label.textContent = I18N.t('way_' + w.id);
+
+      btn.appendChild(ico); btn.appendChild(label);
+      btn.addEventListener('click', function () { setWay(w.id); });
+      row.appendChild(btn);
+    });
+
+    wrap.appendChild(row);
+    return wrap;
+  }
+
   function renderStep() {
     var s = steps[idx];
     var t = Graph.totals(b(), path);
+
+    if (wayDenied) {
+      var warn = document.createElement('p');
+      warn.className = 'routeWarn';
+      warn.textContent = I18N.t('noSuchWay');
+      sheet.appendChild(warn);
+    }
 
     var head = document.createElement('div');
     head.className = 'routeHead';
@@ -312,6 +403,7 @@ var Nav = (function () {
   return {
     init: function () {
       sheet = document.getElementById('sheet');
+      loadWay();
       Picker.init();
     },
     render: render,
