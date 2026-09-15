@@ -64,7 +64,7 @@ var Picker = (function () {
   }
 
   function iconFor(kind) {
-    return { lift: '🛗', stair: '🪜', entrance: '🚪', toilet: '🚻', counter: '🧾', landmark: '📌' }[kind] || '📍';
+    return { lift: '🛗', stair: '🪜', ramp: '♿', entrance: '🚪', toilet: '🚻', counter: '🧾', landmark: '📌' }[kind] || '📍';
   }
 
   function hide() {

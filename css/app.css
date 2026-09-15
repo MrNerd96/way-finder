@@ -132,6 +132,7 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .roomBox { fill: rgba(28,126,214,.16); stroke: #1c7ed6; }
 .roomBox.lift { fill: rgba(103,65,217,.20); stroke: #6741d9; }
 .roomBox.stair { fill: rgba(165,17,17,.20); stroke: #a51111; }
+.roomBox.ramp { fill: rgba(9,109,84,.18); stroke: #099268; }
 .roomBox.sel { fill: rgba(232,89,12,.18); stroke: var(--route); }
 .handle { fill: #fff; stroke: var(--route); }
 .rubber { fill: rgba(232,89,12,.16); stroke: var(--route); }

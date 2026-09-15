@@ -30,6 +30,7 @@ var Survey = (function () {
     ['toilet', 'Toilet'],
     ['lift', 'Lift'],
     ['stair', 'Staircase'],
+    ['ramp', 'Ramp'],
     ['entrance', 'Entrance'],
     ['landmark', 'Landmark'],
     ['junction', 'Corridor point']
@@ -372,11 +373,11 @@ var Survey = (function () {
     // the kind is switched to one that needs it.
     function syncShaft() {
       var k = kindSel.value;
-      shaftField.hidden = (k !== 'lift' && k !== 'stair');
+      shaftField.hidden = (k !== 'lift' && k !== 'stair' && k !== 'ramp');
       // A staircase or a corridor point is one thing with one name. A room is
       // however many things are written on its door, so it gets asked
       // differently — same field, different question.
-      var many = (k !== 'junction' && k !== 'lift' && k !== 'stair');
+      var many = (k !== 'junction' && k !== 'lift' && k !== 'stair' && k !== 'ramp');
       placeLabel.textContent = many ? "What's here" : 'Name';
       placeIn.placeholder = many
         ? 'e.g. Neurology, Spirometry, EEG'

@@ -29,11 +29,14 @@ var MapView = (function () {
   var DEFAULT_ROOM_SIDE = 0.045;
   var MIN_ROOM_SIDE = 0.012;
 
-  /* Lifts and staircases get a box for the same reasons rooms do, and one of
-     their own: a shaft is a room-sized thing drawn on the plan, and the lobby
-     around it is where the corridor points crowd together. A dot there is one
-     more dot; a box sits on the shaft itself and can be dragged onto it. */
-  var BOXED = { room: true, lift: true, stair: true };
+  /* Lifts, staircases and ramps get a box for the same reasons rooms do, and
+     one of their own: a shaft is a room-sized thing drawn on the plan, and the
+     lobby around it is where the corridor points crowd together. A dot there is
+     one more dot; a box sits on the shaft itself and can be dragged onto it.
+     A ramp is the clearest case of all -- it is drawn as long runs and
+     landings, and a dot in the middle of one says nothing about which way it
+     goes. */
+  var BOXED = { room: true, lift: true, stair: true, ramp: true };
 
   function hasBox(n) { return BOXED[n.kind] === true; }
 
@@ -284,7 +287,7 @@ var MapView = (function () {
     var minPx = px(MIN_LABEL_PX);
     var surveying = mode === 'survey';
     nodes.forEach(function (n) {
-      var text = n.room || (n.kind === 'lift' ? 'LIFT' : n.kind === 'stair' ? 'STAIR' : '');
+      var text = n.room || { lift: 'LIFT', stair: 'STAIR', ramp: 'RAMP' }[n.kind] || '';
       if (!text && surveying && hasBox(n)) text = n.name || '?';
       if (!text) return;
       if (text.length > 14) text = text.slice(0, 13) + '…';
