@@ -1,22 +1,13 @@
-/* Way Finder survey data, 2026-09-14 14:37.
-   Changes applied by tools/apply_changes.js: the connect pass. A hundred and
-   ninety-five links drawn and thirty redrawn, a lift lobby point on each floor
-   joined to all six of its cars, and the 4th floor's south-west staircase
-   given the shaft that finally joins that floor to the rest of the building.
+/* Way Finder survey data, 2026-09-15 05:01.
+   Changes applied by tools/apply_changes.js: the ramps, four boxes a floor
+   over the zig-zag beside the lift core, on all five OPD floors.
 
-   It shows in the routing. The lift now carries 31 of the 48 journeys from the
-   ground floor to the 2nd, where before it carried 2: the stairs were winning
-   only because walking to the lift went the long way round.
-
-   The 4th floor can now be reached, and is still marked hidden. Little on it
-   is named yet, so there is not much for a patient to look for, but the flag
-   is what decides whether they see the floor at all and it is worth revisiting
-   once its rooms have numbers.
-
-   Two things this pass left behind: the 3rd floor's north-west staircase lost
-   the corridor point it hung off, so it has no link on its own floor and can
-   only be reached through the shaft; and the ground floor's PRC entrance was
-   deleted, leaving one entrance where patients arrive by two.
+   Each floor's two long runs are joined to the lobby point; the two landings
+   that turn between them are not, so half the twenty go nowhere. All twenty
+   are called "Ramp", which puts four rows of the same word on each floor's
+   list, two of them dead ends. They are segments of one ramp rather than four
+   places, and reading like that in the app is a matter of joining the landings
+   to the runs, or of naming them apart.
 
    Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
    each link is the perpendicular to the nearest corridor, a first
@@ -8939,6 +8930,295 @@ var SEED_BUILDING = {
       "kind": "junction",
       "name": "",
       "aliases": []
+    },
+    {
+      "id": "r-12",
+      "floor": "opd-f1",
+      "x": 0.8491694643605956,
+      "y": 0.16888022873449937,
+      "kind": "room",
+      "name": "Ramp",
+      "aliases": [],
+      "w": 0.1545782271809445,
+      "h": 0.047968373456969166,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-14",
+      "floor": "opd-f1",
+      "x": 0.9013356123521671,
+      "y": 0.24626915619911394,
+      "kind": "room",
+      "name": "Ramp",
+      "aliases": [],
+      "w": 0.048965768372870366,
+      "h": 0.1982691772703454,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-24",
+      "floor": "opd-f1",
+      "x": 0.9040925139721389,
+      "y": 0.5029240437946569,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04966170970412054,
+      "h": 0.21173396607466533
+    },
+    {
+      "id": "r-32",
+      "floor": "opd-f1",
+      "x": 0.8514669531381694,
+      "y": 0.5839576419047579,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.1545782271809445,
+      "h": 0.047968373456969166
+    },
+    {
+      "id": "r-68",
+      "floor": "opd-f2",
+      "x": 0.7423321031110717,
+      "y": 0.6929843487665108,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-224",
+      "floor": "opd-f2",
+      "x": 0.7380561420288108,
+      "y": 0.20943156548234787,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-246",
+      "floor": "opd-f2",
+      "x": 0.8035060887356057,
+      "y": 0.3004310891225588,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05427151373188699,
+      "h": 0.2444977192765292
+    },
+    {
+      "id": "r-262",
+      "floor": "opd-f2",
+      "x": 0.8031441092516747,
+      "y": 0.6038670678221305,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05427151373188699,
+      "h": 0.2444977192765292
+    },
+    {
+      "id": "r-290",
+      "floor": "opd-f3",
+      "x": 0.8010296238090181,
+      "y": 0.6046686843572202,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05427151373188699,
+      "h": 0.2444977192765292
+    },
+    {
+      "id": "r-291",
+      "floor": "opd-f3",
+      "x": 0.8016659553106328,
+      "y": 0.2974786468897888,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05427151373188699,
+      "h": 0.2444977192765292
+    },
+    {
+      "id": "r-292",
+      "floor": "opd-f3",
+      "x": 0.74193904959015,
+      "y": 0.20677028323440336,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-359",
+      "floor": "opd-f3",
+      "x": 0.7425224329199207,
+      "y": 0.694268956181064,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-361",
+      "floor": "opd-f4",
+      "x": 0.8237213777361535,
+      "y": 0.7356025181411828,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-363",
+      "floor": "opd-f4",
+      "x": 0.8147850687987315,
+      "y": 0.21537197446466197,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.17530743085637612,
+      "h": 0.057595359134789414
+    },
+    {
+      "id": "r-364",
+      "floor": "opd-g",
+      "x": 0.8190154031799326,
+      "y": 0.1856519802011335,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.14776867425711904,
+      "h": 0.05008607130044851
+    },
+    {
+      "id": "r-365",
+      "floor": "opd-g",
+      "x": 0.818413322126755,
+      "y": 0.5855493889504315,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.14776867425711904,
+      "h": 0.05008607130044851
+    },
+    {
+      "id": "r-368",
+      "floor": "opd-f4",
+      "x": 0.8801156845988642,
+      "y": 0.3109300741849874,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05580213195674166,
+      "h": 0.2553593257414254
+    },
+    {
+      "id": "r-369",
+      "floor": "opd-f4",
+      "x": 0.882018772890619,
+      "y": 0.6321820572395409,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.05746595713049596,
+      "h": 0.26005566721741014
+    },
+    {
+      "id": "r-373",
+      "floor": "opd-g",
+      "x": 0.8675704630734518,
+      "y": 0.5084314172764397,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04753660098822843,
+      "h": 0.19920911873010133
+    },
+    {
+      "id": "r-388",
+      "floor": "opd-g",
+      "x": 0.86879192774192,
+      "y": 0.2609695262675807,
+      "kind": "room",
+      "name": "Ramp",
+      "landmark": "",
+      "aliases": [],
+      "w": 0.04753660098822843,
+      "h": 0.19920911873010133
+    },
+    {
+      "id": "p-233",
+      "floor": "opd-f4",
+      "x": 0.8798857668342523,
+      "y": 0.47180098702989903,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-234",
+      "floor": "opd-f3",
+      "x": 0.7926430280781209,
+      "y": 0.4503364479378128,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-235",
+      "floor": "opd-f2",
+      "x": 0.7959546831671271,
+      "y": 0.45037267048040075,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-236",
+      "floor": "opd-f1",
+      "x": 0.8978232563111596,
+      "y": 0.3715406551465941,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
+    },
+    {
+      "id": "p-237",
+      "floor": "opd-g",
+      "x": 0.8639607501663731,
+      "y": 0.38993710739220566,
+      "kind": "junction",
+      "name": "",
+      "aliases": []
     }
   ],
   "edges": [
@@ -11093,6 +11373,66 @@ var SEED_BUILDING = {
     [
       "f1-stair-sw",
       "p-231"
+    ],
+    [
+      "p-197",
+      "p-233"
+    ],
+    [
+      "p-233",
+      "r-369"
+    ],
+    [
+      "p-233",
+      "r-368"
+    ],
+    [
+      "p-163",
+      "p-234"
+    ],
+    [
+      "r-291",
+      "p-234"
+    ],
+    [
+      "r-290",
+      "p-234"
+    ],
+    [
+      "p-228",
+      "p-235"
+    ],
+    [
+      "r-246",
+      "p-235"
+    ],
+    [
+      "r-262",
+      "p-235"
+    ],
+    [
+      "p-184",
+      "p-236"
+    ],
+    [
+      "r-14",
+      "p-236"
+    ],
+    [
+      "r-24",
+      "p-236"
+    ],
+    [
+      "p-215",
+      "p-237"
+    ],
+    [
+      "r-388",
+      "p-237"
+    ],
+    [
+      "r-373",
+      "p-237"
     ]
   ]
 };
