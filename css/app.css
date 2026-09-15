@@ -137,20 +137,20 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .handle { fill: #fff; stroke: var(--route); }
 .rubber { fill: rgba(232,89,12,.16); stroke: var(--route); }
 
-/* How the patient will change floors: three whole buttons, not a row of radio
-   dots. This has to be hittable with a thumb, from a chair, by someone who is
-   unwell, and a 16px dot is none of those. */
-.wayPick { margin: 0 0 10px; }
-.wayCaption { display: block; margin: 0 0 6px 2px; color: var(--muted); font-size: .78rem; }
-.ways { display: flex; gap: 8px; }
+/* The way up: one button that carries the answer and is tapped to change it.
+   Shaped like the two questions above it, because it is the third one -- and
+   because this has to be hittable with a thumb, from a chair, by someone who
+   is unwell. */
 .wayBtn {
-  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 10px 6px; background: #fff; border: 2px solid var(--line); color: inherit;
+  width: 100%; text-align: left; background: #fff; border: 2px solid var(--green);
+  padding: 12px 14px; min-height: 56px; margin-bottom: 10px; color: var(--ink);
+  display: flex; align-items: center; gap: 12px;
 }
-.wayBtn.on { border-color: var(--green); background: #eef7f3; }
-.wayBtn .ico { font-size: 1.35rem; line-height: 1.1; }
-.wayBtn b { font-size: .84rem; font-weight: 600; }
-.wayBtn.on b { color: var(--green); }
+.wayBtn .ico { font-size: 1.5rem; flex: none; }
+.wayBtn .txt { flex: 1; min-width: 0; }
+.wayBtn .txt b { display: block; font-size: 1.02rem; color: var(--green); }
+.wayBtn .txt small { color: var(--muted); }
+.wayBtn .cycle { flex: none; font-size: 1.2rem; color: var(--muted); }
 
 /* Asked for step-free, and the only way there has stairs in it. */
 .routeWarn {

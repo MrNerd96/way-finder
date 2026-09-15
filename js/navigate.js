@@ -115,14 +115,19 @@ var Nav = (function () {
   var WAY_KEY = 'wayfinder-way';
   var WAYS = [
     { id: 'lift',  icon: '🛗', allow: { lift: true } },
-    { id: 'chair', icon: '♿', allow: { lift: true, ramp: true } },
-    { id: 'steps', icon: '🪜', allow: null }
+    { id: 'steps', icon: '🪜', allow: null },
+    { id: 'chair', icon: '♿', allow: { lift: true, ramp: true } }
   ];
   var way = 'lift';
   var wayDenied = false;          // asked one way, and there was no route that way
 
   function wayOf(id) {
     for (var i = 0; i < WAYS.length; i++) if (WAYS[i].id === id) return WAYS[i];
+    return WAYS[0];
+  }
+
+  function nextWay(id) {
+    for (var i = 0; i < WAYS.length; i++) if (WAYS[i].id === id) return WAYS[(i + 1) % WAYS.length];
     return WAYS[0];
   }
 
@@ -275,44 +280,41 @@ var Nav = (function () {
     sheet.appendChild(go);
   }
 
-  /* Three ways up, one of them chosen. It sits with the two questions because
-     it is a third thing the route depends on, not a setting buried elsewhere.
-     Whole buttons rather than a row of radio dots: this has to be hittable
-     with a thumb, from a chair, by someone who is unwell. */
+  /* One button carrying the way up, tapped to change it: lift, steps,
+     wheelchair, round again. It sits with the two questions because it is a
+     third thing the route depends on, and it is shaped like them -- a whole
+     button with the answer written on it, because this has to be hittable with
+     a thumb, from a chair, by someone who is unwell.
+
+     What it shows is what is chosen, never what tapping would choose. A
+     control that displays the thing it is about to become is the oldest way
+     there is to get someone to pick the opposite of what they wanted. */
   function wayPicker() {
-    var wrap = document.createElement('div');
-    wrap.className = 'wayPick';
+    var w = wayOf(way);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'wayBtn';
+    btn.setAttribute('aria-label', I18N.t('howUp') + ' ' + I18N.t('way_' + w.id));
 
-    var caption = document.createElement('small');
-    caption.className = 'wayCaption';
-    caption.textContent = I18N.t('howUp');
-    wrap.appendChild(caption);
+    var ico = document.createElement('span');
+    ico.className = 'ico';
+    ico.textContent = w.icon;
 
-    var row = document.createElement('div');
-    row.className = 'ways';
-    row.setAttribute('role', 'group');
-    row.setAttribute('aria-label', I18N.t('howUp'));
+    var txt = document.createElement('span');
+    txt.className = 'txt';
+    var strong = document.createElement('b');
+    strong.textContent = I18N.t('way_' + w.id);
+    var small = document.createElement('small');
+    small.textContent = I18N.t('howUp');
+    txt.appendChild(strong); txt.appendChild(small);
 
-    WAYS.forEach(function (w) {
-      var on = (w.id === way);
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'wayBtn' + (on ? ' on' : '');
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var cycle = document.createElement('span');
+    cycle.className = 'cycle';
+    cycle.textContent = '↻';
 
-      var ico = document.createElement('span');
-      ico.className = 'ico';
-      ico.textContent = w.icon;
-      var label = document.createElement('b');
-      label.textContent = I18N.t('way_' + w.id);
-
-      btn.appendChild(ico); btn.appendChild(label);
-      btn.addEventListener('click', function () { setWay(w.id); });
-      row.appendChild(btn);
-    });
-
-    wrap.appendChild(row);
-    return wrap;
+    btn.appendChild(ico); btn.appendChild(txt); btn.appendChild(cycle);
+    btn.addEventListener('click', function () { setWay(nextWay(way).id); });
+    return btn;
   }
 
   function renderStep() {
