@@ -103,7 +103,7 @@ var Picker = (function () {
 })();
 
 var Nav = (function () {
-  var sheet;
+  var sheet, wayBtn;
   var startId = null, destId = null;
   var destService = null;     // the one of several behind that door they asked for
   var path = null, steps = null, idx = 0;
@@ -115,14 +115,19 @@ var Nav = (function () {
   var WAY_KEY = 'wayfinder-way';
   var WAYS = [
     { id: 'lift',  icon: '🛗', allow: { lift: true } },
-    { id: 'chair', icon: '♿', allow: { lift: true, ramp: true } },
-    { id: 'steps', icon: '🪜', allow: null }
+    { id: 'steps', icon: '🪜', allow: null },
+    { id: 'chair', icon: '♿', allow: { lift: true, ramp: true } }
   ];
   var way = 'lift';
   var wayDenied = false;          // asked one way, and there was no route that way
 
   function wayOf(id) {
     for (var i = 0; i < WAYS.length; i++) if (WAYS[i].id === id) return WAYS[i];
+    return WAYS[0];
+  }
+
+  function nextWay(id) {
+    for (var i = 0; i < WAYS.length; i++) if (WAYS[i].id === id) return WAYS[(i + 1) % WAYS.length];
     return WAYS[0];
   }
 
@@ -135,9 +140,32 @@ var Nav = (function () {
   function setWay(id) {
     way = wayOf(id).id;
     try { localStorage.setItem(WAY_KEY, way); } catch (e) {}
+    syncWayBtn();
     // A route already on screen was worked out under the old answer, so it is
     // no longer the answer to the question being asked.
-    if (steps && steps.length) computeRoute(); else render();
+    if (steps && steps.length) computeRoute();
+  }
+
+  /* The way up rides on the map rather than in the sheet: it is one tap, it is
+     wanted as often mid-route as before starting, and the sheet is already two
+     questions and an answer tall on a phone.
+
+     What it shows is what is chosen, never what tapping would choose. A
+     control that displays the thing it is about to become is the oldest way
+     there is to get someone to pick the opposite of what they wanted. */
+  function syncWayBtn() {
+    if (!wayBtn) return;
+    var w = wayOf(way);
+    wayBtn.innerHTML = '';
+    var ico = document.createElement('span');
+    ico.className = 'ico';
+    ico.textContent = w.icon;
+    var label = document.createElement('b');
+    label.textContent = I18N.t('way_' + w.id);
+    wayBtn.appendChild(ico);
+    wayBtn.appendChild(label);
+    wayBtn.title = I18N.t('howUp');
+    wayBtn.setAttribute('aria-label', I18N.t('howUp') + ': ' + I18N.t('way_' + w.id));
   }
 
   function b() { return Store.get(); }
@@ -216,6 +244,7 @@ var Nav = (function () {
   /* ---------- rendering ---------- */
 
   function render() {
+    syncWayBtn();
     sheet.innerHTML = '';
     if (steps && steps.length) renderStep();
     else renderChooser();
@@ -264,8 +293,6 @@ var Nav = (function () {
       });
     }, destService));
 
-    sheet.appendChild(wayPicker());
-
     var go = document.createElement('button');
     go.type = 'button';
     go.className = 'primary go';
@@ -273,46 +300,6 @@ var Nav = (function () {
     go.disabled = !(startId && destId);
     go.addEventListener('click', computeRoute);
     sheet.appendChild(go);
-  }
-
-  /* Three ways up, one of them chosen. It sits with the two questions because
-     it is a third thing the route depends on, not a setting buried elsewhere.
-     Whole buttons rather than a row of radio dots: this has to be hittable
-     with a thumb, from a chair, by someone who is unwell. */
-  function wayPicker() {
-    var wrap = document.createElement('div');
-    wrap.className = 'wayPick';
-
-    var caption = document.createElement('small');
-    caption.className = 'wayCaption';
-    caption.textContent = I18N.t('howUp');
-    wrap.appendChild(caption);
-
-    var row = document.createElement('div');
-    row.className = 'ways';
-    row.setAttribute('role', 'group');
-    row.setAttribute('aria-label', I18N.t('howUp'));
-
-    WAYS.forEach(function (w) {
-      var on = (w.id === way);
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'wayBtn' + (on ? ' on' : '');
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-
-      var ico = document.createElement('span');
-      ico.className = 'ico';
-      ico.textContent = w.icon;
-      var label = document.createElement('b');
-      label.textContent = I18N.t('way_' + w.id);
-
-      btn.appendChild(ico); btn.appendChild(label);
-      btn.addEventListener('click', function () { setWay(w.id); });
-      row.appendChild(btn);
-    });
-
-    wrap.appendChild(row);
-    return wrap;
   }
 
   function renderStep() {
@@ -403,7 +390,10 @@ var Nav = (function () {
   return {
     init: function () {
       sheet = document.getElementById('sheet');
+      wayBtn = document.getElementById('wayBtn');
       loadWay();
+      if (wayBtn) wayBtn.addEventListener('click', function () { setWay(nextWay(way).id); });
+      syncWayBtn();
       Picker.init();
     },
     render: render,
