@@ -108,6 +108,24 @@ var Nav = (function () {
   var destService = null;     // the one of several behind that door they asked for
   var path = null, steps = null, idx = 0;
 
+  /* Off by default and remembered once set, because the person who needs it
+     needs it every single time and should not have to find it twice. */
+  var STEP_FREE_KEY = 'wayfinder-stepfree';
+  var stepFree = false;
+  var usedStairsAnyway = false;   // asked for step-free, and there was none
+
+  function loadStepFree() {
+    try { stepFree = localStorage.getItem(STEP_FREE_KEY) === '1'; } catch (e) { stepFree = false; }
+  }
+
+  function setStepFree(on) {
+    stepFree = !!on;
+    try { localStorage.setItem(STEP_FREE_KEY, stepFree ? '1' : '0'); } catch (e) {}
+    // A route already on screen was worked out under the old answer, so it is
+    // no longer the answer to the question being asked.
+    if (steps && steps.length) computeRoute(); else render();
+  }
+
   function b() { return Store.get(); }
 
   function node(id) { return id ? Store.node(id) : null; }
@@ -141,7 +159,16 @@ var Nav = (function () {
   function computeRoute() {
     if (!startId || !destId) return;
     if (startId === destId) { App.toast(I18N.t('samePlace')); return; }
-    path = Graph.route(b(), startId, destId);
+    usedStairsAnyway = false;
+    path = Graph.route(b(), startId, destId, { stepFree: stepFree });
+    if (!path && stepFree) {
+      /* There is no way there without stairs. Saying "no path" would be a
+         half-truth and leaves them nowhere; show the stairs route and say
+         plainly that it has stairs in it, so the choice is theirs. */
+      path = Graph.route(b(), startId, destId);
+      usedStairsAnyway = !!path;
+      if (path) App.toast(I18N.t('noStepFree'));
+    }
     if (!path) { App.toast(I18N.t('noRoute')); return; }
     steps = Graph.directions(b(), path, destService);
     idx = 0;
@@ -222,6 +249,8 @@ var Nav = (function () {
       });
     }, destService));
 
+    sheet.appendChild(stepFreeToggle());
+
     var go = document.createElement('button');
     go.type = 'button';
     go.className = 'primary go';
@@ -231,9 +260,45 @@ var Nav = (function () {
     sheet.appendChild(go);
   }
 
+  /* One row, one job: no stairs on this route. It sits with the two questions
+     because it is a third thing the route depends on, not a setting. */
+  function stepFreeToggle() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'stepFree' + (stepFree ? ' on' : '');
+    btn.setAttribute('aria-pressed', stepFree ? 'true' : 'false');
+
+    var ico = document.createElement('span');
+    ico.className = 'ico';
+    ico.textContent = '♿';
+
+    var txt = document.createElement('span');
+    txt.className = 'txt';
+    var strong = document.createElement('b');
+    strong.textContent = I18N.t('stepFree');
+    var small = document.createElement('small');
+    small.textContent = I18N.t('stepFreeHint');
+    txt.appendChild(strong); txt.appendChild(small);
+
+    var mark = document.createElement('span');
+    mark.className = 'tick';
+    mark.textContent = stepFree ? '✓' : '';
+
+    btn.appendChild(ico); btn.appendChild(txt); btn.appendChild(mark);
+    btn.addEventListener('click', function () { setStepFree(!stepFree); });
+    return btn;
+  }
+
   function renderStep() {
     var s = steps[idx];
     var t = Graph.totals(b(), path);
+
+    if (usedStairsAnyway) {
+      var warn = document.createElement('p');
+      warn.className = 'routeWarn';
+      warn.textContent = I18N.t('noStepFree');
+      sheet.appendChild(warn);
+    }
 
     var head = document.createElement('div');
     head.className = 'routeHead';
@@ -312,6 +377,7 @@ var Nav = (function () {
   return {
     init: function () {
       sheet = document.getElementById('sheet');
+      loadStepFree();
       Picker.init();
     },
     render: render,

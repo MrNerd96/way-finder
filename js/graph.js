@@ -83,8 +83,13 @@ var Graph = (function () {
   /* Adjacency including the implicit vertical links: any two nodes that share
      a shaft id are connected. A shaft is whatever carries people between
      floors in one place -- a lift, a staircase, or the ramp, which is one
-     continuous climb drawn in pieces on each floor's plan. */
-  function adjacency(building) {
+     continuous climb drawn in pieces on each floor's plan.
+
+     opts.stepFree drops the staircases out of the graph rather than making
+     them dear. To someone in a chair a flight of stairs is not an expensive
+     route, it is a wall, and no amount of weighting says that honestly. */
+  function adjacency(building, opts) {
+    var stepFree = !!(opts && opts.stepFree);
     var nodes = byId(building);
     var adj = {};
     building.nodes.forEach(function (n) { adj[n.id] = []; });
@@ -111,6 +116,7 @@ var Graph = (function () {
           if (a.floor === b.floor) continue;
           var fa = floorOf(building, a.floor), fb = floorOf(building, b.floor);
           if (!fa || !fb) continue;
+          if (stepFree && verticalKind(a, b) === 'stair') continue;
           var levels = Math.abs((fa.level || 0) - (fb.level || 0)) || 1;
           var cost = verticalCost(a, b, levels);
           adj[a.id].push({ to: b.id, cost: cost, vertical: true });
@@ -124,12 +130,12 @@ var Graph = (function () {
 
   /* Plain Dijkstra with a linear scan for the next node. The graph is a few
      hundred points at most, so a real priority queue buys nothing. */
-  function route(building, fromId, toId) {
+  function route(building, fromId, toId, opts) {
     var nodes = byId(building);
     if (!nodes[fromId] || !nodes[toId]) return null;
     if (fromId === toId) return [nodes[fromId]];
 
-    var adj = adjacency(building);
+    var adj = adjacency(building, opts);
     var dist = {}, prev = {}, done = {};
     building.nodes.forEach(function (n) { dist[n.id] = Infinity; });
     dist[fromId] = 0;
