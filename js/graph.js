@@ -85,11 +85,12 @@ var Graph = (function () {
      floors in one place -- a lift, a staircase, or the ramp, which is one
      continuous climb drawn in pieces on each floor's plan.
 
-     opts.stepFree drops the staircases out of the graph rather than making
-     them dear. To someone in a chair a flight of stairs is not an expensive
-     route, it is a wall, and no amount of weighting says that honestly. */
+     opts.allow names the ways up a patient will accept -- 'lift', 'ramp',
+     'stair' -- and the rest are dropped out of the graph rather than made
+     dear. To someone in a chair a flight of stairs is not an expensive route,
+     it is a wall, and no amount of weighting says that honestly. */
   function adjacency(building, opts) {
-    var stepFree = !!(opts && opts.stepFree);
+    var allow = opts && opts.allow;
     var nodes = byId(building);
     var adj = {};
     building.nodes.forEach(function (n) { adj[n.id] = []; });
@@ -116,7 +117,7 @@ var Graph = (function () {
           if (a.floor === b.floor) continue;
           var fa = floorOf(building, a.floor), fb = floorOf(building, b.floor);
           if (!fa || !fb) continue;
-          if (stepFree && verticalKind(a, b) === 'stair') continue;
+          if (allow && !allow[verticalKind(a, b)]) continue;
           var levels = Math.abs((fa.level || 0) - (fb.level || 0)) || 1;
           var cost = verticalCost(a, b, levels);
           adj[a.id].push({ to: b.id, cost: cost, vertical: true });

@@ -137,20 +137,20 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .handle { fill: #fff; stroke: var(--route); }
 .rubber { fill: rgba(232,89,12,.16); stroke: var(--route); }
 
-/* The step-free toggle sits with the two questions in the Go sheet. It is a
-   button, not a checkbox, because it has to be hittable with a thumb from a
-   wheelchair and a 16px tickbox is not. */
-.stepFree {
-  display: flex; align-items: center; gap: 12px; width: 100%;
-  margin: 0 0 10px; padding: 12px 14px; text-align: left;
-  background: #fff; border: 2px solid var(--line); color: inherit;
+/* How the patient will change floors: three whole buttons, not a row of radio
+   dots. This has to be hittable with a thumb, from a chair, by someone who is
+   unwell, and a 16px dot is none of those. */
+.wayPick { margin: 0 0 10px; }
+.wayCaption { display: block; margin: 0 0 6px 2px; color: var(--muted); font-size: .78rem; }
+.ways { display: flex; gap: 8px; }
+.wayBtn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px 6px; background: #fff; border: 2px solid var(--line); color: inherit;
 }
-.stepFree.on { border-color: var(--green); background: #eef7f3; }
-.stepFree .ico { font-size: 1.4rem; line-height: 1; }
-.stepFree .txt { flex: 1; min-width: 0; }
-.stepFree b { display: block; font-size: .95rem; }
-.stepFree small { display: block; color: var(--muted); font-size: .78rem; }
-.stepFree .tick { font-weight: 700; color: var(--green); font-size: 1.1rem; width: 1.1rem; }
+.wayBtn.on { border-color: var(--green); background: #eef7f3; }
+.wayBtn .ico { font-size: 1.35rem; line-height: 1.1; }
+.wayBtn b { font-size: .84rem; font-weight: 600; }
+.wayBtn.on b { color: var(--green); }
 
 /* Asked for step-free, and the only way there has stairs in it. */
 .routeWarn {
