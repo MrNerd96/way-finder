@@ -137,20 +137,25 @@ button { font: inherit; cursor: pointer; border-radius: 10px; border: none; }
 .handle { fill: #fff; stroke: var(--route); }
 .rubber { fill: rgba(232,89,12,.16); stroke: var(--route); }
 
-/* The way up: one button that carries the answer and is tapped to change it.
-   Shaped like the two questions above it, because it is the third one -- and
-   because this has to be hittable with a thumb, from a chair, by someone who
-   is unwell. */
-.wayBtn {
-  width: 100%; text-align: left; background: #fff; border: 2px solid var(--green);
-  padding: 12px 14px; min-height: 56px; margin-bottom: 10px; color: var(--ink);
-  display: flex; align-items: center; gap: 12px;
+/* The way up sits on the map, bottom left, opposite the fit button. One tap
+   cycles it. It carries its word as well as its icon: a patient who has never
+   seen the app cannot be asked to know what a ladder means, and the word is
+   the difference between a control and a puzzle.
+
+   44px tall whatever the word, because that is the smallest thing a thumb can
+   be asked to hit -- and this one gets hit by people who are unwell, or
+   holding a child, or reaching across a wheelchair. */
+.wayFab {
+  position: absolute; left: 12px; bottom: 12px; min-height: 44px;
+  display: flex; align-items: center; gap: 7px; padding: 0 13px 0 10px;
+  background: rgba(255,255,255,.94); border: 2px solid var(--green);
+  box-shadow: 0 1px 4px rgba(0,0,0,.18);
 }
-.wayBtn .ico { font-size: 1.5rem; flex: none; }
-.wayBtn .txt { flex: 1; min-width: 0; }
-.wayBtn .txt b { display: block; font-size: 1.02rem; color: var(--green); }
-.wayBtn .txt small { color: var(--muted); }
-.wayBtn .cycle { flex: none; font-size: 1.2rem; color: var(--muted); }
+.wayFab .ico { font-size: 1.25rem; line-height: 1; }
+.wayFab b { font-size: .92rem; font-weight: 700; color: var(--green); }
+
+/* In survey mode the map is a drawing board and this is not part of it. */
+body[data-mode="survey"] .wayFab { display: none; }
 
 /* Asked for step-free, and the only way there has stairs in it. */
 .routeWarn {

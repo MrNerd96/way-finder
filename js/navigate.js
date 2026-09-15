@@ -103,7 +103,7 @@ var Picker = (function () {
 })();
 
 var Nav = (function () {
-  var sheet;
+  var sheet, wayBtn;
   var startId = null, destId = null;
   var destService = null;     // the one of several behind that door they asked for
   var path = null, steps = null, idx = 0;
@@ -140,9 +140,32 @@ var Nav = (function () {
   function setWay(id) {
     way = wayOf(id).id;
     try { localStorage.setItem(WAY_KEY, way); } catch (e) {}
+    syncWayBtn();
     // A route already on screen was worked out under the old answer, so it is
     // no longer the answer to the question being asked.
-    if (steps && steps.length) computeRoute(); else render();
+    if (steps && steps.length) computeRoute();
+  }
+
+  /* The way up rides on the map rather than in the sheet: it is one tap, it is
+     wanted as often mid-route as before starting, and the sheet is already two
+     questions and an answer tall on a phone.
+
+     What it shows is what is chosen, never what tapping would choose. A
+     control that displays the thing it is about to become is the oldest way
+     there is to get someone to pick the opposite of what they wanted. */
+  function syncWayBtn() {
+    if (!wayBtn) return;
+    var w = wayOf(way);
+    wayBtn.innerHTML = '';
+    var ico = document.createElement('span');
+    ico.className = 'ico';
+    ico.textContent = w.icon;
+    var label = document.createElement('b');
+    label.textContent = I18N.t('way_' + w.id);
+    wayBtn.appendChild(ico);
+    wayBtn.appendChild(label);
+    wayBtn.title = I18N.t('howUp');
+    wayBtn.setAttribute('aria-label', I18N.t('howUp') + ': ' + I18N.t('way_' + w.id));
   }
 
   function b() { return Store.get(); }
@@ -221,6 +244,7 @@ var Nav = (function () {
   /* ---------- rendering ---------- */
 
   function render() {
+    syncWayBtn();
     sheet.innerHTML = '';
     if (steps && steps.length) renderStep();
     else renderChooser();
@@ -269,8 +293,6 @@ var Nav = (function () {
       });
     }, destService));
 
-    sheet.appendChild(wayPicker());
-
     var go = document.createElement('button');
     go.type = 'button';
     go.className = 'primary go';
@@ -278,43 +300,6 @@ var Nav = (function () {
     go.disabled = !(startId && destId);
     go.addEventListener('click', computeRoute);
     sheet.appendChild(go);
-  }
-
-  /* One button carrying the way up, tapped to change it: lift, steps,
-     wheelchair, round again. It sits with the two questions because it is a
-     third thing the route depends on, and it is shaped like them -- a whole
-     button with the answer written on it, because this has to be hittable with
-     a thumb, from a chair, by someone who is unwell.
-
-     What it shows is what is chosen, never what tapping would choose. A
-     control that displays the thing it is about to become is the oldest way
-     there is to get someone to pick the opposite of what they wanted. */
-  function wayPicker() {
-    var w = wayOf(way);
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'wayBtn';
-    btn.setAttribute('aria-label', I18N.t('howUp') + ' ' + I18N.t('way_' + w.id));
-
-    var ico = document.createElement('span');
-    ico.className = 'ico';
-    ico.textContent = w.icon;
-
-    var txt = document.createElement('span');
-    txt.className = 'txt';
-    var strong = document.createElement('b');
-    strong.textContent = I18N.t('way_' + w.id);
-    var small = document.createElement('small');
-    small.textContent = I18N.t('howUp');
-    txt.appendChild(strong); txt.appendChild(small);
-
-    var cycle = document.createElement('span');
-    cycle.className = 'cycle';
-    cycle.textContent = '↻';
-
-    btn.appendChild(ico); btn.appendChild(txt); btn.appendChild(cycle);
-    btn.addEventListener('click', function () { setWay(nextWay(way).id); });
-    return btn;
   }
 
   function renderStep() {
@@ -405,7 +390,10 @@ var Nav = (function () {
   return {
     init: function () {
       sheet = document.getElementById('sheet');
+      wayBtn = document.getElementById('wayBtn');
       loadWay();
+      if (wayBtn) wayBtn.addEventListener('click', function () { setWay(nextWay(way).id); });
+      syncWayBtn();
       Picker.init();
     },
     render: render,
