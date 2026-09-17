@@ -1,5 +1,25 @@
 /* Way Finder survey data, 2026-09-17 07:13.
-   Changes from changes-e.json applied by tools/apply_changes.js.
+   Changes applied by tools/apply_changes.js: twenty rooms numbered on the 4th
+   floor and six of them named -- General Medicine, Surgical and Medical
+   oncology, Endocrinology, Nephrology, Urology.
+
+   The 4th floor is no longer hidden. It has corridors, it has numbers on its
+   doors, and one car of its east bank now carries opd-lift-east, which is what
+   was missing: the cars were drawn on its plan but none of them said which
+   shaft it was, so no route could reach the floor by lift. If that lift turns
+   out not to serve the 4th floor, r-274 is the one line to undo.
+
+   Seventeen of its thirty named places have no corridor link yet, so a patient
+   searching "General Medicine" finds it and is then told there is no path --
+   the same state the ground floor's numbered rooms are in. Connecting them is
+   the next pass on both floors.
+
+   Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
+   each link is the perpendicular to the nearest corridor, a first
+   approximation to be corrected on the floor with the Connect tool.
+   The OPD ground floor was added from its fire-evacuation board: its
+   staircases sit on the shafts the floors above already use, and its
+   corridors follow the escape routes printed on the plan.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -59,7 +79,6 @@ var SEED_BUILDING = {
     },
     {
       "id": "opd-f4",
-      "hidden": true,
       "block": "OPD",
       "level": 4,
       "label": "OPD · 4th Floor",
@@ -3846,11 +3865,12 @@ var SEED_BUILDING = {
       "w": 0.0261,
       "h": 0.0342,
       "kind": "lift",
-      "name": "",
+      "name": "Lift lobby (east block)",
       "aliases": [],
       "room": "",
-      "landmark": "",
-      "shaft": ""
+      "landmark": "The lift lobby in the east block",
+      "shaft": "opd-lift-east",
+      "canStart": true
     },
     {
       "id": "r-275",
