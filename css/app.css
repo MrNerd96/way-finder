@@ -230,8 +230,27 @@ body[data-mode="survey"] .wayFab { display: none; }
 .overlay { position: fixed; inset: 0; background: rgba(12,20,17,.45); display: flex; align-items: flex-end; z-index: 50; }
 .overlay[hidden], #surveyBar[hidden], .toast[hidden] { display: none; }
 .pickerBox, .editorBox {
-  background: var(--card); width: 100%; max-height: 92vh; display: flex; flex-direction: column;
+  background: var(--card); width: 100%; display: flex; flex-direction: column;
   border-radius: 16px 16px 0 0; padding: 10px 12px calc(env(safe-area-inset-bottom) + 12px);
+  max-height: 92vh;
+  /* dvh, with the viewport meta's interactive-widget, is the height actually
+     left over once the keyboard is up. vh is the whole screen, keyboard
+     included, which is how a sheet ends up taller than the room it has. */
+  max-height: 92dvh;
+}
+
+/* The search sheet is anchored to the TOP of the phone, unlike every other
+   sheet here. It used to rise from the bottom, which is fine until the
+   keyboard opens: the box is then taller than what is left of the screen, so
+   the field you are typing in and the matches under it slide down behind the
+   keys, and a patient is choosing a department through a letterbox two rows
+   high. From the top, what you typed and what matched are the first things on
+   the screen, and the keyboard covers only the tail of the list. */
+#picker { align-items: flex-start; }
+.pickerBox {
+  max-height: 100dvh;
+  border-radius: 0 0 16px 16px;
+  padding-top: calc(env(safe-area-inset-top) + 10px);
 }
 .overlay header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .overlay header h2 { margin: 0; font-size: 1.05rem; flex: 1; }
@@ -246,7 +265,9 @@ body[data-mode="survey"] .wayFab { display: none; }
    invisible on the white field. The list below is the way out of a bad search,
    so the button is dropped rather than left as a ghost. */
 #pickerInput::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
-#pickerList { list-style: none; margin: 10px 0 0; padding: 0; overflow-y: auto; }
+/* flex + min-height:0 so the list is what scrolls, rather than growing and
+   pushing the field it belongs to off the screen. */
+#pickerList { list-style: none; margin: 10px 0 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
 #pickerList li button {
   width: 100%; text-align: left; background: none; border: none; border-bottom: 1px solid var(--line);
   padding: 14px 6px; min-height: var(--tap); display: flex; gap: 12px; align-items: center;
@@ -298,5 +319,8 @@ body[data-mode="survey"] .wayFab { display: none; }
 
 @media (min-width: 720px) {
   .pickerBox, .editorBox { max-width: 560px; margin: 0 auto; border-radius: 16px; }
-  .overlay { align-items: center; }
+  /* On a screen with room for it, both sheets sit in the middle again: there
+     is no keyboard eating half the window to design around. */
+  .overlay, #picker { align-items: center; }
+  .pickerBox { max-height: 92dvh; padding-top: 10px; }
 }
