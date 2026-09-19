@@ -218,10 +218,17 @@ var Nav = (function () {
     showStep();
   }
 
+  /* Which stretch of the path this card is talking about. A straight run says
+     where it began; everything else is the single hop it names. */
+  function legOf(step) {
+    if (!step) return 0;
+    return { from: step.segFrom, to: step.seg };
+  }
+
   function showStep() {
     var step = steps[idx];
     if (step && step.floor) MapView.setFloor(step.floor, true);
-    MapView.setRoute(path, step ? step.seg : 0, { start: startId, end: destId });
+    MapView.setRoute(path, legOf(step), { start: startId, end: destId });
     render();
     App.renderFloorStrip();
     // Frame this floor's leg of the walk once the sheet has taken its height.
@@ -409,7 +416,7 @@ var Nav = (function () {
     hasRoute: function () { return !!steps; },
     /* Survey mode blanks the map; put the route back when we come out of it. */
     refreshMap: function () {
-      MapView.setRoute(path, steps ? steps[idx].seg : 0,
+      MapView.setRoute(path, steps ? legOf(steps[idx]) : 0,
                        (startId || destId) ? { start: startId, end: destId } : null);
     },
     routeFloors: function () {

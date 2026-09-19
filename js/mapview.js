@@ -11,7 +11,7 @@ var MapView = (function () {
   var mode = 'go';
   var selection = null;
   var linkAnchor = null;
-  var routePath = null, routeActiveSeg = 0;
+  var routePath = null, routeActive = { from: 0, to: 0 };
   var pins = null;                 // { start: nodeId, end: nodeId }
   var onTap = function () {};
 
@@ -356,18 +356,33 @@ var MapView = (function () {
     }));
   }
 
+  /* A card covers a stretch of the path, not one hop of it. "Go straight for
+     25 m" can cross half a dozen corridor points, and lighting up only the
+     last of them told the patient to walk three metres when the sentence said
+     twenty-five. The card carries where its stretch began; everything from
+     there to where it ends is the leg being described. */
   function drawRoute(index) {
     if (!routePath || routePath.length < 2) return;
     var w = px(7);
     for (var i = 1; i < routePath.length; i++) {
       var a = routePath[i - 1], b = routePath[i];
       if (a.floor !== floorId || b.floor !== floorId) continue;
-      var active = (i === routeActiveSeg);
+      var active = (i > routeActive.from && i <= routeActive.to);
       layers.route.appendChild(el('line', {
         class: 'routeLine' + (active ? ' active' : ''),
         x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': active ? w * 1.35 : w
       }));
     }
+  }
+
+  function span(active) {
+    if (active && typeof active === 'object') {
+      var to = active.to || 0;
+      var from = (active.from === undefined || active.from === null) ? to - 1 : active.from;
+      return { from: Math.min(from, to), to: to };
+    }
+    var i = active || 0;
+    return { from: i - 1, to: i };
   }
 
   function drawPins(index, r) {
@@ -630,14 +645,16 @@ var MapView = (function () {
     setSelection: function (id) { selection = id; draw(); },
     setLinkAnchor: function (id) { linkAnchor = id; draw(); },
 
-    setRoute: function (path, activeSeg, pinIds) {
+    /* active is the step being shown: a number for a card that is one hop, or
+       {from, to} for one that spans several. */
+    setRoute: function (path, active, pinIds) {
       routePath = path;
-      routeActiveSeg = activeSeg || 0;
+      routeActive = span(active);
       pins = pinIds || null;
       draw();
     },
 
-    setActiveSeg: function (i) { routeActiveSeg = i; draw(); },
+    setActiveSeg: function (active) { routeActive = span(active); draw(); },
 
     setShowHandles: function (on) { showHandles = !!on; draw(); },
 
