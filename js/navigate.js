@@ -82,6 +82,20 @@ var Picker = (function () {
       close = document.getElementById('pickerClose');
       close.addEventListener('click', hide);
       input.addEventListener('input', render);
+
+      /* Enter takes the top row. Typing a room number and pressing enter is
+         what everyone does -- the number is the most exact thing anyone can
+         tell this app about where they mean -- and until now it did nothing at
+         all, on a laptop or on a phone's search key, and the number had to be
+         tapped as well as typed. It clicks the row rather than calling the
+         handler directly, so there is one path in and no second copy of what
+         picking a place means. */
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key !== 'Enter' && ev.keyCode !== 13) return;
+        ev.preventDefault();
+        var first = list.querySelector('li button');
+        if (first) first.click();
+      });
       box.addEventListener('click', function (ev) { if (ev.target === box) hide(); });
     },
     open: function (opts) {
