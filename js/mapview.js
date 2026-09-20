@@ -49,6 +49,23 @@ var MapView = (function () {
   var MIN_LABEL_PX = 11;
   var CHAR_EM = 0.62;
 
+  /* A corridor point is drawn in map units, floored and capped in screen
+     pixels, rather than at one screen size whatever the zoom.
+
+     Pinned to the screen it was nine pixels at every zoom. Up close that is
+     right; pulled back to the whole floor there are four hundred of them and
+     nine pixels each is a sheet of white over the plan the patient is trying
+     to read. In map units they shrink to specks as you pull back and grow as
+     you come in, which is what a dot drawn on a plan does. The floor stops
+     them disappearing; the cap stops them becoming blobs. Tapping is
+     unaffected -- that has its own tolerance in screen pixels, and has always
+     been far larger than the dot. */
+  var DOT_UNITS = 0.006, DOT_MIN_PX = 2.5, DOT_MAX_PX = 10;
+
+  function dotRadius() {
+    return Math.min(Math.max(DOT_UNITS, px(DOT_MIN_PX)), px(DOT_MAX_PX));
+  }
+
   /* Two elements, not one with paint-order: stroke. The single-element trick
      is tidier and works in most browsers, but where paint-order is ignored the
      white halo paints straight over the dark glyph and the label comes out as
@@ -256,7 +273,9 @@ var MapView = (function () {
 
     drawRoute(index);
 
-    var r = px(9), sw = px(2.4), selW = px(4);
+    var r = dotRadius(), sw = px(2.4), selW = px(4);
+    // The outline has to shrink with the dot, or a small dot is all outline.
+    var dotSw = Math.min(sw, r * 0.3), dotSelW = Math.min(selW, r * 0.5);
     nodes.forEach(function (n) {
       var picked = (n.id === selection || n.id === linkAnchor);
       if (hasBox(n)) {
@@ -271,7 +290,7 @@ var MapView = (function () {
       layers.nodes.appendChild(el('circle', {
         class: 'node ' + n.kind + (picked ? ' sel' : ''),
         cx: n.x, cy: n.y, r: r,
-        'stroke-width': picked ? selW : sw
+        'stroke-width': picked ? dotSelW : dotSw
       }));
     });
 
@@ -344,7 +363,11 @@ var MapView = (function () {
     }
 
     drawRubber();
-    drawPins(index, r);
+    /* The two route pins keep a constant screen size. There are two of them,
+       they say where this walk starts and ends, and they are the one thing on
+       the map that should not get quieter as you pull back to see the whole
+       route. */
+    drawPins(index, px(9));
   }
 
   function drawRubber() {
