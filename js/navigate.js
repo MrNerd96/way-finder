@@ -108,9 +108,19 @@ var Picker = (function () {
       input.placeholder = I18N.t(placeholderKey);
       box.hidden = false;
       render();
-      // Don't steal focus on touch: the keyboard covering the list is worse
-      // than one extra tap, and many users pick from the list rather than type.
-      if (window.matchMedia('(pointer: fine)').matches) input.focus();
+      /* Focus straight away, phone included, so the keyboard is up and the
+         field is live the moment the question appears.
+
+         This used to hold back on touch, because the sheet rose from the
+         bottom and the keyboard buried the list under it -- one extra tap was
+         the lesser evil. The sheet opens from the top now, so the keyboard
+         takes the tail of the list and nothing else, and holding back just
+         costs a tap on a screen someone opened in order to type.
+
+         Synchronously, and not in a timeout: this runs inside the tap that
+         opened the picker, and a phone only raises its keyboard for a focus
+         it can still trace back to something the user did. */
+      input.focus();
     },
     hide: hide
   };
