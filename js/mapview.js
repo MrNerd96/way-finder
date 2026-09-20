@@ -156,6 +156,14 @@ var MapView = (function () {
   /* The map pane changes height whenever the bottom sheet does. Keep the
      viewBox the same shape as the pane so the plan never gets letterboxed,
      holding the current centre and zoom. */
+  /* The pane has changed shape. Re-frame whatever the view was meant to show;
+     failing that -- they have panned or zoomed it themselves -- keep their
+     view and only correct the letterboxing. */
+  function reframe() {
+    if (framing) applyFraming();
+    else { syncAspect(); draw(); }
+  }
+
   function syncAspect() {
     var w = svg.clientWidth, h = svg.clientHeight;
     if (!w || !h) return;
@@ -166,7 +174,44 @@ var MapView = (function () {
     applyViewBox();
   }
 
+  /* What the view is meant to be showing, so a change in the pane's shape can
+     re-frame it rather than keep whatever zoom was worked out for the old one.
+
+     On a phone this is the difference between a usable map and a postage
+     stamp. Opening the search raises the keyboard, the keyboard takes most of
+     the screen, and the map pane is left a couple of centimetres tall. Picking
+     a place from a different floor fits that floor to the pane -- as it stood
+     then: short and very wide, which needs a viewBox three times the width of
+     the plan. The keyboard then goes away, the pane grows back, and nothing
+     recomputes the width, so the plan sits tiny in the middle of a big empty
+     pane. Remembering the intent fixes it: the pane grows, the floor is fitted
+     to it again, and the map fills the screen.
+
+     Panning or pinching clears it. Once they have chosen a view of their own,
+     a resize should hold it, not throw it away. */
+  var framing = null;
+
   function fit() {
+    framing = { kind: 'floor' };
+    applyFraming();
+  }
+
+  /* Frame a rectangle of the plan rather than the whole floor. Used while a
+     route is showing, so the corridor being described fills the screen. */
+  function fitBounds(minX, minY, maxX, maxY, padFrac, minSpan) {
+    framing = { kind: 'bounds', minX: minX, minY: minY, maxX: maxX, maxY: maxY,
+                pad: padFrac, minSpan: minSpan };
+    applyFraming();
+  }
+
+  function applyFraming() {
+    if (!framing) return;
+    if (framing.kind === 'floor') frameFloor(); else frameBounds(framing);
+    applyViewBox();
+    draw();
+  }
+
+  function frameFloor() {
     var f = floor();
     var aspect = (f && f.aspect) || 1;
     var boxW = svg.clientWidth || 360, boxH = svg.clientHeight || 360;
@@ -183,25 +228,19 @@ var MapView = (function () {
     }
     vb.x = 0.5 - vb.w / 2;
     vb.y = aspect / 2 - vb.h / 2;
-    applyViewBox();
-    draw();
   }
 
-  /* Frame a rectangle of the plan rather than the whole floor. Used while a
-     route is showing, so the corridor being described fills the screen. */
-  function fitBounds(minX, minY, maxX, maxY, padFrac, minSpan) {
+  function frameBounds(box) {
     var boxW = svg.clientWidth || 360, boxH = svg.clientHeight || 360;
-    var w = Math.max(maxX - minX, minSpan || 0.18);
-    var h = Math.max(maxY - minY, minSpan || 0.18);
-    var pad = padFrac === undefined ? 0.35 : padFrac;
+    var w = Math.max(box.maxX - box.minX, box.minSpan || 0.18);
+    var h = Math.max(box.maxY - box.minY, box.minSpan || 0.18);
+    var pad = box.pad === undefined ? 0.35 : box.pad;
     w *= (1 + pad); h *= (1 + pad);
     var screenRatio = boxW / boxH;
     if (w / h < screenRatio) w = h * screenRatio; else h = w / screenRatio;
     vb.w = w; vb.h = h;
-    vb.x = (minX + maxX) / 2 - w / 2;
-    vb.y = (minY + maxY) / 2 - h / 2;
-    applyViewBox();
-    draw();
+    vb.x = (box.minX + box.maxX) / 2 - w / 2;
+    vb.y = (box.minY + box.maxY) / 2 - h / 2;
   }
 
   /* The part of the current route that lies on the floor being shown. */
@@ -217,6 +256,7 @@ var MapView = (function () {
   }
 
   function zoomAt(cx, cy, factor) {
+    framing = null;
     var nw = Math.min(3, Math.max(0.05, vb.w * factor));
     factor = nw / vb.w;
     vb.x = cx - (cx - vb.x) * factor;
@@ -548,6 +588,7 @@ var MapView = (function () {
       }
 
       if (ids.length === 1) {
+        framing = null;
         vb.x -= dx * unit();
         vb.y -= dy * unit();
         applyViewBox();
@@ -594,10 +635,8 @@ var MapView = (function () {
       zoomAt(u.x, u.y, ev.deltaY > 0 ? 1.15 : 0.87);
     }, { passive: false });
 
-    window.addEventListener('resize', function () { syncAspect(); draw(); });
-    if (window.ResizeObserver) {
-      new ResizeObserver(function () { syncAspect(); draw(); }).observe(wrap);
-    }
+    window.addEventListener('resize', reframe);
+    if (window.ResizeObserver) new ResizeObserver(reframe).observe(wrap);
   }
 
   function pointerDistance() {
