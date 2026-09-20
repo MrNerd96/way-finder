@@ -49,6 +49,23 @@ var MapView = (function () {
   var MIN_LABEL_PX = 11;
   var CHAR_EM = 0.62;
 
+  /* How narrow a number may be squeezed to fit its box, as a fraction of its
+     natural width. A room box on these plans is taller than it is wide, so the
+     width is what runs out first and the height is going spare. A number set a
+     fifth narrower is still plainly that number; the same number shrunk a
+     fifth is simply smaller, and it is the height that decides whether it
+     reads at arm's length. So spend the width before touching the size: fit by
+     condensing, and only give up when even the condensed number would fall
+     below MIN_LABEL_PX.
+
+     GUTTER keeps a sliver of box either side. Before numbers were condensed
+     they were measured against the full width of the box and it did not
+     matter: the estimate below runs wide, so they never actually reached the
+     edges. Squeezing them to an exact width does reach the edges, and a row of
+     consulting rooms then reads "106105104103" with no gap anywhere. */
+  var CONDENSE = 0.72;
+  var GUTTER = 0.88;
+
   /* A corridor point is drawn in map units, floored and capped in screen
      pixels, rather than at one screen size whatever the zoom.
 
@@ -73,9 +90,17 @@ var MapView = (function () {
      the phone this was written for. Painting the halo first as its own
      stroke-only text, then the ink on top, is the same picture with nothing
      left to support. */
-  function drawLabel(text, x, y, size, centred) {
+  function drawLabel(text, x, y, size, centred, squeezeTo) {
     var common = { x: x, y: y, 'text-anchor': 'middle', 'font-size': size };
     if (centred) common['dominant-baseline'] = 'central';
+    /* spacingAndGlyphs narrows the letters themselves, not just the gaps
+       between them -- with three digits and no spaces there is nothing in the
+       gaps to take. Both copies get the same value, so the halo stays behind
+       the ink rather than sliding out from under it. */
+    if (squeezeTo) {
+      common.textLength = squeezeTo;
+      common.lengthAdjust = 'spacingAndGlyphs';
+    }
 
     /* Painted through inline style, not just the class. A stylesheet rule beats
        a presentation attribute, so a stale cached app.css -- which is exactly
@@ -355,11 +380,8 @@ var MapView = (function () {
         // below MIN_LABEL_PX, because a shrunken number is a smudge and the
         // number is the whole point of the label.
         var b = boxOf(n);
-        // Measured against the full width of the box, not an inset: a number
-        // that reaches its own edges still cannot reach into the room next
-        // door, and the inset would have cost a band of zoom where the number
-        // was perfectly readable.
-        var fit = Math.min(b.h * 0.6, b.w / (text.length * CHAR_EM));
+        var room = b.w * GUTTER;
+        var fit = Math.min(b.h * 0.6, room / (text.length * CHAR_EM * CONDENSE));
         if (fit < minPx) {
           /* The box cannot hold the whole thing at a legible size. For a
              patient, say nothing: a number that spilled over the rooms either
@@ -374,7 +396,13 @@ var MapView = (function () {
           if (text.length > maxChars) text = text.slice(0, maxChars - 1) + '…';
           fit = Math.min(b.h * 0.6, b.w * 0.88 / (text.length * CHAR_EM));
         }
-        drawLabel(text, n.x, n.y, Math.max(minPx, Math.min(fs, fit)), true);
+        var size = Math.max(minPx, Math.min(fs, fit));
+        // Squeeze only what would actually overrun the box, and only as far as
+        // CONDENSE. Past that a number stops looking like itself, so a surveyor
+        // -- the one case that still draws below the fit -- gets the old spill.
+        var wide = size * text.length * CHAR_EM;
+        drawLabel(text, n.x, n.y, size, true,
+                  (wide > room && room / wide >= CONDENSE) ? room : 0);
         return;
       }
       // LIFT and STAIR hang off a circle with no box to bound them, so there
