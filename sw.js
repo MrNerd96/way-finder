@@ -9,22 +9,22 @@
    Bump CACHE, and the ?v= stamps in index.html, whenever the code changes. The
    stamps are what actually defeat a browser's own HTTP cache — no-store headers
    only help for files it bothers to re-request. */
-var CACHE = 'wayfinder-v61';
+var CACHE = 'wayfinder-v62';
 var NET_TIMEOUT_MS = 2500;   // how long to wait before falling back to cache
 
 var SHELL = [
   './',
   'index.html',
-  'css/app.css?v=61',
-  'js/i18n.js?v=61',
-  'js/data.js?v=61',
-  'js/detected.js?v=61',
-  'js/store.js?v=61',
-  'js/graph.js?v=61',
-  'js/mapview.js?v=61',
-  'js/navigate.js?v=61',
-  'js/survey.js?v=61',
-  'js/app.js?v=61',
+  'css/app.css?v=62',
+  'js/i18n.js?v=62',
+  'js/data.js?v=62',
+  'js/detected.js?v=62',
+  'js/store.js?v=62',
+  'js/graph.js?v=62',
+  'js/mapview.js?v=62',
+  'js/navigate.js?v=62',
+  'js/survey.js?v=62',
+  'js/app.js?v=62',
   'assets/plans/ipd-g.jpg',
   'assets/plans/opd-g.jpg',
   'assets/plans/opd-f1.jpg',
