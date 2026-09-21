@@ -298,6 +298,20 @@ var Store = (function () {
        it can never drift apart on how a fingerprint is computed. */
     fingerprint: fingerprint,
 
+    /* Whether this device is showing the published map or a survey of its own.
+
+       Whatever is in localStorage wins over the seed, for ever. That is right
+       while a survey is in progress -- it is the only copy of the work -- and
+       wrong once the work has been published, because the device then goes on
+       showing a map everyone else has moved past, missing connections that
+       were added from some other device. From the inside it looks like the
+       published map is broken. */
+    matchesSeed: function () {
+      var seed = (typeof SEED_BUILDING === 'object' && SEED_BUILDING) || null;
+      if (!seed) return true;
+      return fingerprint(building) === fingerprint(normalise(clone(seed)));
+    },
+
     /* Accepts either an exported data.js or a bare JSON object, so older
        exports and hand-written files both still load. */
     importJSON: function (text) {

@@ -239,7 +239,7 @@ var Nav = (function () {
     if (!path) { App.toast(I18N.t('noRoute')); return; }
     steps = Graph.directions(b(), path, destService);
     idx = 0;
-    showStep();
+    showStep(true);
   }
 
   /* Which stretch of the path this card is talking about. A straight run says
@@ -249,14 +249,16 @@ var Nav = (function () {
     return { from: step.segFrom, to: step.seg };
   }
 
-  function showStep() {
+  function showStep(fresh) {
     var step = steps[idx];
-    if (step && step.floor) MapView.setFloor(step.floor, true);
+    var moved = step && step.floor ? MapView.setFloor(step.floor, true) : false;
     MapView.setRoute(path, legOf(step), { start: startId, end: destId });
     render();
     App.renderFloorStrip();
     // Frame this floor's leg of the walk once the sheet has taken its height.
-    requestAnimationFrame(function () { MapView.fitRoute(); });
+    // A view they set themselves is left alone unless this is a new route or
+    // the walk has just moved to another floor.
+    requestAnimationFrame(function () { MapView.fitRoute(fresh || moved); });
   }
 
   function speakCurrent() {
