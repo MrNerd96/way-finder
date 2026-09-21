@@ -261,19 +261,6 @@ var Nav = (function () {
     requestAnimationFrame(function () { MapView.fitRoute(fresh || moved); });
   }
 
-  function speakCurrent() {
-    if (!steps || !window.speechSynthesis) return;
-    var s = steps[idx];
-    var text = [s.title, s.meta, s.detail].filter(Boolean).join('. ');
-    try {
-      speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      u.lang = I18N.speechLang();
-      u.rate = 0.92;
-      speechSynthesis.speak(u);
-    } catch (err) { /* no voices installed; the text is on screen anyway */ }
-  }
-
   /* ---------- rendering ---------- */
 
   function render() {
@@ -402,13 +389,6 @@ var Nav = (function () {
     back.disabled = idx === 0;
     back.addEventListener('click', function () { if (idx > 0) { idx--; showStep(); } });
 
-    var spk = document.createElement('button');
-    spk.type = 'button';
-    spk.className = 'sec spk';
-    spk.textContent = '🔊';
-    spk.setAttribute('aria-label', 'Read aloud');
-    spk.addEventListener('click', speakCurrent);
-
     var next = document.createElement('button');
     next.type = 'button';
     next.className = 'primary';
@@ -416,7 +396,7 @@ var Nav = (function () {
     next.disabled = idx >= steps.length - 1;
     next.addEventListener('click', function () { if (idx < steps.length - 1) { idx++; showStep(); } });
 
-    nav.appendChild(back); nav.appendChild(spk); nav.appendChild(next);
+    nav.appendChild(back); nav.appendChild(next);
     sheet.appendChild(nav);
   }
 

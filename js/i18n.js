@@ -180,7 +180,6 @@ var I18N = (function () {
   };
 
   var current = 'en';
-  var SPEECH = { en: 'en-IN', te: 'te-IN', hi: 'hi-IN' };
 
   return {
     langs: ['en', 'te', 'hi'],
@@ -190,8 +189,6 @@ var I18N = (function () {
       var pack = STR[current] || STR.en;
       return pack[key] !== undefined ? pack[key] : (STR.en[key] || key);
     },
-    speechLang: function () { return SPEECH[current] || 'en-IN'; },
-
     /* Templates carry a {} where the landmark goes, because the preposition
        comes before the noun in English and after it in Telugu and Hindi. */
     fill: function (key, value) {

@@ -221,7 +221,6 @@ body[data-mode="survey"] .wayFab { display: none; }
 .stepNav { display: flex; gap: 8px; }
 .stepNav button { flex: 1; min-height: var(--tap); }
 .stepNav .sec { background: #eef2f0; border: 1px solid var(--line); color: var(--ink); font-weight: 600; }
-.stepNav .spk { flex: 0 0 62px; }
 .routeHead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
 .routeHead small { color: var(--muted); font-size: .78rem; }
 .linkBtn { background: none; border: none; color: var(--green); font-weight: 700; padding: 8px; }
