@@ -726,10 +726,11 @@ var MapView = (function () {
     getFloor: function () { return floorId; },
 
     setFloor: function (id, keepView) {
-      if (floorId === id) return;
+      if (floorId === id) return false;
       floorId = id;
       if (keepView) { draw(); } else { fit(); }
       if (onFloorChange) onFloorChange(id);
+      return true;
     },
 
     setSelection: function (id) { selection = id; draw(); },
@@ -767,7 +768,16 @@ var MapView = (function () {
 
     defaultRoomSide: function () { return DEFAULT_ROOM_SIDE; },
     fit: fit,
-    fitRoute: fitRoute,
+    /* Framing the leg is a suggestion, not an order. Once they have pinched or
+       dragged the map they are reading it their own way -- often zoomed right
+       in on the junction the card is describing -- and stepping to the next
+       card should not snatch that back. `force` is for the two moments when
+       the view they set is of somewhere else entirely: a new route, and a
+       change of floor. */
+    fitRoute: function (force) {
+      if (!force && !framing) return false;
+      return fitRoute();
+    },
     draw: draw
   };
 })();

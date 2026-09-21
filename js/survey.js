@@ -720,6 +720,25 @@ var Survey = (function () {
         importFile.value = '';
       });
 
+      /* The way back to the published map. Without it a device that surveyed
+         once keeps its own copy for ever, and a connection published from
+         somewhere else never arrives -- the route just says there is no path. */
+      document.getElementById('seedBtn').addEventListener('click', function () {
+        if (Store.matchesSeed()) {
+          App.toast('This device is already showing the published map.');
+          return;
+        }
+        if (!window.confirm('Show the published map instead of this device\'s copy?\n\n' +
+                            'Anything surveyed here that has not been published is lost. ' +
+                            'Tap Changes first if you have not sent it yet.')) return;
+        Store.resetToSeed();
+        App.renderFloorStrip();
+        MapView.setBuilding(Store.get());
+        MapView.fit();
+        refreshStatus();
+        App.toast('Now showing the published map.');
+      });
+
       var planFile = document.getElementById('planFile');
       document.getElementById('addFloorBtn').addEventListener('click', function () { planFile.click(); });
       planFile.addEventListener('change', function () {
