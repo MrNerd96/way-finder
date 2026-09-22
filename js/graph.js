@@ -308,7 +308,8 @@ var Graph = (function () {
         detail: landmarkOf(cur) ? I18N.fill('atThe', landmarkOf(cur)) : '',
         meta: '',
         floor: cur.floor,
-        seg: i
+        seg: i,
+        corner: i        // the point they are standing on when they turn
       });
     }
 
@@ -323,20 +324,6 @@ var Graph = (function () {
       floor: last.floor,
       seg: n - 1
     });
-
-    /* A turn card names a corner, and a corner is one hop long. Highlighting
-       that hop lights up a stub of corridor the patient has usually just
-       walked, which tells them nothing and reads as a mistake. Point the card
-       at the stretch they are turning INTO instead -- from the corner to
-       wherever the next card ends -- so "turn left" lights up the corridor it
-       is sending them down. */
-    for (var s = 0; s < steps.length; s++) {
-      if (steps[s].kind !== 'turn') continue;
-      var after = steps[s + 1];
-      if (!after || after.seg <= steps[s].seg) continue;
-      steps[s].segFrom = steps[s].seg;
-      steps[s].seg = after.seg;
-    }
 
     return steps;
 

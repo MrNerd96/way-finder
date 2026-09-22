@@ -242,10 +242,13 @@ var Nav = (function () {
     showStep(true);
   }
 
-  /* Which stretch of the path this card is talking about. A straight run says
-     where it began; everything else is the single hop it names. */
+  /* What on the map this card is talking about. A straight run is a stretch
+     and says where it began; everything else is the single hop it names. A
+     turn is neither -- it happens at one point, so it names that point and
+     the map marks it rather than lighting a length of corridor. */
   function legOf(step) {
     if (!step) return 0;
+    if (step.kind === 'turn') return { turnAt: step.corner };
     return { from: step.segFrom, to: step.seg };
   }
 
