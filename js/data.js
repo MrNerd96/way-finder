@@ -1,11 +1,12 @@
-/* Way Finder survey data, 2026-09-22 11:00.
-   Changes from patch.json applied by tools/apply_changes.js.
-   Then six departments named from the OPD board photo: 111 Cardiology,
+/* Way Finder survey data, 2026-09-22 11:14.
+   Changes from patch2.json applied by tools/apply_changes.js.
+   Then five departments named from the OPD board photo: 111 Cardiology,
    104 Community & Family Medicine (also known as the Clinical epidemiology
    unit), 215 Neurosurgery, 332 Burns and Plastic Surgery, 410 Pulmonary
-   Medicine. 221 already read Rheumatology and was left alone -- the board
-   has 221 and 316 the other way round, and the survey says the board is
-   wrong, not the map.
+   Medicine. Those are not in the patch, which was cut before them, so they
+   are re-applied by hand each time a patch from that same baseline lands.
+   221 already read Rheumatology and was left alone -- the board has 221 and
+   316 the other way round, and the survey says the board is wrong.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -7181,15 +7182,16 @@ var SEED_BUILDING = {
     {
       "id": "r-400",
       "floor": "opd-g",
-      "x": 0.3088,
-      "y": 0.366,
-      "w": 0.0326,
-      "h": 0.0379,
+      "x": 0.30896215424804496,
+      "y": 0.3666971034056391,
+      "w": 0.03292430849608974,
+      "h": 0.039294206811278265,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "23",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-401",
@@ -7201,8 +7203,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "24",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-402",
@@ -7248,10 +7251,10 @@ var SEED_BUILDING = {
     {
       "id": "r-406",
       "floor": "opd-g",
-      "x": 0.507,
-      "y": 0.3846,
-      "w": 0.0751,
-      "h": 0.0459,
+      "x": 0.5087692790793626,
+      "y": 0.392840827373901,
+      "w": 0.07863855815872522,
+      "h": 0.029418345252197886,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7330,28 +7333,30 @@ var SEED_BUILDING = {
     {
       "id": "r-412",
       "floor": "opd-g",
-      "x": 0.3793,
-      "y": 0.4551,
-      "w": 0.0392,
-      "h": 0.0392,
+      "x": 0.3796856255839365,
+      "y": 0.4439658219203666,
+      "w": 0.03842874883212727,
+      "h": 0.06146835615926677,
       "kind": "room",
-      "name": "",
+      "name": "Digital radiography",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-413",
       "floor": "opd-g",
-      "x": 0.4225,
-      "y": 0.4555,
-      "w": 0.0392,
-      "h": 0.0386,
+      "x": 0.42200750905213286,
+      "y": 0.4428322155190231,
+      "w": 0.035390055575217794,
+      "h": 0.06666468908313977,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "DIGITAL MAMMOGRAPHY",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-414",
@@ -7365,20 +7370,6 @@ var SEED_BUILDING = {
       "aliases": [],
       "seed": true,
       "auto": true
-    },
-    {
-      "id": "r-416",
-      "floor": "opd-g",
-      "x": 0.496,
-      "y": 0.4947,
-      "w": 0.0532,
-      "h": 0.0678,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "room": "10",
-      "landmark": "",
-      "shaft": ""
     },
     {
       "id": "r-417",
@@ -7401,10 +7392,11 @@ var SEED_BUILDING = {
       "w": 0.0479,
       "h": 0.0339,
       "kind": "room",
-      "name": "",
+      "name": "Mammography",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-419",
@@ -7481,7 +7473,10 @@ var SEED_BUILDING = {
       "name": "",
       "aliases": [],
       "w": 0.06380902590601811,
-      "h": 0.01843621663134709
+      "h": 0.01843621663134709,
+      "room": "XRAY",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-425",
@@ -8016,7 +8011,7 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.08236418455328953,
       "h": 0.08094178331192803,
-      "room": "",
+      "room": "TOILET MALE",
       "landmark": "",
       "shaft": ""
     },
@@ -8029,7 +8024,10 @@ var SEED_BUILDING = {
       "name": "",
       "aliases": [],
       "w": 0.07987729432791879,
-      "h": 0.0854047436987021
+      "h": 0.0854047436987021,
+      "room": "TOILET FEMALE",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-254",
@@ -9798,6 +9796,34 @@ var SEED_BUILDING = {
       "kind": "junction",
       "name": "",
       "aliases": []
+    },
+    {
+      "id": "r-437",
+      "floor": "opd-g",
+      "x": 0.3581931404743801,
+      "y": 0.526096582090783,
+      "kind": "room",
+      "name": "",
+      "aliases": [],
+      "w": 0.025476152275802078,
+      "h": 0.051320010839481234,
+      "room": "RADIODIAGNOSIS",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-438",
+      "floor": "opd-g",
+      "x": 0.4976817124165349,
+      "y": 0.48953035665278455,
+      "kind": "room",
+      "name": "Pediatric surgery incontinence clinic",
+      "aliases": [],
+      "room": "11",
+      "landmark": "",
+      "shaft": "",
+      "w": 0.04706993419185651,
+      "h": 0.06394215523712404
     }
   ],
   "edges": [
@@ -12348,10 +12374,6 @@ var SEED_BUILDING = {
     [
       "p-275",
       "g-c-4"
-    ],
-    [
-      "r-416",
-      "p-275"
     ],
     [
       "p-276",
