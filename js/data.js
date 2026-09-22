@@ -1,24 +1,23 @@
-/* Way Finder survey data, 2026-09-19 17:07.
-   Changes applied by tools/apply_changes.js: the connect pass, on the ground
-   floor, the 4th, and the stragglers left on the 1st. A hundred and twenty-six
-   links, fifty-two new corridor points, nine more doors numbered.
-
-   This is the pass that makes the map work. Reachable named places go from 192
-   to 238 out of 242 -- the 1st, 2nd and 3rd floors are whole, the ground floor
-   is 36 of 37, the 4th 41 of 44. Rooms that a patient could search for, find,
-   and then be told there was no path to are down to four: 36 Palliative Care
-   Clinic on the ground floor, 413 and 426 on the 4th.
-
-   Three room numbers are still on two doors each -- 410 and 413 on the 4th
-   floor, 10 on the ground -- which sends half the people who ask for one of
-   them to the wrong door.
-
-   Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
-   each link is the perpendicular to the nearest corridor, a first
-   approximation to be corrected on the floor with the Connect tool.
-   The OPD ground floor was added from its fire-evacuation board: its
-   staircases sit on the shafts the floors above already use, and its
-   corridors follow the escape routes printed on the plan.
+/* Way Finder survey data, 2026-09-22 11:14.
+   Changes from patch2.json applied by tools/apply_changes.js.
+   Then five departments named from the OPD board photo: 111 Cardiology,
+   104 Community & Family Medicine (also known as the Clinical epidemiology
+   unit), 215 Neurosurgery, 332 Burns and Plastic Surgery, 410 Pulmonary
+   Medicine. Those are not in the patch, which was cut before them, so they
+   are re-applied by hand each time a patch from that same baseline lands.
+   221 already read Rheumatology and was left alone -- the board has 221 and
+   316 the other way round, and the survey says the board is wrong.
+   Then a tidy-up against the OPD board photo:
+     - the twelve places with no route got one edge each to the nearest
+       corridor point, the way every other room on these plans is joined on;
+     - five words that had been typed into the room-number box moved to the
+       name, where they belong -- the picker prints number then name, so
+       "XRAY" was coming out as "XRAY XRAY";
+     - two duplicate numbers on the 4th floor resolved from the runs they sit
+       in: 430 431 432 432 434 and 439 438 439 436 became 430..434 and
+       439..436, both now unbroken between rooms that are named;
+     - blank rooms named from the board, never a surveyed one overwritten;
+     - aliases for the spellings the search was missing.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -454,8 +453,11 @@ var SEED_BUILDING = {
       "w": 0.031,
       "h": 0.0496,
       "kind": "room",
-      "name": "Clinical epidemiology unit",
-      "aliases": [],
+      "name": "Community & Family Medicine",
+      "aliases": [
+        "CFM",
+        "Clinical epidemiology unit"
+      ],
       "room": "104",
       "landmark": "",
       "shaft": ""
@@ -510,7 +512,10 @@ var SEED_BUILDING = {
       "h": 0.0503,
       "kind": "room",
       "name": "CTVS",
-      "aliases": [],
+      "aliases": [
+        "Cardio Thoracic and Vascular Surgery",
+        "Cardiothoracic"
+      ],
       "room": "101",
       "landmark": "",
       "shaft": ""
@@ -525,7 +530,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.056671585439545535,
-      "h": 0.051263014857164446
+      "h": 0.051263014857164446,
+      "room": "439",
+      "shaft": ""
     },
     {
       "id": "r-13",
@@ -537,7 +544,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.05201361384763953,
-      "h": 0.04774736142961733
+      "h": 0.04774736142961733,
+      "room": "437",
+      "shaft": ""
     },
     {
       "id": "r-15",
@@ -659,7 +668,9 @@ var SEED_BUILDING = {
       "h": 0.0241,
       "kind": "room",
       "name": "Genetic counseling",
-      "aliases": [],
+      "aliases": [
+        "Genetic counselling"
+      ],
       "room": "120",
       "landmark": "",
       "shaft": ""
@@ -785,7 +796,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.051780753026377135,
-      "h": 0.04671305568903539
+      "h": 0.04671305568903539,
+      "room": "438",
+      "shaft": ""
     },
     {
       "id": "r-36",
@@ -993,8 +1006,10 @@ var SEED_BUILDING = {
       "w": 0.0324,
       "h": 0.0565,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "Physical Medicine and Rehabilitation",
+      "aliases": [
+        "PMR"
+      ],
       "room": "131",
       "landmark": "",
       "shaft": ""
@@ -1022,7 +1037,9 @@ var SEED_BUILDING = {
       "h": 0.0365,
       "kind": "room",
       "name": "Uroflometry test lab",
-      "aliases": [],
+      "aliases": [
+        "Uroflowmetry"
+      ],
       "room": "134",
       "landmark": "",
       "shaft": ""
@@ -2929,7 +2946,7 @@ var SEED_BUILDING = {
       "w": 0.0473,
       "h": 0.0548,
       "kind": "room",
-      "name": "",
+      "name": "Neurosurgery",
       "aliases": [],
       "room": "215",
       "landmark": "",
@@ -3392,7 +3409,9 @@ var SEED_BUILDING = {
       "h": 0.0341,
       "kind": "room",
       "name": "Orthopaedics",
-      "aliases": [],
+      "aliases": [
+        "Orthopedics"
+      ],
       "room": "236",
       "landmark": "",
       "shaft": ""
@@ -3685,7 +3704,7 @@ var SEED_BUILDING = {
       "w": 0.0396,
       "h": 0.0459,
       "kind": "room",
-      "name": "",
+      "name": "Pulmonary Medicine",
       "aliases": [],
       "room": "410",
       "landmark": "",
@@ -3938,8 +3957,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "420",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-280",
@@ -3951,8 +3971,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "419",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-281",
@@ -3992,8 +4013,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "427",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-284",
@@ -4005,8 +4027,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "428",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-285",
@@ -4018,8 +4041,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "429",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-286",
@@ -4099,8 +4123,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "433",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-295",
@@ -4112,8 +4137,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "432",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-296",
@@ -4125,8 +4151,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "431",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-297",
@@ -4138,8 +4165,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "430",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-298",
@@ -4359,7 +4387,7 @@ var SEED_BUILDING = {
       "x": 0.6027471450482489,
       "y": 0.2264491476931003,
       "kind": "room",
-      "name": "",
+      "name": "Cardiology",
       "aliases": [],
       "w": 0.04151976836271487,
       "h": 0.054082443512123934,
@@ -4576,7 +4604,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "room": "327",
       "name": "Pediatric Surgery",
-      "aliases": [],
+      "aliases": [
+        "Paediatric Surgery"
+      ],
       "landmark": "",
       "shaft": "",
       "w": 0.031069790513850726,
@@ -4591,7 +4621,10 @@ var SEED_BUILDING = {
       "h": 0.030927377243517407,
       "kind": "room",
       "name": "Obstetrics and Gynaecology",
-      "aliases": [],
+      "aliases": [
+        "Gynecology",
+        "OBG"
+      ],
       "room": "301",
       "landmark": "",
       "shaft": ""
@@ -4703,7 +4736,9 @@ var SEED_BUILDING = {
       "h": 0.08533983620839491,
       "kind": "room",
       "name": "Pediatrics and Neonatology",
-      "aliases": [],
+      "aliases": [
+        "Paediatrics"
+      ],
       "room": "321",
       "landmark": "",
       "shaft": ""
@@ -4800,7 +4835,7 @@ var SEED_BUILDING = {
       "w": 0.0498,
       "h": 0.0432,
       "kind": "room",
-      "name": "",
+      "name": "Burns and Plastic Surgery",
       "aliases": [],
       "room": "332",
       "landmark": "",
@@ -4910,7 +4945,7 @@ var SEED_BUILDING = {
       "x": 0.23861822478058134,
       "y": 0.5100553508785187,
       "kind": "room",
-      "name": "",
+      "name": "Neonatology",
       "landmark": "",
       "aliases": [],
       "w": 0.04369474599065215,
@@ -5010,7 +5045,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "ENT",
       "landmark": "",
-      "aliases": [],
+      "aliases": [
+        "Ear Nose Throat"
+      ],
       "w": 0.04369474599065215,
       "h": 0.045993757768111765,
       "room": "311",
@@ -6817,8 +6854,11 @@ var SEED_BUILDING = {
       "w": 0.0459,
       "h": 0.0259,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "Pre-Anesthesia Checkup",
+      "aliases": [
+        "PAC",
+        "Pre anaesthesia"
+      ],
       "room": "35",
       "landmark": "",
       "shaft": ""
@@ -6897,8 +6937,10 @@ var SEED_BUILDING = {
       "w": 0.0312,
       "h": 0.0273,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "Pain Relief Clinic",
+      "aliases": [
+        "PRC"
+      ],
       "room": "34",
       "landmark": "",
       "shaft": ""
@@ -7176,15 +7218,16 @@ var SEED_BUILDING = {
     {
       "id": "r-400",
       "floor": "opd-g",
-      "x": 0.3088,
-      "y": 0.366,
-      "w": 0.0326,
-      "h": 0.0379,
+      "x": 0.30896215424804496,
+      "y": 0.3666971034056391,
+      "w": 0.03292430849608974,
+      "h": 0.039294206811278265,
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "23",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-401",
@@ -7196,8 +7239,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "24",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-402",
@@ -7243,10 +7287,10 @@ var SEED_BUILDING = {
     {
       "id": "r-406",
       "floor": "opd-g",
-      "x": 0.507,
-      "y": 0.3846,
-      "w": 0.0751,
-      "h": 0.0459,
+      "x": 0.5087692790793626,
+      "y": 0.392840827373901,
+      "w": 0.07863855815872522,
+      "h": 0.029418345252197886,
       "kind": "room",
       "name": "",
       "aliases": [],
@@ -7275,8 +7319,10 @@ var SEED_BUILDING = {
       "w": 0.0233,
       "h": 0.0246,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "Medical Records Department",
+      "aliases": [
+        "MRD"
+      ],
       "room": "8",
       "landmark": "",
       "shaft": ""
@@ -7325,28 +7371,30 @@ var SEED_BUILDING = {
     {
       "id": "r-412",
       "floor": "opd-g",
-      "x": 0.3793,
-      "y": 0.4551,
-      "w": 0.0392,
-      "h": 0.0392,
+      "x": 0.3796856255839365,
+      "y": 0.4439658219203666,
+      "w": 0.03842874883212727,
+      "h": 0.06146835615926677,
       "kind": "room",
-      "name": "",
+      "name": "Digital radiography",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-413",
       "floor": "opd-g",
-      "x": 0.4225,
-      "y": 0.4555,
-      "w": 0.0392,
-      "h": 0.0386,
+      "x": 0.42200750905213286,
+      "y": 0.4428322155190231,
+      "w": 0.035390055575217794,
+      "h": 0.06666468908313977,
       "kind": "room",
-      "name": "",
+      "name": "Digital mammography",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-414",
@@ -7360,20 +7408,6 @@ var SEED_BUILDING = {
       "aliases": [],
       "seed": true,
       "auto": true
-    },
-    {
-      "id": "r-416",
-      "floor": "opd-g",
-      "x": 0.496,
-      "y": 0.4947,
-      "w": 0.0532,
-      "h": 0.0678,
-      "kind": "room",
-      "name": "",
-      "aliases": [],
-      "room": "10",
-      "landmark": "",
-      "shaft": ""
     },
     {
       "id": "r-417",
@@ -7396,10 +7430,11 @@ var SEED_BUILDING = {
       "w": 0.0479,
       "h": 0.0339,
       "kind": "room",
-      "name": "",
+      "name": "Mammography",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-419",
@@ -7448,8 +7483,10 @@ var SEED_BUILDING = {
       "w": 0.0539,
       "h": 0.0592,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "Uroflowmetry Test Lab",
+      "aliases": [
+        "Uroflometry"
+      ],
       "room": "12",
       "landmark": "",
       "shaft": ""
@@ -7473,10 +7510,16 @@ var SEED_BUILDING = {
       "x": 0.32655163489184263,
       "y": 0.5756878426246781,
       "kind": "room",
-      "name": "",
-      "aliases": [],
+      "name": "X-ray",
+      "aliases": [
+        "Xray",
+        "X ray"
+      ],
       "w": 0.06380902590601811,
-      "h": 0.01843621663134709
+      "h": 0.01843621663134709,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-425",
@@ -8007,7 +8050,7 @@ var SEED_BUILDING = {
       "x": 0.478047293647953,
       "y": 0.7535342966463283,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Male",
       "aliases": [],
       "w": 0.08236418455328953,
       "h": 0.08094178331192803,
@@ -8021,10 +8064,13 @@ var SEED_BUILDING = {
       "x": 0.6403173332772591,
       "y": 0.7568410405147754,
       "kind": "room",
-      "name": "",
+      "name": "Toilet Female",
       "aliases": [],
       "w": 0.07987729432791879,
-      "h": 0.0854047436987021
+      "h": 0.0854047436987021,
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-254",
@@ -9793,6 +9839,34 @@ var SEED_BUILDING = {
       "kind": "junction",
       "name": "",
       "aliases": []
+    },
+    {
+      "id": "r-437",
+      "floor": "opd-g",
+      "x": 0.3581931404743801,
+      "y": 0.526096582090783,
+      "kind": "room",
+      "name": "Radiodiagnosis",
+      "aliases": [],
+      "w": 0.025476152275802078,
+      "h": 0.051320010839481234,
+      "room": "13",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "r-438",
+      "floor": "opd-g",
+      "x": 0.4976817124165349,
+      "y": 0.48953035665278455,
+      "kind": "room",
+      "name": "Pediatric surgery incontinence clinic",
+      "aliases": [],
+      "room": "11",
+      "landmark": "",
+      "shaft": "",
+      "w": 0.04706993419185651,
+      "h": 0.06394215523712404
     }
   ],
   "edges": [
@@ -12345,10 +12419,6 @@ var SEED_BUILDING = {
       "g-c-4"
     ],
     [
-      "r-416",
-      "p-275"
-    ],
-    [
       "p-276",
       "p-277"
     ],
@@ -12491,6 +12561,54 @@ var SEED_BUILDING = {
     [
       "p-289",
       "r-272"
+    ],
+    [
+      "r-256",
+      "p-148"
+    ],
+    [
+      "r-289",
+      "p-265"
+    ],
+    [
+      "r-400",
+      "p-270"
+    ],
+    [
+      "r-401",
+      "p-258"
+    ],
+    [
+      "r-418",
+      "p-279"
+    ],
+    [
+      "r-424",
+      "p-280"
+    ],
+    [
+      "r-434",
+      "p-254"
+    ],
+    [
+      "r-245",
+      "g-e-2"
+    ],
+    [
+      "r-249",
+      "g-e-3"
+    ],
+    [
+      "r-405",
+      "p-140"
+    ],
+    [
+      "r-437",
+      "p-280"
+    ],
+    [
+      "r-438",
+      "p-249"
     ]
   ]
 };
