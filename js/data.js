@@ -1,24 +1,11 @@
-/* Way Finder survey data, 2026-09-19 17:07.
-   Changes applied by tools/apply_changes.js: the connect pass, on the ground
-   floor, the 4th, and the stragglers left on the 1st. A hundred and twenty-six
-   links, fifty-two new corridor points, nine more doors numbered.
-
-   This is the pass that makes the map work. Reachable named places go from 192
-   to 238 out of 242 -- the 1st, 2nd and 3rd floors are whole, the ground floor
-   is 36 of 37, the 4th 41 of 44. Rooms that a patient could search for, find,
-   and then be told there was no path to are down to four: 36 Palliative Care
-   Clinic on the ground floor, 413 and 426 on the 4th.
-
-   Three room numbers are still on two doors each -- 410 and 413 on the 4th
-   floor, 10 on the ground -- which sends half the people who ask for one of
-   them to the wrong door.
-
-   Rooms on opd-f3 connected to the corridor by tools/link_rooms.js:
-   each link is the perpendicular to the nearest corridor, a first
-   approximation to be corrected on the floor with the Connect tool.
-   The OPD ground floor was added from its fire-evacuation board: its
-   staircases sit on the shafts the floors above already use, and its
-   corridors follow the escape routes printed on the plan.
+/* Way Finder survey data, 2026-09-22 11:00.
+   Changes from patch.json applied by tools/apply_changes.js.
+   Then six departments named from the OPD board photo: 111 Cardiology,
+   104 Community & Family Medicine (also known as the Clinical epidemiology
+   unit), 215 Neurosurgery, 332 Burns and Plastic Surgery, 410 Pulmonary
+   Medicine. 221 already read Rheumatology and was left alone -- the board
+   has 221 and 316 the other way round, and the survey says the board is
+   wrong, not the map.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -454,8 +441,11 @@ var SEED_BUILDING = {
       "w": 0.031,
       "h": 0.0496,
       "kind": "room",
-      "name": "Clinical epidemiology unit",
-      "aliases": [],
+      "name": "Community & Family Medicine",
+      "aliases": [
+        "CFM",
+        "Clinical epidemiology unit"
+      ],
       "room": "104",
       "landmark": "",
       "shaft": ""
@@ -525,7 +515,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.056671585439545535,
-      "h": 0.051263014857164446
+      "h": 0.051263014857164446,
+      "room": "439",
+      "shaft": ""
     },
     {
       "id": "r-13",
@@ -537,7 +529,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.05201361384763953,
-      "h": 0.04774736142961733
+      "h": 0.04774736142961733,
+      "room": "439",
+      "shaft": ""
     },
     {
       "id": "r-15",
@@ -785,7 +779,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.051780753026377135,
-      "h": 0.04671305568903539
+      "h": 0.04671305568903539,
+      "room": "438",
+      "shaft": ""
     },
     {
       "id": "r-36",
@@ -2929,7 +2925,7 @@ var SEED_BUILDING = {
       "w": 0.0473,
       "h": 0.0548,
       "kind": "room",
-      "name": "",
+      "name": "Neurosurgery",
       "aliases": [],
       "room": "215",
       "landmark": "",
@@ -3685,7 +3681,7 @@ var SEED_BUILDING = {
       "w": 0.0396,
       "h": 0.0459,
       "kind": "room",
-      "name": "",
+      "name": "Pulmonary Medicine",
       "aliases": [],
       "room": "410",
       "landmark": "",
@@ -3938,8 +3934,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "420",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-280",
@@ -3951,8 +3948,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "419",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-281",
@@ -3992,8 +3990,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "427",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-284",
@@ -4005,8 +4004,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "428",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-285",
@@ -4018,8 +4018,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "429",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-286",
@@ -4099,8 +4100,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "432",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-295",
@@ -4112,8 +4114,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "432",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-296",
@@ -4125,8 +4128,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "431",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-297",
@@ -4138,8 +4142,9 @@ var SEED_BUILDING = {
       "kind": "room",
       "name": "",
       "aliases": [],
-      "seed": true,
-      "auto": true
+      "room": "430",
+      "landmark": "",
+      "shaft": ""
     },
     {
       "id": "r-298",
@@ -4359,7 +4364,7 @@ var SEED_BUILDING = {
       "x": 0.6027471450482489,
       "y": 0.2264491476931003,
       "kind": "room",
-      "name": "",
+      "name": "Cardiology",
       "aliases": [],
       "w": 0.04151976836271487,
       "h": 0.054082443512123934,
@@ -4800,7 +4805,7 @@ var SEED_BUILDING = {
       "w": 0.0498,
       "h": 0.0432,
       "kind": "room",
-      "name": "",
+      "name": "Burns and Plastic Surgery",
       "aliases": [],
       "room": "332",
       "landmark": "",
