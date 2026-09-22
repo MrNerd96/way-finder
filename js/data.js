@@ -18,6 +18,10 @@
        439..436, both now unbroken between rooms that are named;
      - blank rooms named from the board, never a surveyed one overwritten;
      - aliases for the spellings the search was missing.
+   Then the two ground-floor toilets were re-hung off the south corridor
+   rather than the entrance corridor above them -- surveyed on site, their
+   doors are on the south side. Two door points were added on the corridor
+   directly beneath each, which the corridor now runs through.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -9867,6 +9871,30 @@ var SEED_BUILDING = {
       "shaft": "",
       "w": 0.04706993419185651,
       "h": 0.06394215523712404
+    },
+    {
+      "id": "g-s-wc-m",
+      "floor": "opd-g",
+      "x": 0.478047293647953,
+      "y": 0.8110475237994376,
+      "kind": "junction",
+      "name": "",
+      "aliases": [],
+      "room": "",
+      "landmark": "",
+      "shaft": ""
+    },
+    {
+      "id": "g-s-wc-f",
+      "floor": "opd-g",
+      "x": 0.6403173332772591,
+      "y": 0.8115554602305026,
+      "kind": "junction",
+      "name": "",
+      "aliases": [],
+      "room": "",
+      "landmark": "",
+      "shaft": ""
     }
   ],
   "edges": [
@@ -11811,10 +11839,6 @@ var SEED_BUILDING = {
       "g-k-1"
     ],
     [
-      "p-222",
-      "p-223"
-    ],
-    [
       "g-c-6",
       "p-224"
     ],
@@ -12591,14 +12615,6 @@ var SEED_BUILDING = {
       "p-254"
     ],
     [
-      "r-245",
-      "g-e-2"
-    ],
-    [
-      "r-249",
-      "g-e-3"
-    ],
-    [
       "r-405",
       "p-140"
     ],
@@ -12609,6 +12625,26 @@ var SEED_BUILDING = {
     [
       "r-438",
       "p-249"
+    ],
+    [
+      "p-222",
+      "g-s-wc-m"
+    ],
+    [
+      "g-s-wc-m",
+      "g-s-wc-f"
+    ],
+    [
+      "g-s-wc-f",
+      "p-223"
+    ],
+    [
+      "r-245",
+      "g-s-wc-m"
+    ],
+    [
+      "r-249",
+      "g-s-wc-f"
     ]
   ]
 };
