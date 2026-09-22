@@ -402,9 +402,17 @@ var Graph = (function () {
      with EEG buried underneath; search the room number and there is one row
      showing everything behind that door, so nobody arrives expecting a
      different department. */
+  /* The OPD board prints the single-digit ground-floor rooms padded -- 08 for
+     room 8 -- so that is what a patient reads off the wall and types in. A
+     plain substring search on "08" answers 108, 208 and 408 and misses the
+     room they are standing in front of the sign for. Drop the padding. */
+  function unpad(q) {
+    return /^0\d+$/.test(q) ? q.replace(/^0+/, '') : q;
+  }
+
   function search(building, q, filterFn) {
     var pool = building.nodes.filter(filterFn);
-    var query = (q || '').trim().toLowerCase();
+    var query = unpad((q || '').trim().toLowerCase());
     if (!query) {
       return pool.sort(function (a, b) {
         return (a.room || a.name || '').localeCompare(b.room || b.name || '');
