@@ -163,6 +163,14 @@ body[data-mode="survey"] .wayFab { display: none; }
   background: #fff4e6; color: #a5490a; font-size: .85rem; line-height: 1.35;
 }
 
+/* The ring goes round the dot it marks rather than over it, so the corner is
+   still a corner and not a blob. The white halo is painted first and the route
+   colour on top, so the ring reads over the pale corridors and the dark
+   printing alike -- the same trick the room labels use. */
+.turnMark { fill: none; }
+.turnMark.halo { stroke: #fff; }
+.turnMark.ring { stroke: var(--route); }
+.turnMark.core { fill: var(--route); stroke: none; }
 .pin { fill: var(--route); stroke: #fff; }
 .pin.start { fill: #2f9e44; }
 /* Drawn as two stacked <text> elements — see drawLabel() in js/mapview.js for

@@ -11,7 +11,7 @@ var MapView = (function () {
   var mode = 'go';
   var selection = null;
   var linkAnchor = null;
-  var routePath = null, routeActive = { from: 0, to: 0 };
+  var routePath = null, routeActive = { from: 0, to: 0, turnAt: null };
   var pins = null;                 // { start: nodeId, end: nodeId }
   var onTap = function () {};
 
@@ -436,6 +436,7 @@ var MapView = (function () {
        the map that should not get quieter as you pull back to see the whole
        route. */
     drawPins(index, px(9));
+    drawTurnMark(index);
   }
 
   function drawRubber() {
@@ -468,12 +469,38 @@ var MapView = (function () {
 
   function span(active) {
     if (active && typeof active === 'object') {
+      // A turn happens at a point, so nothing is lit along its length.
+      if (active.turnAt !== undefined && active.turnAt !== null) {
+        return { from: -1, to: -1, turnAt: active.turnAt };
+      }
       var to = active.to || 0;
       var from = (active.from === undefined || active.from === null) ? to - 1 : active.from;
-      return { from: Math.min(from, to), to: to };
+      return { from: Math.min(from, to), to: to, turnAt: null };
     }
     var i = active || 0;
-    return { from: i - 1, to: i };
+    return { from: i - 1, to: i, turnAt: null };
+  }
+
+  /* The corner a turn card is about. Lighting the corridor either side of it
+     says how far to walk, which is the next card's job and not this one's;
+     what the patient needs here is which of the dots going past is the one to
+     turn at. So the point itself is marked, at a fixed size on the screen,
+     and the corridor is left alone. */
+  function drawTurnMark(index) {
+    if (!routePath || routeActive.turnAt === null || routeActive.turnAt === undefined) return;
+    var n = routePath[routeActive.turnAt];
+    if (!n || n.floor !== floorId) return;
+    var r = px(11);
+    // Halo first, then the ring on top of it, the same way the labels are done.
+    layers.nodes.appendChild(el('circle', {
+      class: 'turnMark halo', cx: n.x, cy: n.y, r: r, 'stroke-width': px(7)
+    }));
+    layers.nodes.appendChild(el('circle', {
+      class: 'turnMark ring', cx: n.x, cy: n.y, r: r, 'stroke-width': px(3.5)
+    }));
+    layers.nodes.appendChild(el('circle', {
+      class: 'turnMark core', cx: n.x, cy: n.y, r: px(4.5)
+    }));
   }
 
   function drawPins(index, r) {
