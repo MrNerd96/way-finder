@@ -20,6 +20,12 @@ var Picker = (function () {
       list.appendChild(li);
       return;
     }
+    /* Which room numbers this search turned up on more than one floor. */
+    var shared = {};
+    results.forEach(function (h) {
+      if (h.node.room) shared[h.node.room] = (shared[h.node.room] || 0) + 1;
+    });
+
     results.forEach(function (hit) {
       var n = hit.node;
       var li = document.createElement('li');
@@ -42,11 +48,20 @@ var Picker = (function () {
         // behind the same door is worth knowing on arrival, not before.
         strong.textContent = hit.service;
       } else {
-        strong.textContent = n.name || n.room || '';
         // Reached by room number or name: show everything behind that door, so
         // nobody walks off expecting the only thing they happened to read.
         if (n.services && n.services.length > 1) bits.push(n.services.join(' · '));
         else if (n.aliases && n.aliases.length) bits.push(n.aliases.join(', '));
+        if (n.name) bits.splice(1, 0, n.name);
+        /* The heading is whatever tells this row apart from the others. A room
+           number belongs to one door, so its name is the heading and the floor
+           is context underneath. A lift number belongs to five -- one per floor
+           -- so there the floor IS the choice being made and it leads, with the
+           lobby name, where there is one, dropping underneath. */
+        strong.textContent = (shared[n.room] > 1) ? bits.shift() : (n.name || bits.shift());
+        if (!shared[n.room] || shared[n.room] <= 1) {
+          if (n.name) bits.splice(bits.indexOf(n.name), 1);
+        }
       }
       small.textContent = bits.join(' · ');
       nm.appendChild(strong);
