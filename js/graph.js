@@ -426,7 +426,19 @@ var Graph = (function () {
       if ((n.name || '').toLowerCase().indexOf(query) === 0) score -= 50;
       scored.push({ node: n, service: null, s: score });
     });
-    scored.sort(function (a, b) { return a.s - b.s; });
+    /* Equal matches come out in building order rather than whatever order the
+       nodes happen to sit in. It hardly showed while every match was a room
+       number on one floor; a lift carries the same number on all five, so
+       "Lift 8" is five rows that differ only by floor and they may as well
+       climb. */
+    var level = {};
+    (building.floors || []).forEach(function (f) { level[f.id] = f.level || 0; });
+    scored.sort(function (a, b) {
+      return (a.s - b.s) ||
+             ((level[a.node.floor] || 0) - (level[b.node.floor] || 0)) ||
+             (a.node.room || '').localeCompare(b.node.room || '') ||
+             (a.node.name || '').localeCompare(b.node.name || '');
+    });
     return scored.slice(0, 200);
   }
 

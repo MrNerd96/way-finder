@@ -20,6 +20,17 @@ var Picker = (function () {
       list.appendChild(li);
       return;
     }
+    /* Which labels this search turned up more than once. Lifts carry the same
+       number on all five floors; the toilets and the ramps carry the same name
+       rather than a number and repeat just as badly. Either way the reader is
+       choosing between rows that read alike. */
+    function labelOf(n) { return n.room || n.name || ''; }
+    var shared = {};
+    results.forEach(function (h) {
+      var k = labelOf(h.node);
+      if (k) shared[k] = (shared[k] || 0) + 1;
+    });
+
     results.forEach(function (hit) {
       var n = hit.node;
       var li = document.createElement('li');
@@ -42,11 +53,19 @@ var Picker = (function () {
         // behind the same door is worth knowing on arrival, not before.
         strong.textContent = hit.service;
       } else {
-        strong.textContent = n.name || n.room || '';
         // Reached by room number or name: show everything behind that door, so
         // nobody walks off expecting the only thing they happened to read.
         if (n.services && n.services.length > 1) bits.push(n.services.join(' · '));
         else if (n.aliases && n.aliases.length) bits.push(n.aliases.join(', '));
+        if (n.name) bits.splice(1, 0, n.name);
+        /* The heading is whatever tells this row apart from the others. A room
+           number belongs to one door, so its name is the heading and the floor
+           is context underneath. A lift number belongs to five -- one per floor
+           -- so there the floor IS the choice being made and it leads, with the
+           lobby name, where there is one, dropping underneath. */
+        var repeats = shared[labelOf(n)] > 1;
+        strong.textContent = repeats ? bits.shift() : (n.name || bits.shift());
+        if (!repeats && n.name) bits.splice(bits.indexOf(n.name), 1);
       }
       small.textContent = bits.join(' · ');
       nm.appendChild(strong);
