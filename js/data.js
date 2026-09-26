@@ -1,27 +1,14 @@
-/* Way Finder survey data, 2026-09-22 11:14.
-   Changes from patch2.json applied by tools/apply_changes.js.
-   Then five departments named from the OPD board photo: 111 Cardiology,
-   104 Community & Family Medicine (also known as the Clinical epidemiology
-   unit), 215 Neurosurgery, 332 Burns and Plastic Surgery, 410 Pulmonary
-   Medicine. Those are not in the patch, which was cut before them, so they
-   are re-applied by hand each time a patch from that same baseline lands.
-   221 already read Rheumatology and was left alone -- the board has 221 and
-   316 the other way round, and the survey says the board is wrong.
-   Then a tidy-up against the OPD board photo:
-     - the twelve places with no route got one edge each to the nearest
-       corridor point, the way every other room on these plans is joined on;
-     - five words that had been typed into the room-number box moved to the
-       name, where they belong -- the picker prints number then name, so
-       "XRAY" was coming out as "XRAY XRAY";
-     - two duplicate numbers on the 4th floor resolved from the runs they sit
-       in: 430 431 432 432 434 and 439 438 439 436 became 430..434 and
-       439..436, both now unbroken between rooms that are named;
-     - blank rooms named from the board, never a surveyed one overwritten;
-     - aliases for the spellings the search was missing.
-   Then the two ground-floor toilets were re-hung off the south corridor
-   rather than the entrance corridor above them -- surveyed on site, their
-   doors are on the south side. Two door points were added on the corridor
-   directly beneath each, which the corridor now runs through.
+/* Way Finder survey data, 2026-09-26 02:27.
+   Changes from lifts.json applied by tools/apply_changes.js.
+   Then the ten lift numbers surveyed on the ground floor were copied to the
+   other four floors. The plans were straightened one at a time, so the same
+   physical lift sits at a different x,y on every floor -- the north bank
+   starts at x=0.35 on the ground and x=0.19 on the 4th. What holds is the
+   arrangement, two rows of three per bank, so a lift is identified by where
+   it sits in its bank and named from the ground floor's cell.
+   Each bank's vertical link was moved onto the same numbered car on every
+   floor while doing it: which car held it never mattered while every lift was
+   just LIFT, and it does now.
    Survey mode can read this back in through Import. */
 var APP_TITLE = "Way Finder";
 
@@ -731,7 +718,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 4",
       "landmark": "",
       "shaft": ""
     },
@@ -745,7 +732,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 5",
       "landmark": "",
       "shaft": ""
     },
@@ -759,7 +746,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 6",
       "landmark": "",
       "shaft": ""
     },
@@ -854,7 +841,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "Lift lobby (east block)",
       "aliases": [],
-      "room": "",
+      "room": "Lift 3",
       "landmark": "The lift lobby in the east block",
       "shaft": "opd-lift-east",
       "canStart": true
@@ -869,7 +856,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 2",
       "landmark": "",
       "shaft": ""
     },
@@ -883,7 +870,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 1",
       "landmark": "",
       "shaft": ""
     },
@@ -2582,7 +2569,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 10",
       "landmark": "",
       "shaft": ""
     },
@@ -2596,9 +2583,9 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "Lift lobby (north-west)",
       "aliases": [],
-      "room": "",
+      "room": "Lift 7",
       "landmark": "The lift lobby at the north-west end",
-      "shaft": "opd-lift-nw",
+      "shaft": "",
       "canStart": true
     },
     {
@@ -2625,9 +2612,9 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 9",
       "landmark": "",
-      "shaft": ""
+      "shaft": "opd-lift-nw"
     },
     {
       "id": "r-174",
@@ -2639,7 +2626,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 8",
       "landmark": "",
       "shaft": ""
     },
@@ -2966,7 +2953,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 4",
       "landmark": "",
       "shaft": ""
     },
@@ -2980,7 +2967,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 5",
       "landmark": "",
       "shaft": ""
     },
@@ -2994,7 +2981,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 6",
       "landmark": "",
       "shaft": ""
     },
@@ -3048,7 +3035,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 1",
       "landmark": "",
       "shaft": ""
     },
@@ -3062,7 +3049,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "Lift lobby (east block)",
       "aliases": [],
-      "room": "",
+      "room": "Lift 3",
       "landmark": "The lift lobby in the east block",
       "shaft": "opd-lift-east",
       "canStart": true
@@ -3077,7 +3064,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 2",
       "landmark": "",
       "shaft": ""
     },
@@ -3499,7 +3486,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 7",
       "landmark": "",
       "shaft": ""
     },
@@ -3513,7 +3500,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 10",
       "landmark": "",
       "shaft": ""
     },
@@ -3542,7 +3529,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 8",
       "landmark": "",
       "shaft": ""
     },
@@ -3556,7 +3543,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "Lift lobby (north-west)",
       "aliases": [],
-      "room": "",
+      "room": "Lift 9",
       "landmark": "The lift lobby at the north-west end",
       "shaft": "opd-lift-nw",
       "canStart": true
@@ -3794,7 +3781,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 6",
       "landmark": "",
       "shaft": ""
     },
@@ -3808,7 +3795,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 5",
       "landmark": "",
       "shaft": ""
     },
@@ -3822,7 +3809,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 4",
       "landmark": "",
       "shaft": ""
     },
@@ -3890,7 +3877,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 1",
       "landmark": "",
       "shaft": ""
     },
@@ -3904,9 +3891,9 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "Lift lobby (east block)",
       "aliases": [],
-      "room": "",
+      "room": "Lift 2",
       "landmark": "The lift lobby in the east block",
-      "shaft": "opd-lift-east",
+      "shaft": "",
       "canStart": true
     },
     {
@@ -3919,9 +3906,9 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 3",
       "landmark": "",
-      "shaft": ""
+      "shaft": "opd-lift-east"
     },
     {
       "id": "r-277",
@@ -4367,7 +4354,7 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.026769764460284007,
       "h": 0.020514795906689157,
-      "room": "",
+      "room": "Lift 10",
       "landmark": "",
       "shaft": ""
     },
@@ -6790,7 +6777,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 10",
       "landmark": "",
       "shaft": ""
     },
@@ -7188,7 +7175,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 4",
       "landmark": "",
       "shaft": ""
     },
@@ -7202,7 +7189,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 6",
       "landmark": "",
       "shaft": ""
     },
@@ -7355,7 +7342,7 @@ var SEED_BUILDING = {
       "kind": "lift",
       "name": "",
       "aliases": [],
-      "room": "",
+      "room": "Lift 2",
       "landmark": "",
       "shaft": ""
     },
@@ -7683,7 +7670,8 @@ var SEED_BUILDING = {
       "w": 0.026769764460284007,
       "h": 0.020514795906689157,
       "shaft": "opd-lift-nw",
-      "canStart": true
+      "canStart": true,
+      "room": "Lift 9"
     },
     {
       "id": "p-105",
@@ -7695,7 +7683,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.026769764460284007,
-      "h": 0.020514795906689157
+      "h": 0.020514795906689157,
+      "room": "Lift 7"
     },
     {
       "id": "p-106",
@@ -7707,7 +7696,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.026769764460284007,
-      "h": 0.020514795906689157
+      "h": 0.020514795906689157,
+      "room": "Lift 8"
     },
     {
       "id": "p-107",
@@ -7719,7 +7709,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0341,
-      "h": 0.0241
+      "h": 0.0241,
+      "room": "Lift 10"
     },
     {
       "id": "p-108",
@@ -7733,7 +7724,8 @@ var SEED_BUILDING = {
       "w": 0.0341,
       "h": 0.0241,
       "shaft": "opd-lift-nw",
-      "canStart": true
+      "canStart": true,
+      "room": "Lift 9"
     },
     {
       "id": "p-109",
@@ -7745,7 +7737,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0341,
-      "h": 0.0241
+      "h": 0.0241,
+      "room": "Lift 7"
     },
     {
       "id": "p-110",
@@ -7757,7 +7750,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0341,
-      "h": 0.0241
+      "h": 0.0241,
+      "room": "Lift 8"
     },
     {
       "id": "p-111",
@@ -7796,7 +7790,7 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.02534711055688521,
       "h": 0.03142498086394485,
-      "room": "",
+      "room": "Lift 4",
       "shaft": ""
     },
     {
@@ -7809,7 +7803,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02534711055688521,
-      "h": 0.03142498086394485
+      "h": 0.03142498086394485,
+      "room": "Lift 5"
     },
     {
       "id": "p-116",
@@ -7821,7 +7816,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02534711055688521,
-      "h": 0.03142498086394485
+      "h": 0.03142498086394485,
+      "room": "Lift 6"
     },
     {
       "id": "p-117",
@@ -7833,7 +7829,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02534711055688521,
-      "h": 0.03142498086394485
+      "h": 0.03142498086394485,
+      "room": "Lift 1"
     },
     {
       "id": "p-118",
@@ -7845,7 +7842,8 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02534711055688521,
-      "h": 0.03142498086394485
+      "h": 0.03142498086394485,
+      "room": "Lift 2"
     },
     {
       "id": "p-119",
@@ -7859,7 +7857,8 @@ var SEED_BUILDING = {
       "w": 0.02534711055688521,
       "h": 0.03142498086394485,
       "shaft": "opd-lift-east",
-      "canStart": true
+      "canStart": true,
+      "room": "Lift 3"
     },
     {
       "id": "p-114",
@@ -7871,7 +7870,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02606375670517147,
-      "h": 0.021612464479093083
+      "h": 0.021612464479093083,
+      "room": "Lift 9",
+      "shaft": "opd-lift-nw"
     },
     {
       "id": "p-120",
@@ -7883,7 +7884,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.02695088359617198,
-      "h": 0.022088652374114545
+      "h": 0.022088652374114545,
+      "room": "Lift 7",
+      "shaft": ""
     },
     {
       "id": "p-121",
@@ -7896,8 +7899,9 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.02683499101750564,
       "h": 0.020956402324050633,
-      "shaft": "opd-lift-nw",
-      "canStart": true
+      "shaft": "",
+      "canStart": true,
+      "room": "Lift 8"
     },
     {
       "id": "p-122",
@@ -7922,8 +7926,9 @@ var SEED_BUILDING = {
       "aliases": [],
       "w": 0.0206,
       "h": 0.0253,
-      "shaft": "opd-lift-east",
-      "canStart": true
+      "shaft": "",
+      "canStart": true,
+      "room": "Lift 5"
     },
     {
       "id": "p-124",
@@ -7935,7 +7940,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0206,
-      "h": 0.0253
+      "h": 0.0253,
+      "room": "Lift 1",
+      "shaft": ""
     },
     {
       "id": "p-125",
@@ -7947,7 +7954,9 @@ var SEED_BUILDING = {
       "landmark": "",
       "aliases": [],
       "w": 0.0206,
-      "h": 0.0253
+      "h": 0.0253,
+      "room": "Lift 3",
+      "shaft": "opd-lift-east"
     },
     {
       "id": "p-126",
