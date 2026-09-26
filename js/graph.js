@@ -436,7 +436,8 @@ var Graph = (function () {
     scored.sort(function (a, b) {
       return (a.s - b.s) ||
              ((level[a.node.floor] || 0) - (level[b.node.floor] || 0)) ||
-             (a.node.room || '').localeCompare(b.node.room || '');
+             (a.node.room || '').localeCompare(b.node.room || '') ||
+             (a.node.name || '').localeCompare(b.node.name || '');
     });
     return scored.slice(0, 200);
   }
