@@ -20,10 +20,15 @@ var Picker = (function () {
       list.appendChild(li);
       return;
     }
-    /* Which room numbers this search turned up on more than one floor. */
+    /* Which labels this search turned up more than once. Lifts carry the same
+       number on all five floors; the toilets and the ramps carry the same name
+       rather than a number and repeat just as badly. Either way the reader is
+       choosing between rows that read alike. */
+    function labelOf(n) { return n.room || n.name || ''; }
     var shared = {};
     results.forEach(function (h) {
-      if (h.node.room) shared[h.node.room] = (shared[h.node.room] || 0) + 1;
+      var k = labelOf(h.node);
+      if (k) shared[k] = (shared[k] || 0) + 1;
     });
 
     results.forEach(function (hit) {
@@ -58,10 +63,9 @@ var Picker = (function () {
            is context underneath. A lift number belongs to five -- one per floor
            -- so there the floor IS the choice being made and it leads, with the
            lobby name, where there is one, dropping underneath. */
-        strong.textContent = (shared[n.room] > 1) ? bits.shift() : (n.name || bits.shift());
-        if (!shared[n.room] || shared[n.room] <= 1) {
-          if (n.name) bits.splice(bits.indexOf(n.name), 1);
-        }
+        var repeats = shared[labelOf(n)] > 1;
+        strong.textContent = repeats ? bits.shift() : (n.name || bits.shift());
+        if (!repeats && n.name) bits.splice(bits.indexOf(n.name), 1);
       }
       small.textContent = bits.join(' · ');
       nm.appendChild(strong);
