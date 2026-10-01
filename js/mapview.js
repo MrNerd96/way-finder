@@ -339,6 +339,31 @@ var MapView = (function () {
     return true;
   }
 
+  /* Turn the plan about a point on the screen, so whatever is under the
+     fingers stays under them. Turning about the middle of the plan instead
+     would drag the corridor they are looking at out from under the twist. */
+  function rotateAbout(clientX, clientY, deg) {
+    var r = svg.getBoundingClientRect();
+    var m = { x: vb.x + (clientX - r.left) / r.width * vb.w,
+              y: vb.y + (clientY - r.top) / r.height * vb.h };
+    var onPlan = spin(m.x, m.y, -rot);
+    rot = ((deg % 360) + 360) % 360;
+    applyRotation();
+    var q = spin(onPlan.x, onPlan.y, rot);
+    vb.x += q.x - m.x;
+    vb.y += q.y - m.y;
+    framing = null;                 // they are holding the view themselves now
+    applyViewBox();
+    draw();
+  }
+
+  /* Let go near square and it goes square. Nothing moves if they are holding
+     it at a deliberate angle. */
+  function snapRotation() {
+    var square = Math.round(rot / 90) * 90;
+    if (Math.abs(angleDelta(rot, square)) <= TWIST_SNAP) setRotation(square);
+  }
+
   function setRotation(deg) {
     var before = rot;
     if (deg === before) return;
@@ -683,7 +708,8 @@ var MapView = (function () {
       var ids = Object.keys(pointers);
       if (ids.length === 2) {
         drag = null;
-        gesture = { pinch: true, d0: pointerDistance() };
+        gesture = { pinch: true, d0: pointerDistance(),
+                    a0: pointerAngle(), rot0: rot, twisting: false };
         return;
       }
       // Let the survey tools claim this press: move a point, resize a room box,
@@ -703,13 +729,22 @@ var MapView = (function () {
 
       var ids = Object.keys(pointers);
       if (ids.length >= 2 && gesture && gesture.pinch) {
+        var mid = pointerMid();
         var d = pointerDistance();
         if (d > 0 && gesture.d0 > 0) {
-          var mid = pointerMid();
           var u = toUser(mid.x, mid.y);
           zoomAt(u.x, u.y, gesture.d0 / d);   // fingers apart -> factor < 1 -> zoom in
           gesture.d0 = d;
         }
+        /* Two fingers pinch and twist at once, and a pinch is never quite
+           clean -- the hand rolls a little every time. So the twist has to
+           earn its start: nothing turns until the fingers have gone round
+           TWIST_START degrees, and from then on it tracks the total turn
+           since the fingers went down rather than accumulating each move,
+           which would drift. */
+        var turned = angleDelta(pointerAngle(), gesture.a0);
+        if (!gesture.twisting && Math.abs(turned) >= TWIST_START) gesture.twisting = true;
+        if (gesture.twisting) rotateAbout(mid.x, mid.y, gesture.rot0 + turned);
         return;
       }
 
@@ -731,7 +766,10 @@ var MapView = (function () {
     function finish(ev) {
       var p = pointers[ev.pointerId];
       delete pointers[ev.pointerId];
-      if (Object.keys(pointers).length < 2) gesture = null;
+      if (Object.keys(pointers).length < 2) {
+        if (gesture && gesture.twisting) snapRotation();
+        gesture = null;
+      }
       if (!p) return;
 
       if (drag) {
@@ -777,6 +815,28 @@ var MapView = (function () {
     if (ids.length < 2) return 0;
     var a = pointers[ids[0]], b = pointers[ids[1]];
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+  }
+
+  /* How far the fingers have to go round before the map starts turning, and
+     how near square it has to end up before it is pulled square. The snap is
+     small: it stops a map being left two degrees off by accident, without
+     fighting someone who means to hold it at an angle. */
+  var TWIST_START = 12, TWIST_SNAP = 7;
+
+  function pointerAngle() {
+    var ids = Object.keys(pointers);
+    if (ids.length < 2) return 0;
+    var a = pointers[ids[0]], b = pointers[ids[1]];
+    return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+  }
+
+  /* Shortest way round from b to a, so passing through 180 does not spin the
+     map the long way about. */
+  function angleDelta(a, b) {
+    var d = (a - b) % 360;
+    if (d > 180) d -= 360;
+    if (d < -180) d += 360;
+    return d;
   }
 
   function pointerMid() {
@@ -826,7 +886,9 @@ var MapView = (function () {
       bindGestures();
       document.getElementById('fitBtn').addEventListener('click', fit);
       document.getElementById('rotBtn').addEventListener('click', function () {
-        setRotation(rot + 90);
+        // From an angle they twisted to, this is the next square one, not that
+        // angle plus ninety -- the button is how you get the map straight.
+        setRotation(Math.round(rot / 90) * 90 + 90);
       });
     },
 
