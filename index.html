@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b6b4f">
 <title>Way Finder</title>
 <meta name="color-scheme" content="light dark">
-<link rel="stylesheet" href="css/app.css?v=70">
+<link rel="stylesheet" href="css/app.css?v=72">
 </head>
 <body>
 
@@ -33,14 +33,17 @@
   <!-- The map is always mounted; both modes draw into it -->
   <div id="mapWrap">
     <svg id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <g id="layerPlan"><image id="planImg" x="0" y="0" preserveAspectRatio="none"></image></g>
-      <g id="layerEdges"></g>
-      <g id="layerRoute"></g>
-      <g id="layerNodes"></g>
-      <g id="layerLabels"></g>
+      <g id="layerRoot">
+        <g id="layerPlan"><image id="planImg" x="0" y="0" preserveAspectRatio="none"></image></g>
+        <g id="layerEdges"></g>
+        <g id="layerRoute"></g>
+        <g id="layerNodes"></g>
+        <g id="layerLabels"></g>
+      </g>
     </svg>
     <div id="mapHint" class="mapHint" hidden></div>
     <button id="fitBtn" class="fab" type="button" title="Fit to screen">⤢</button>
+    <button id="rotBtn" class="fab rot" type="button" title="Turn the map">⟳</button>
     <button id="wayBtn" class="wayFab" type="button"></button>
   </div>
 
@@ -107,14 +110,14 @@
 
 <div id="toast" class="toast" hidden></div>
 
-<script src="js/i18n.js?v=70"></script>
-<script src="js/data.js?v=70"></script>
-<script src="js/detected.js?v=70"></script>
-<script src="js/store.js?v=70"></script>
-<script src="js/graph.js?v=70"></script>
-<script src="js/mapview.js?v=70"></script>
-<script src="js/navigate.js?v=70"></script>
-<script src="js/survey.js?v=70"></script>
-<script src="js/app.js?v=70"></script>
+<script src="js/i18n.js?v=72"></script>
+<script src="js/data.js?v=72"></script>
+<script src="js/detected.js?v=72"></script>
+<script src="js/store.js?v=72"></script>
+<script src="js/graph.js?v=72"></script>
+<script src="js/mapview.js?v=72"></script>
+<script src="js/navigate.js?v=72"></script>
+<script src="js/survey.js?v=72"></script>
+<script src="js/app.js?v=72"></script>
 </body>
 </html>

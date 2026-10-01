@@ -273,6 +273,10 @@ var Nav = (function () {
 
   function showStep(fresh) {
     var step = steps[idx];
+    // A new route points the map the way the walk starts, so the patient is at
+    // the bottom of it looking forward. Stepping through does not keep turning
+    // it: a map that spins under you is worse than one that is slightly off.
+    if (fresh) MapView.orientToStart(path);
     var moved = step && step.floor ? MapView.setFloor(step.floor, true) : false;
     MapView.setRoute(path, legOf(step), { start: startId, end: destId });
     render();

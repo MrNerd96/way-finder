@@ -4,7 +4,7 @@
 var MapView = (function () {
   var NS = 'http://www.w3.org/2000/svg';
 
-  var svg, layers, planImg, wrap;
+  var svg, layers, planImg, wrap, root;
   var building = null;
   var floorId = null;
   var vb = { x: 0, y: 0, w: 1, h: 1 };
@@ -14,6 +14,48 @@ var MapView = (function () {
   var routePath = null, routeActive = { from: 0, to: 0, turnAt: null };
   var pins = null;                 // { start: nodeId, end: nodeId }
   var onTap = function () {};
+
+  /* Which way up the plan is drawn, in whole quarter turns.
+
+     The boards were photographed as they hang on the wall, so north is up on
+     every one of them -- which is no use to somebody holding the phone while
+     facing down a corridor that runs the other way. Turning the plan so the
+     way ahead is up the screen is the difference between reading a map and
+     following one. The plan, the corridors, the rooms and the route all turn
+     together; the labels turn back on themselves so the numbers stay the
+     right way up, which is the whole point of reading them. */
+  var rot = 0;
+
+  function planCentre() {
+    var f = floor();
+    return { x: 0.5, y: ((f && f.aspect) || 1) / 2 };
+  }
+
+  /* Where a point on the plan lands once the plan has been turned. Passing a
+     negative angle takes a turned point back to the plan. */
+  function spin(x, y, deg) {
+    if (!deg) return { x: x, y: y };
+    var c = planCentre();
+    var r = deg * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r);
+    var dx = x - c.x, dy = y - c.y;
+    return { x: c.x + dx * cos - dy * sin, y: c.y + dx * sin + dy * cos };
+  }
+
+  /* The box a set of plan corners occupies once turned. Only quarter turns are
+     ever used, so turning the corners of a box gives the box exactly. */
+  function spunBox(minX, minY, maxX, maxY) {
+    var pts = [[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY]]
+      .map(function (p) { return spin(p[0], p[1], rot); });
+    var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+    return { minX: Math.min.apply(null, xs), maxX: Math.max.apply(null, xs),
+             minY: Math.min.apply(null, ys), maxY: Math.max.apply(null, ys) };
+  }
+
+  function applyRotation() {
+    var c = planCentre();
+    if (rot) root.setAttribute('transform', 'rotate(' + rot + ' ' + c.x + ' ' + c.y + ')');
+    else root.removeAttribute('transform');
+  }
 
   function el(name, attrs) {
     var e = document.createElementNS(NS, name);
@@ -93,6 +135,9 @@ var MapView = (function () {
   function drawLabel(text, x, y, size, centred, squeezeTo) {
     var common = { x: x, y: y, 'text-anchor': 'middle', 'font-size': size };
     if (centred) common['dominant-baseline'] = 'central';
+    // Turned back by however far the plan was turned, about the label's own
+    // anchor, so it stays where it belongs and stays the right way up.
+    if (rot) common.transform = 'rotate(' + (-rot) + ' ' + x + ' ' + y + ')';
     /* spacingAndGlyphs narrows the letters themselves, not just the gaps
        between them -- with three digits and no spaces there is nothing in the
        gaps to take. Both copies get the same value, so the halo stays behind
@@ -239,33 +284,26 @@ var MapView = (function () {
   function frameFloor() {
     var f = floor();
     var aspect = (f && f.aspect) || 1;
-    var boxW = svg.clientWidth || 360, boxH = svg.clientHeight || 360;
-    var pad = 0.04;
-    // Choose a viewBox that shows the whole plan whatever the screen shape is.
-    var planRatio = 1 / aspect;                 // width / height
-    var screenRatio = boxW / boxH;
-    if (screenRatio > planRatio) {
-      vb.h = aspect * (1 + pad * 2);
-      vb.w = vb.h * screenRatio;
-    } else {
-      vb.w = 1 + pad * 2;
-      vb.h = vb.w / screenRatio;
-    }
-    vb.x = 0.5 - vb.w / 2;
-    vb.y = aspect / 2 - vb.h / 2;
+    var s = spunBox(0, 0, 1, aspect);
+    frameBounds({ minX: s.minX, minY: s.minY, maxX: s.maxX, maxY: s.maxY,
+                  pad: 0.08, minSpan: 0, spun: true });
   }
 
   function frameBounds(box) {
     var boxW = svg.clientWidth || 360, boxH = svg.clientHeight || 360;
-    var w = Math.max(box.maxX - box.minX, box.minSpan || 0.18);
-    var h = Math.max(box.maxY - box.minY, box.minSpan || 0.18);
+    // Framing is done in the space the viewBox lives in, which is the turned
+    // one; a stored rectangle is in plan coordinates and has to be turned.
+    var s = box.spun ? box
+      : spunBox(box.minX, box.minY, box.maxX, box.maxY);
+    var w = Math.max(s.maxX - s.minX, box.minSpan === undefined ? 0.18 : box.minSpan);
+    var h = Math.max(s.maxY - s.minY, box.minSpan === undefined ? 0.18 : box.minSpan);
     var pad = box.pad === undefined ? 0.35 : box.pad;
     w *= (1 + pad); h *= (1 + pad);
     var screenRatio = boxW / boxH;
     if (w / h < screenRatio) w = h * screenRatio; else h = w / screenRatio;
     vb.w = w; vb.h = h;
-    vb.x = (box.minX + box.maxX) / 2 - w / 2;
-    vb.y = (box.minY + box.maxY) / 2 - h / 2;
+    vb.x = (s.minX + s.maxX) / 2 - w / 2;
+    vb.y = (s.minY + s.maxY) / 2 - h / 2;
   }
 
   /* The part of the current route that lies on the floor being shown. */
@@ -278,6 +316,69 @@ var MapView = (function () {
     fitBounds(Math.min.apply(null, xs), Math.min.apply(null, ys),
               Math.max.apply(null, xs), Math.max.apply(null, ys));
     return true;
+  }
+
+  /* Turn the plan so a walk from a to b runs up the screen. The patient is
+     then standing at the bottom of the map looking into it, which is the one
+     orientation nobody has to think about: what is ahead of them is ahead on
+     the screen. Only quarter turns, so this is the nearest of four rather than
+     an exact alignment -- which is the point, since a plan at 37 degrees is
+     harder to read than one that is square. */
+  function orientTo(a, b) {
+    if (!a || !b) return false;
+    var dx = b.x - a.x, dy = b.y - a.y;
+    if (!dx && !dy) return false;
+    var best = rot, up = Infinity;
+    [0, 90, 180, 270].forEach(function (deg) {
+      var r = deg * Math.PI / 180;
+      var y = dx * Math.sin(r) + dy * Math.cos(r);   // screen y, down is positive
+      if (y < up) { up = y; best = deg; }
+    });
+    if (best === rot) return false;
+    setRotation(best);
+    return true;
+  }
+
+  /* Turn the plan about a point on the screen, so whatever is under the
+     fingers stays under them. Turning about the middle of the plan instead
+     would drag the corridor they are looking at out from under the twist. */
+  function rotateAbout(clientX, clientY, deg) {
+    var r = svg.getBoundingClientRect();
+    var m = { x: vb.x + (clientX - r.left) / r.width * vb.w,
+              y: vb.y + (clientY - r.top) / r.height * vb.h };
+    var onPlan = spin(m.x, m.y, -rot);
+    rot = ((deg % 360) + 360) % 360;
+    applyRotation();
+    var q = spin(onPlan.x, onPlan.y, rot);
+    vb.x += q.x - m.x;
+    vb.y += q.y - m.y;
+    framing = null;                 // they are holding the view themselves now
+    applyViewBox();
+    draw();
+  }
+
+  /* Let go near square and it goes square. Nothing moves if they are holding
+     it at a deliberate angle. */
+  function snapRotation() {
+    var square = Math.round(rot / 90) * 90;
+    if (Math.abs(angleDelta(rot, square)) <= TWIST_SNAP) setRotation(square);
+  }
+
+  function setRotation(deg) {
+    var before = rot;
+    if (deg === before) return;
+    // Hold whatever they were looking at in the middle of the pane. The centre
+    // is in turned space, so it goes back to the plan and forward again.
+    var c = { x: vb.x + vb.w / 2, y: vb.y + vb.h / 2 };
+    var onPlan = spin(c.x, c.y, -before);
+    rot = ((deg % 360) + 360) % 360;
+    applyRotation();
+    if (framing) { applyFraming(); return; }
+    var nc = spin(onPlan.x, onPlan.y, rot);
+    vb.x = nc.x - vb.w / 2;
+    vb.y = nc.y - vb.h / 2;
+    applyViewBox();
+    draw();
   }
 
   function zoomAt(cx, cy, factor) {
@@ -294,10 +395,9 @@ var MapView = (function () {
 
   function toUser(clientX, clientY) {
     var r = svg.getBoundingClientRect();
-    return {
-      x: vb.x + (clientX - r.left) / r.width * vb.w,
-      y: vb.y + (clientY - r.top) / r.height * vb.h
-    };
+    // The viewBox is in turned space; everything downstream wants the plan.
+    return spin(vb.x + (clientX - r.left) / r.width * vb.w,
+                vb.y + (clientY - r.top) / r.height * vb.h, -rot);
   }
 
   /* ---------- drawing ---------- */
@@ -305,6 +405,9 @@ var MapView = (function () {
   function draw() {
     if (!building) return;
     var f = floor();
+    // The turn is about the middle of the plan, and the plans are not all the
+    // same shape, so it is reapplied whenever what is drawn might have changed.
+    applyRotation();
     clear(layers.edges); clear(layers.nodes); clear(layers.labels); clear(layers.route);
 
     if (f && (f.planData || f.plan)) {
@@ -605,7 +708,8 @@ var MapView = (function () {
       var ids = Object.keys(pointers);
       if (ids.length === 2) {
         drag = null;
-        gesture = { pinch: true, d0: pointerDistance() };
+        gesture = { pinch: true, d0: pointerDistance(),
+                    a0: pointerAngle(), rot0: rot, twisting: false };
         return;
       }
       // Let the survey tools claim this press: move a point, resize a room box,
@@ -625,13 +729,22 @@ var MapView = (function () {
 
       var ids = Object.keys(pointers);
       if (ids.length >= 2 && gesture && gesture.pinch) {
+        var mid = pointerMid();
         var d = pointerDistance();
         if (d > 0 && gesture.d0 > 0) {
-          var mid = pointerMid();
           var u = toUser(mid.x, mid.y);
           zoomAt(u.x, u.y, gesture.d0 / d);   // fingers apart -> factor < 1 -> zoom in
           gesture.d0 = d;
         }
+        /* Two fingers pinch and twist at once, and a pinch is never quite
+           clean -- the hand rolls a little every time. So the twist has to
+           earn its start: nothing turns until the fingers have gone round
+           TWIST_START degrees, and from then on it tracks the total turn
+           since the fingers went down rather than accumulating each move,
+           which would drift. */
+        var turned = angleDelta(pointerAngle(), gesture.a0);
+        if (!gesture.twisting && Math.abs(turned) >= TWIST_START) gesture.twisting = true;
+        if (gesture.twisting) rotateAbout(mid.x, mid.y, gesture.rot0 + turned);
         return;
       }
 
@@ -653,7 +766,10 @@ var MapView = (function () {
     function finish(ev) {
       var p = pointers[ev.pointerId];
       delete pointers[ev.pointerId];
-      if (Object.keys(pointers).length < 2) gesture = null;
+      if (Object.keys(pointers).length < 2) {
+        if (gesture && gesture.twisting) snapRotation();
+        gesture = null;
+      }
       if (!p) return;
 
       if (drag) {
@@ -701,6 +817,28 @@ var MapView = (function () {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
   }
 
+  /* How far the fingers have to go round before the map starts turning, and
+     how near square it has to end up before it is pulled square. The snap is
+     small: it stops a map being left two degrees off by accident, without
+     fighting someone who means to hold it at an angle. */
+  var TWIST_START = 12, TWIST_SNAP = 7;
+
+  function pointerAngle() {
+    var ids = Object.keys(pointers);
+    if (ids.length < 2) return 0;
+    var a = pointers[ids[0]], b = pointers[ids[1]];
+    return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+  }
+
+  /* Shortest way round from b to a, so passing through 180 does not spin the
+     map the long way about. */
+  function angleDelta(a, b) {
+    var d = (a - b) % 360;
+    if (d > 180) d -= 360;
+    if (d < -180) d += 360;
+    return d;
+  }
+
   function pointerMid() {
     var ids = Object.keys(pointers);
     var a = pointers[ids[0]], b = pointers[ids[1]];
@@ -733,6 +871,7 @@ var MapView = (function () {
       wrap = document.getElementById('mapWrap');
       svg = document.getElementById('map');
       planImg = document.getElementById('planImg');
+      root = document.getElementById('layerRoot');
       layers = {
         edges: document.getElementById('layerEdges'),
         route: document.getElementById('layerRoute'),
@@ -746,7 +885,34 @@ var MapView = (function () {
       onRubber = opts.onRubber || null;
       bindGestures();
       document.getElementById('fitBtn').addEventListener('click', fit);
+      document.getElementById('rotBtn').addEventListener('click', function () {
+        // From an angle they twisted to, this is the next square one, not that
+        // angle plus ninety -- the button is how you get the map straight.
+        setRotation(Math.round(rot / 90) * 90 + 90);
+      });
     },
+
+    /* Point the map the way the walk goes, so the patient stands at the bottom
+       of it and the route runs away up the screen.
+
+       Measured over the whole of this floor's leg rather than the first hop.
+       The first hop is the step out of the door, which is often a metre at
+       right angles to everything that follows: orienting on it put the start
+       near the top of the pane with the route trailing away below, which is
+       the opposite of what was wanted. The far end of the leg is where they
+       are actually heading. */
+    orientToStart: function (path) {
+      if (!path || path.length < 2) return false;
+      var a = path[0], far = null;
+      for (var i = 1; i < path.length; i++) {
+        if (path[i].floor !== a.floor) break;
+        far = path[i];
+      }
+      return orientTo(a, far);
+    },
+
+    getRotation: function () { return rot; },
+    setRotation: setRotation,
 
     setBuilding: function (b) { building = b; },
     setMode: function (m) { mode = m; draw(); },
